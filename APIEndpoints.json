@@ -1,0 +1,5 @@
+{
+    "APIEndpoint": {
+        "AnalyzeImage": "analyze-image"
+    }
+}
