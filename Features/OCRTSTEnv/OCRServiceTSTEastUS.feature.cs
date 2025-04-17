@@ -30,7 +30,7 @@ namespace QuantumServicesAPI.Features.OCRTSTEnv
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/OCRTSTEnv", "OCR Service in TSTEnv(EastUS)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "OCRServiceEastUS.feature"
+#line 1 "OCRServiceTSTEastUS.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -106,18 +106,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table1.AddRow(new string[] {
-                            "2400811734.png",
+                table16.AddRow(new string[] {
+                            "PNGImage.png",
                             "tst",
                             "us",
                             "74ccd49dac554d16b395ba814ed324c9"});
 #line 8
- await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table1, "When ");
+ await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table16, "When ");
 #line hidden
 #line 11
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -154,34 +154,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table2.AddRow(new string[] {
-                            "2400811734.png",
+                table17.AddRow(new string[] {
+                            "More256KBImage.jpg",
                             "tst",
                             "us",
                             "74ccd49dac554d16b395ba814ed324c9"});
 #line 17
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table2, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table17, "When ");
 #line hidden
 #line 20
  await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table3.AddRow(new string[] {
-                            "2400811734.png",
+                table18.AddRow(new string[] {
+                            "Less256KBImage.png",
                             "tst",
                             "us",
                             "74ccd49dac554d16b395ba814ed324c9"});
 #line 21
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table3, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table18, "When ");
 #line hidden
 #line 24
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -218,23 +218,71 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table4.AddRow(new string[] {
-                            "2400811734.png",
+                table19.AddRow(new string[] {
+                            "BlurryPNGImage.png",
                             "tst",
                             "us",
                             "74ccd49dac554d16b395ba814ed324c9"});
 #line 30
- await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table4, "When ");
+ await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table19, "When ");
 #line hidden
 #line 33
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 34
+ await testRunner.AndAsync("The response must contain an empty list.", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1776266: Verify that the OCR service returns an empty list as resp" +
+            "onse when an invalid image is passed as an input.")]
+        [NUnit.Framework.CategoryAttribute("1776266")]
+        [NUnit.Framework.CategoryAttribute("TST")]
+        [NUnit.Framework.CategoryAttribute("EastUS")]
+        public async System.Threading.Tasks.Task _04TestCaseID1776266VerifyThatTheOCRServiceReturnsAnEmptyListAsResponseWhenAnInvalidImageIsPassedAsAnInput_()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1776266",
+                    "TST",
+                    "EastUS"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1776266: Verify that the OCR service returns an empty list as resp" +
+                    "onse when an invalid image is passed as an input.", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table20.AddRow(new string[] {
+                            "NoCharacters.png",
+                            "tst",
+                            "us",
+                            "74ccd49dac554d16b395ba814ed324c9"});
+#line 39
+ await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table20, "When ");
+#line hidden
+#line 42
+ await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 43
  await testRunner.AndAsync("The response must contain an empty list.", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

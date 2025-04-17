@@ -7,11 +7,11 @@ using RestSharp;
 
 namespace QuantumServicesAPI.APIHelper
 {
-    public class APIHelperClass
+    public class OCRAPIHelperClass
     {
         private readonly RestClient restClient;
 
-        public APIHelperClass()
+        public OCRAPIHelperClass()
         {
             restClient = new RestClient();
         }
