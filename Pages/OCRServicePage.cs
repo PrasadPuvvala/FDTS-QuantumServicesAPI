@@ -15,24 +15,25 @@ namespace QuantumServicesAPI.Pages
 {
     public class OCRServicePage
     {
-        private readonly APIHelperClass _APIHelper;
+        private readonly OCRAPIHelperClass _APIHelper;
         private static List<double> _responseTimes = new List<double>();  // Stores response times
         public OCRServicePage()
         {
-            _APIHelper = new APIHelperClass();
+            _APIHelper = new OCRAPIHelperClass();
         }
         public async Task<RestResponse?> PostImageAnalyzeAsync(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string env, string region, string apikey)
         {
             var client = await _APIHelper.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
             var request = await _APIHelper.CreatePostRequest(apikey);
 
-            string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string imagePath = Path.Combine(downloadsFolder, "Downloads", $"{image}");
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
+            string imageFolderPath = Path.Combine(projectRoot, "Images", image);
 
             try
             {
                 // Read Image as Byte Array
-                byte[] imageBytes = await File.ReadAllBytesAsync(imagePath);
+                byte[] imageBytes = await File.ReadAllBytesAsync(imageFolderPath);
 
                 // Add Image as Binary Body
                 request.AddParameter("application/octet-stream", imageBytes, ParameterType.RequestBody);

@@ -29,6 +29,7 @@ namespace QuantumServicesAPI.StepDefinitions
 
         [When("Send the request with a correct image as input")]
         [When("Send the request with a blurry image as input")]
+        [When("Send the request with an invalid image \\(no characters)")]
         public async Task WhenSendTheRequestWithACorrectImageAsInput(DataTable table)
         {
             var apiEndpoint = _scenarioContext.Get<APIEndpointsDTO>("apiendpoints");
@@ -178,6 +179,7 @@ namespace QuantumServicesAPI.StepDefinitions
         }
 
         [Then("Verify the response when the inputted image is blurry")]
+        [Then("Verify the response when the inputted image is an invalid image \\(no characters)")]
         public void ThenVerifyTheResponseWhenTheInputtedImageIsBlurry()
         {
             var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
