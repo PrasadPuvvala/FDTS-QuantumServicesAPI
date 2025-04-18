@@ -212,5 +212,59 @@ namespace QuantumServicesAPI.StepDefinitions
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Image Analysis Data is Not null : {_response.Content}");
             }
         }
+
+        [When("Send a request to the South-East Asia region using an invalid API key")]
+        public async Task WhenSendARequestToTheSouth_EastAsiaRegionUsingAnInvalidAPIKeyAsync(DataTable dataTable)
+        {
+            var apiEndpoint = _scenarioContext.Get<APIEndpointsDTO>("apiendpoints");
+            var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            foreach (var row in dataTable.Rows)
+            {
+                string image = row["ImageFormat"];
+                string env = row["Env"];
+                string region = row["Region"];
+                string apikey = row["InvalidAPIkey"];
+                _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
+                if (_response == null)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    throw new Exception("POST request failed: Response is null");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Sent POST request Successfully");
+                }
+            }
+        }
+
+        [Then("The request is rejected and returns a {int} Unauthorized error")]
+        public void ThenTheRequestIsRejectedAndReturnsAUnauthorizedError(int p0)
+        {
+            var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            try
+            {
+                if (_response == null)
+                {
+                    throw new Exception("Response should not be null");
+                }
+
+                var result = JsonConvert.DeserializeObject(_response.Content);
+
+                if (_response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Status code is 401 Unauthorized as expected.");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Expected status code 401 Unauthorized but got {_response.StatusCode}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message: {ex.Message}");
+            }
+        }
     }
 }
