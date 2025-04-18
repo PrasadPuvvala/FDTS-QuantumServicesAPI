@@ -41,3 +41,11 @@ Scenario: 04Test Case ID 1776266: Verify that the OCR service returns an empty l
 		| NoCharacters.png | dev | us     | 9d6eb02ecab94926a74bcd5edccf28fa |
 	Then Verify the response when the inputted image is an invalid image (no characters)
 	And The response must contain an empty list.
+
+@1780460 @DEV @EastUS
+Scenario: 05Test Case ID 1780460: Verify that requests sent to the OCR Service with an invalid API key are rejected
+
+	When Send a request to the South-East Asia region using an invalid API key
+		| ImageFormat      | Env | Region | InvalidAPIkey |
+		| NoCharacters.png | dev | us     | 1234567890    |
+	Then The request is rejected and returns a 401 Unauthorized error 

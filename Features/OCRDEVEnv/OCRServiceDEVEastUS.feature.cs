@@ -288,6 +288,51 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1780460: Verify that requests sent to the OCR Service with an inva" +
+            "lid API key are rejected")]
+        [NUnit.Framework.CategoryAttribute("1780460")]
+        [NUnit.Framework.CategoryAttribute("DEV")]
+        [NUnit.Framework.CategoryAttribute("EastUS")]
+        public async System.Threading.Tasks.Task _05TestCaseID1780460VerifyThatRequestsSentToTheOCRServiceWithAnInvalidAPIKeyAreRejected()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780460",
+                    "DEV",
+                    "EastUS"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1780460: Verify that requests sent to the OCR Service with an inva" +
+                    "lid API key are rejected", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 46
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "InvalidAPIkey"});
+                table6.AddRow(new string[] {
+                            "NoCharacters.png",
+                            "dev",
+                            "us",
+                            "1234567890"});
+#line 48
+ await testRunner.WhenAsync("Send a request to the South-East Asia region using an invalid API key", ((string)(null)), table6, "When ");
+#line hidden
+#line 51
+ await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

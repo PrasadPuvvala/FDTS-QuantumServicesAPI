@@ -106,18 +106,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table21.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "PNGImage.png",
                             "tst",
                             "asia",
                             "891b8ea3a52d4cce94d436d633eb1b07"});
 #line 8
- await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table21, "When ");
+ await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table22, "When ");
 #line hidden
 #line 11
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -154,34 +154,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
-                            "ImageFormat",
-                            "Env",
-                            "Region",
-                            "APIkey"});
-                table22.AddRow(new string[] {
-                            "More256KBImage.jpg",
-                            "tst",
-                            "asia",
-                            "891b8ea3a52d4cce94d436d633eb1b07"});
-#line 17
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table22, "When ");
-#line hidden
-#line 20
- await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
                 global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
                 table23.AddRow(new string[] {
+                            "More256KBImage.jpg",
+                            "tst",
+                            "asia",
+                            "891b8ea3a52d4cce94d436d633eb1b07"});
+#line 17
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table23, "When ");
+#line hidden
+#line 20
+ await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table24.AddRow(new string[] {
                             "Less256KBImage.png",
                             "tst",
                             "asia",
                             "891b8ea3a52d4cce94d436d633eb1b07"});
 #line 21
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table23, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table24, "When ");
 #line hidden
 #line 24
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -218,18 +218,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table24.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "BlurryPNGImage.png",
                             "tst",
                             "asia",
                             "891b8ea3a52d4cce94d436d633eb1b07"});
 #line 30
- await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table24, "When ");
+ await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table25, "When ");
 #line hidden
 #line 33
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -266,18 +266,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table25.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "NoCharacters.png",
                             "tst",
                             "asia",
                             "891b8ea3a52d4cce94d436d633eb1b07"});
 #line 39
- await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table25, "When ");
+ await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table26, "When ");
 #line hidden
 #line 42
  await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
