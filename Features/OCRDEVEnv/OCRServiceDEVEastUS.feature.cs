@@ -423,6 +423,136 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("08Test Case ID 1769059: Verify that the OCR service only accepts supported image " +
+            "formats (JPEG, PNG, BMP, PDF, and TIFF)")]
+        [NUnit.Framework.CategoryAttribute("1769059")]
+        [NUnit.Framework.CategoryAttribute("DEV")]
+        [NUnit.Framework.CategoryAttribute("EastUS")]
+        public async System.Threading.Tasks.Task _08TestCaseID1769059VerifyThatTheOCRServiceOnlyAcceptsSupportedImageFormatsJPEGPNGBMPPDFAndTIFF()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1769059",
+                    "DEV",
+                    "EastUS"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1769059: Verify that the OCR service only accepts supported image " +
+                    "formats (JPEG, PNG, BMP, PDF, and TIFF)", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 70
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table9.AddRow(new string[] {
+                            "JPEGImage.jpeg",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table9.AddRow(new string[] {
+                            "PNGImage.png",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table9.AddRow(new string[] {
+                            "BMPImage.bmp",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table9.AddRow(new string[] {
+                            "PDFImage.pdf",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table9.AddRow(new string[] {
+                            "TIFFImage.tiff",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+#line 72
+ await testRunner.WhenAsync("Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF," +
+                        " TIFF) and verify the response and list of all the identified character strings", ((string)(null)), table9, "When ");
+#line hidden
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table10.AddRow(new string[] {
+                            "GIFImage.gif",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table10.AddRow(new string[] {
+                            "WEBPImage.webp",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+                table10.AddRow(new string[] {
+                            "SVGImage.svg",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+#line 79
+ await testRunner.AndAsync("Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SV" +
+                        "G, etc.) and verify the 400 error returned", ((string)(null)), table10, "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Con" +
+            "ditions")]
+        [NUnit.Framework.CategoryAttribute("1780485")]
+        [NUnit.Framework.CategoryAttribute("DEV")]
+        [NUnit.Framework.CategoryAttribute("EastUS")]
+        public async System.Threading.Tasks.Task _09TestCaseID1780485VerifyTheResponseTimeForOCRServiceUnderNormalConditions()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780485",
+                    "DEV",
+                    "EastUS"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Con" +
+                    "ditions", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 86
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table11.AddRow(new string[] {
+                            "PNGImage.png",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+#line 88
+ await testRunner.WhenAsync("Send a request to the OCR service under normal system load and verify the median " +
+                        "response time", ((string)(null)), table11, "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

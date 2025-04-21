@@ -65,3 +65,26 @@ Scenario: 07Test Case ID 1780458: Verify that requests with a valid API key for 
 		| ImageFormat  | Env | Region | APIkey                           |
 		| PNGImage.png | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
 	And Verify the response when correct APIkey is inputted
+
+@1769059 @DEV @SouthEastAsia
+Scenario: 08Test Case ID 1769059: Verify that the OCR service only accepts supported image formats (JPEG, PNG, BMP, PDF, and TIFF)
+
+	When Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF, TIFF) and verify the response and list of all the identified character strings
+		| ImageFormat    | Env | Region | APIkey                           |
+		| JPEGImage.jpeg | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| PNGImage.png   | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| BMPImage.bmp   | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| PDFImage.pdf   | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| TIFFImage.tiff | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+	And Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SVG, etc.) and verify the 400 error returned
+		| ImageFormat    | Env | Region | APIkey                           |
+		| GIFImage.gif   | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| WEBPImage.webp | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+		| SVGImage.svg   | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |
+
+@1780485 @DEV @SouthEastAsia
+Scenario: 09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Conditions
+
+	When Send a request to the OCR service under normal system load and verify the median response time
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | dev | asia   | 69df563662e74ba8811e47a9a61ccf7b |

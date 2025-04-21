@@ -106,18 +106,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table41 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table56 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table41.AddRow(new string[] {
+                table56.AddRow(new string[] {
                             "PNGImage.png",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 8
- await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table41, "When ");
+ await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table56, "When ");
 #line hidden
 #line 11
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -154,34 +154,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table42 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table57 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table42.AddRow(new string[] {
+                table57.AddRow(new string[] {
                             "More256KBImage.jpg",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 17
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table42, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table57, "When ");
 #line hidden
 #line 20
  await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-                global::Reqnroll.Table table43 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table58 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table43.AddRow(new string[] {
+                table58.AddRow(new string[] {
                             "Less256KBImage.png",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 21
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table43, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table58, "When ");
 #line hidden
 #line 24
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -218,18 +218,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table44 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table59 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table44.AddRow(new string[] {
+                table59.AddRow(new string[] {
                             "BlurryPNGImage.png",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 30
- await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table44, "When ");
+ await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table59, "When ");
 #line hidden
 #line 33
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -266,18 +266,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table45 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table60 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table45.AddRow(new string[] {
+                table60.AddRow(new string[] {
                             "NoCharacters.png",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 39
- await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table45, "When ");
+ await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table60, "When ");
 #line hidden
 #line 42
  await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -314,18 +314,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table46 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table61 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "InvalidAPIkey"});
-                table46.AddRow(new string[] {
+                table61.AddRow(new string[] {
                             "NoCharacters.png",
                             "tst",
                             "europe",
                             "1234567890"});
 #line 48
- await testRunner.WhenAsync("Send a request to the WestEurope region using an invalid API key", ((string)(null)), table46, "When ");
+ await testRunner.WhenAsync("Send a request to the WestEurope region using an invalid API key", ((string)(null)), table61, "When ");
 #line hidden
 #line 51
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -359,18 +359,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table47 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table62 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "InvalidAPIkey"});
-                table47.AddRow(new string[] {
+                table62.AddRow(new string[] {
                             "PNGImage.png",
                             "tst",
                             "europe",
                             ""});
 #line 56
- await testRunner.WhenAsync("Send a request to the South-East Asia region without an API key", ((string)(null)), table47, "When ");
+ await testRunner.WhenAsync("Send a request to the South-East Asia region without an API key", ((string)(null)), table62, "When ");
 #line hidden
 #line 59
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -404,21 +404,151 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table48 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table63 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table48.AddRow(new string[] {
+                table63.AddRow(new string[] {
                             "PNGImage.png",
                             "tst",
                             "europe",
                             "781b802322d248079ba7cce2abc2531a"});
 #line 64
- await testRunner.WhenAsync("Send the request with a correct APIkey as input", ((string)(null)), table48, "When ");
+ await testRunner.WhenAsync("Send the request with a correct APIkey as input", ((string)(null)), table63, "When ");
 #line hidden
 #line 67
  await testRunner.AndAsync("Verify the response when correct APIkey is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("08Test Case ID 1769059: Verify that the OCR service only accepts supported image " +
+            "formats (JPEG, PNG, BMP, PDF, and TIFF)")]
+        [NUnit.Framework.CategoryAttribute("1769059")]
+        [NUnit.Framework.CategoryAttribute("TST")]
+        [NUnit.Framework.CategoryAttribute("WestEurope")]
+        public async System.Threading.Tasks.Task _08TestCaseID1769059VerifyThatTheOCRServiceOnlyAcceptsSupportedImageFormatsJPEGPNGBMPPDFAndTIFF()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1769059",
+                    "TST",
+                    "WestEurope"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1769059: Verify that the OCR service only accepts supported image " +
+                    "formats (JPEG, PNG, BMP, PDF, and TIFF)", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 70
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table64 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table64.AddRow(new string[] {
+                            "JPEGImage.jpeg",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table64.AddRow(new string[] {
+                            "PNGImage.png",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table64.AddRow(new string[] {
+                            "BMPImage.bmp",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table64.AddRow(new string[] {
+                            "PDFImage.pdf",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table64.AddRow(new string[] {
+                            "TIFFImage.tiff",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+#line 72
+ await testRunner.WhenAsync("Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF," +
+                        " TIFF) and verify the response and list of all the identified character strings", ((string)(null)), table64, "When ");
+#line hidden
+                global::Reqnroll.Table table65 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table65.AddRow(new string[] {
+                            "GIFImage.gif",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table65.AddRow(new string[] {
+                            "WEBPImage.webp",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+                table65.AddRow(new string[] {
+                            "SVGImage.svg",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+#line 79
+ await testRunner.AndAsync("Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SV" +
+                        "G, etc.) and verify the 400 error returned", ((string)(null)), table65, "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Con" +
+            "ditions")]
+        [NUnit.Framework.CategoryAttribute("1780485")]
+        [NUnit.Framework.CategoryAttribute("TST")]
+        [NUnit.Framework.CategoryAttribute("WestEurope")]
+        public async System.Threading.Tasks.Task _09TestCaseID1780485VerifyTheResponseTimeForOCRServiceUnderNormalConditions()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780485",
+                    "TST",
+                    "WestEurope"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Con" +
+                    "ditions", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 86
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table66 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table66.AddRow(new string[] {
+                            "PNGImage.png",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+#line 88
+ await testRunner.WhenAsync("Send a request to the OCR service under normal system load and verify the median " +
+                        "response time", ((string)(null)), table66, "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

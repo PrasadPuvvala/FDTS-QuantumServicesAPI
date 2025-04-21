@@ -23,6 +23,8 @@ namespace QuantumServicesAPI.ExtentReport
             _htmlReporter = new ExtentSparkReporter(reportPath) { Config = { Theme = Theme.Dark, ReportName = "API Regression Test", DocumentTitle = "API Automation Report" } };
             _extent = new ExtentReports();
             _extent.AttachReporter(_htmlReporter);
+            _extent.AddSystemInfo("Environment", "QA");
+            _extent.AddSystemInfo("Executed By", Environment.UserName);
         }
 
         // Singleton instance to ensure only one report instance
