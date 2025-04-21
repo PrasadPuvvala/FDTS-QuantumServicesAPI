@@ -1,4 +1,4 @@
-﻿Feature: OCR Service in TSTEnv(EastUS)
+﻿Feature: OCR Service – TST Environment (East US Region)
 
 A short summary of the feature
 
@@ -41,3 +41,27 @@ Scenario: 04Test Case ID 1776266: Verify that the OCR service returns an empty l
 		| NoCharacters.png | tst | us     | 74ccd49dac554d16b395ba814ed324c9 |
 	Then Verify the response when the inputted image is an invalid image (no characters)
 	And The response must contain an empty list.
+
+@1780460 @TST @EastUS
+Scenario: 05Test Case ID 1780460: Verify that requests sent to the OCR Service with an invalid API key are rejected
+
+	When Send a request to the EastUS region using an invalid API key
+		| ImageFormat      | Env | Region | InvalidAPIkey |
+		| NoCharacters.png | tst | us     | 1234567890    |
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780459 @TST @EastUS
+Scenario: 06Test Case ID 1780459: Verify that requests without an API key for OCR Service are rejected
+
+	When Send a request to the EastUS region without an API key
+		| ImageFormat  | Env | Region | InvalidAPIkey |
+		| PNGImage.png | tst | us     |               |
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780458 @TST @EastUS
+Scenario: 07Test Case ID 1780458: Verify that requests with a valid API key for OCR Service are authenticated successfully
+    
+	When Send the request with a correct APIkey as input
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | tst | us     | 74ccd49dac554d16b395ba814ed324c9 |
+	And Verify the response when correct APIkey is inputted

@@ -1,4 +1,4 @@
-﻿Feature: OCR Service in DEVEnv(EastUS)
+﻿Feature: OCR Service – DEV Environment (East US Region)
 
 A short summary of the feature
 
@@ -45,7 +45,23 @@ Scenario: 04Test Case ID 1776266: Verify that the OCR service returns an empty l
 @1780460 @DEV @EastUS
 Scenario: 05Test Case ID 1780460: Verify that requests sent to the OCR Service with an invalid API key are rejected
 
-	When Send a request to the South-East Asia region using an invalid API key
+	When Send a request to the EastUS region using an invalid API key
 		| ImageFormat      | Env | Region | InvalidAPIkey |
 		| NoCharacters.png | dev | us     | 1234567890    |
-	Then The request is rejected and returns a 401 Unauthorized error 
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780459 @DEV @EastUS
+Scenario: 06Test Case ID 1780459: Verify that requests without an API key for OCR Service are rejected
+
+	When Send a request to the EastUS region without an API key
+		| ImageFormat  | Env | Region | InvalidAPIkey |
+		| PNGImage.png | dev | us     |               |
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780458 @DEV @EastUS
+Scenario: 07Test Case ID 1780458: Verify that requests with a valid API key for OCR Service are authenticated successfully
+    
+	When Send the request with a correct APIkey as input
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | dev | us     | 9d6eb02ecab94926a74bcd5edccf28fa |
+	And Verify the response when correct APIkey is inputted

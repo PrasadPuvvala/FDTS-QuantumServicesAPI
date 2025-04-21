@@ -1,4 +1,4 @@
-﻿Feature: OCR Service in DEVEnv(WestEurope)
+﻿Feature: OCR Service – DEV Environment (West Europe Region)
 
 A short summary of the feature
 
@@ -38,6 +38,30 @@ Scenario: 04Test Case ID 1776266: Verify that the OCR service returns an empty l
 
 	When Send the request with an invalid image (no characters)
 		| ImageFormat      | Env | Region | APIkey                           |
-		| NoCharacters.png | dev | europe   | 39731117349c436792eca8513c7d2eb6 |
+		| NoCharacters.png | dev | europe | 39731117349c436792eca8513c7d2eb6 |
 	Then Verify the response when the inputted image is an invalid image (no characters)
 	And The response must contain an empty list.
+
+@1780460 @DEV @WestEurope
+Scenario: 05Test Case ID 1780460: Verify that requests sent to the OCR Service with an invalid API key are rejected
+
+	When Send a request to the WestEurope region using an invalid API key
+		| ImageFormat      | Env | Region | InvalidAPIkey |
+		| NoCharacters.png | dev | europe | 1234567890    |
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780459 @DEV @WestEurope
+Scenario: 06Test Case ID 1780459: Verify that requests without an API key for OCR Service are rejected
+
+	When Send a request to the WestEurope region without an API key
+		| ImageFormat  | Env | Region | InvalidAPIkey |
+		| PNGImage.png | dev | europe |               |
+	Then The request is rejected and returns a 401 Unauthorized error
+
+@1780458 @DEV @WestEurope
+Scenario: 07Test Case ID 1780458: Verify that requests with a valid API key for OCR Service are authenticated successfully
+    
+	When Send the request with a correct APIkey as input
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | dev | europe | 39731117349c436792eca8513c7d2eb6 |
+	And Verify the response when correct APIkey is inputted
