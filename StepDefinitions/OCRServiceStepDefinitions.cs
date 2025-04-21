@@ -27,6 +27,7 @@ namespace QuantumServicesAPI.StepDefinitions
             _scenarioContext = scenarioContext;
         }
 
+        [When("Send the request with a correct APIkey as input")]
         [When("Send the request with a correct image as input")]
         [When("Send the request with a blurry image as input")]
         [When("Send the request with an invalid image \\(no characters)")]
@@ -54,6 +55,7 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        [When("Verify the response when correct APIkey is inputted")]
         [When("Verify the response when correct image is inputted")]
         public void WhenVerifyTheResponseWhenCorrectImageIsInputted()
         {
@@ -63,7 +65,10 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
+                var responseContent = _response.Content;
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+
             }
             catch (Exception ex)
             {
@@ -213,6 +218,12 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        [When("Send a request to the South-East Asia region without an API key")]
+        [When("Send a request to the WestEurope region without an API key")]
+        [When("Send a request to the SouthEastAsia region without an API key")]
+        [When("Send a request to the EastUS region without an API key")]
+        [When("Send a request to the WestEurope region using an invalid API key")]
+        [When("Send a request to the EastUS region using an invalid API key")]
         [When("Send a request to the South-East Asia region using an invalid API key")]
         public async Task WhenSendARequestToTheSouth_EastAsiaRegionUsingAnInvalidAPIKeyAsync(DataTable dataTable)
         {
@@ -255,10 +266,12 @@ namespace QuantumServicesAPI.StepDefinitions
                 if (_response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Status code is 401 Unauthorized as expected.");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"{_response.Content}");
                 }
                 else
                 {
                     ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Expected status code 401 Unauthorized but got {_response.StatusCode}.");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"{_response.Content}");
                 }
             }
             catch (Exception ex)
