@@ -279,5 +279,110 @@ namespace QuantumServicesAPI.StepDefinitions
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message: {ex.Message}");
             }
         }
+        [When("Send a request with input as an image in a supported format \\(JPEG, PNG, BMP, PDF, TIFF) and verify the response and list of all the identified character strings")]
+        public async Task WhenSendARequestWithInputAsAnImageInASupportedFormatJPEGPNGBMPPDFTIFFAndVerifyTheResponseAndListOfAllTheIdentifiedCharacterStringsAsync(DataTable table)
+        {
+            var apiEndpoint = _scenarioContext.Get<APIEndpointsDTO>("apiendpoints");
+            var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            foreach (var row in table.Rows)
+            {
+                string image = row["ImageFormat"];
+                string env = row["Env"];
+                string region = row["Region"];
+                string apikey = row["APIkey"];
+                _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
+                if (_response == null)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"POST request failed: Response is null for {image} format");
+                    throw new Exception("POST request failed: Response is null");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"POST request Success for {image} format");
+                }
+                try
+                {
+                    Assert.NotNull(_response, "Response should not be null");
+                    Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
+                }
+                catch (Exception ex)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                }
+                try
+                {
+                    var result = JsonConvert.DeserializeObject<List<dynamic>>(_response.Content);
+                    Assert.NotNull(result, "Deserialized response should not be null");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Identified characters from {image} format : {_response.Content}");
+                }
+                catch (Exception ex)
+                {
+                    Assert.Fail("Failed to deserialize JSON response: " + ex.Message);
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Image Analysis Data is Not found : {ex.Message}");
+                }
+            }
+        }
+
+        [When("Send a request with input as an image in an unsupported format \\(Ex: GIF, WEBP, SVG, etc.) and verify the {int} error returned")]
+        public async Task WhenSendARequestWithInputAsAnImageInAnUnsupportedFormatExGIFWEBPSVGEtc_AndVerifyTheErrorReturnedAsync(int p0, DataTable table)
+        {
+            var apiEndpoint = _scenarioContext.Get<APIEndpointsDTO>("apiendpoints");
+            var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            foreach (var row in table.Rows)
+            {
+                string image = row["ImageFormat"];
+                string env = row["Env"];
+                string region = row["Region"];
+                string apikey = row["APIkey"];
+                _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
+                if (_response == null)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"POST request failed: Response is null for {image} format");
+                    throw new Exception("POST request failed: Response is null");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"POST request Success for {image} format");
+                }
+                try
+                {
+                    Assert.NotNull(_response, "Response should not be null");
+                    Assert.AreEqual(HttpStatusCode.MethodNotAllowed, _response?.StatusCode, "Expected Method Not Allowed status code");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
+                }
+                catch (Exception ex)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                }
+            }
+        }
+
+        [When("Send a request to the OCR service under normal system load and verify the median response time")]
+        public async Task WhenSendARequestToTheOCRServiceUnderNormalSystemLoadAndVerifyTheMedianResponseTimeAsync(DataTable table)
+        {
+            var apiEndpoint = _scenarioContext.Get<APIEndpointsDTO>("apiendpoints");
+            var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            foreach (var row in table.Rows)
+            {
+                string image = row["ImageFormat"];
+                string env = row["Env"];
+                string region = row["Region"];
+                string apikey = row["APIkey"];
+                _response = await _OCRServicePage.PostImageMedianResponseTime(step, apiEndpoint, image, env, region, apikey);
+                if (_response == null)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    throw new Exception("POST request failed: Response is null");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Sent POST request Successfully");
+                }
+            }
+        }
     }
 }

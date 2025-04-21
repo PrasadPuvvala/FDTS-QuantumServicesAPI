@@ -68,6 +68,53 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
+        public async Task<RestResponse?> PostImageMedianResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string env, string region, string apikey)
+        {
+            var client = await _APIHelper.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
+            var request = await _APIHelper.CreatePostRequest(apikey);
+
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
+            string imageFolderPath = Path.Combine(projectRoot, "Images", image);
+
+            try
+            {
+                // Read Image as Byte Array
+                byte[] imageBytes = await File.ReadAllBytesAsync(imageFolderPath);
+
+                // Add Image as Binary Body
+                request.AddParameter("application/octet-stream", imageBytes, ParameterType.RequestBody);
+
+                // Measure response time
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                //// Execute Request
+                var response = await client.ExecuteAsync(request);
+
+                stopwatch.Stop();
+                long responseTimeMs = stopwatch.ElapsedMilliseconds;
+
+                // Store response time
+                _responseTimes.Add(responseTimeMs);
+                double medianResponseTime = CalculateMedian(_responseTimes);
+
+                if (medianResponseTime < 3000)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"{ex.Message}");
+                return null;
+            }
+        }
         private double CalculateMedian(List<double> responseTimes)
         {
             if (responseTimes.Count == 0)
