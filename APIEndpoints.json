@@ -1,5 +1,8 @@
 {
     "APIEndpoint": {
-        "AnalyzeImage": "analyze-image"
+        "AnalyzeImage": "analyze-image",
+        "actionUrl": "process-events",
+        "partitionKey": "SerialNumber",
+        "storeTestDataRoute": "dsa-test-records"
     }
 }

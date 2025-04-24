@@ -7,17 +7,18 @@ using RestSharp;
 
 namespace QuantumServicesAPI.APIHelper
 {
-    public class OCRAPIHelperClass
+    public class MFGDataServiceAPIHelperClass
     {
         private readonly RestClient restClient;
-
-        public OCRAPIHelperClass()
+        public MFGDataServiceAPIHelperClass()
         {
             restClient = new RestClient();
         }
-        public Task<RestClient> SetUrl(string env, string region, string endpoint)
+        public Task<RestClient> SetUrl(string env, string region, string endpoint, string mfgDataFile)
         {
-            var url = Path.Combine($"https://{env}.{region}.api.apt.gn.com/ocr-service/v1/", endpoint);
+            string mfgFile = mfgDataFile.Substring(0, mfgDataFile.Length - ".zip".Length);
+            string testDate = DateTime.Now.ToString("yyyy-MM-dd");
+            var url = $"https://{env}.{region}.api.apt.gn.com/mfg-data-service/v1/{endpoint}/{testDate}/{mfgFile}";
             return Task.FromResult(new RestClient(url));
         }
         public Task<RestRequest> CreatePostRequest(string apikey)

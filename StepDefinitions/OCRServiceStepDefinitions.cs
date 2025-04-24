@@ -72,7 +72,7 @@ namespace QuantumServicesAPI.StepDefinitions
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex}");
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 
