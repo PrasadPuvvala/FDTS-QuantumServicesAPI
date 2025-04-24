@@ -13,5 +13,8 @@ namespace QuantumServicesAPI.DTO
     public class APIEndpoint
     {
         public string AnalyzeImage { get; set; } = string.Empty;
+        public string actionUrl { get; set; } = string.Empty;
+        public string partitionKey { get; set; } = string.Empty;
+        public string storeTestDataRoute { get; set; } = string.Empty;
     }
 }

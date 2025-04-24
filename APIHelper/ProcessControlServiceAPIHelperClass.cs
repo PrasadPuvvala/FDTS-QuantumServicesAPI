@@ -7,17 +7,16 @@ using RestSharp;
 
 namespace QuantumServicesAPI.APIHelper
 {
-    public class OCRAPIHelperClass
+    public class ProcessControlServiceAPIHelperClass
     {
         private readonly RestClient restClient;
-
-        public OCRAPIHelperClass()
+        public ProcessControlServiceAPIHelperClass()
         {
             restClient = new RestClient();
         }
-        public Task<RestClient> SetUrl(string env, string region, string endpoint)
+        public Task<RestClient> SetUrl( string actionUrl, string partitionKey)
         {
-            var url = Path.Combine($"https://{env}.{region}.api.apt.gn.com/ocr-service/v1/", endpoint);
+            var url = $"https://env.region.api.apt.gn.com/process-control-service/v1/{actionUrl}/{partitionKey}";
             return Task.FromResult(new RestClient(url));
         }
         public Task<RestRequest> CreatePostRequest(string apikey)
@@ -25,9 +24,14 @@ namespace QuantumServicesAPI.APIHelper
             var request = new RestRequest { Method = Method.Post };
             string machineName = Environment.MachineName;
             // Add Headers
-            request.AddHeader("Ocp-Apim-Subscription-Key", $"{apikey}");
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "application/octet-stream"); // Binary format
+            request.AddHeader("tst-us", $"{apikey}");
+            request.AddHeader("baseUrl", $"https://env.region.api.apt.gn.com/process-control-service/v1");
+            request.AddHeader("actionUrl", $"process-events");
+            request.AddHeader("env", "tst");
+            request.AddHeader("region", "us");
+            request.AddHeader("partitionKey", "SerialNumber");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("Content-Type", "application/json"); // Binary format
             request.AddHeader("username", "surya");
             request.AddHeader("machinename", machineName);
             request.AddHeader("site", "99");

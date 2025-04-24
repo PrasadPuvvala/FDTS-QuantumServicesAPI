@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Config;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
@@ -25,6 +26,7 @@ namespace QuantumServicesAPI.ExtentReport
             _extent.AttachReporter(_htmlReporter);
             _extent.AddSystemInfo("Environment", "QA");
             _extent.AddSystemInfo("Executed By", Environment.UserName);
+            _extent.AddSystemInfo("Platform", Environment.OSVersion.ToString());
         }
 
         // Singleton instance to ensure only one report instance
@@ -52,6 +54,16 @@ namespace QuantumServicesAPI.ExtentReport
         public void LogToReport(ExtentTest test, Status status, string message)
         {
             test?.Log(status, message);
+        }
+        public void LogWithColor(ExtentTest test, Status status, string labelText, ExtentColor color)
+        {
+            var label = MarkupHelper.CreateLabel(labelText, color);
+            test?.Log(status, label);
+        }
+        public void LogJson(ExtentTest test, string jsonContent)
+        {
+            var codeBlock = MarkupHelper.CreateCodeBlock(jsonContent, CodeLanguage.Json);
+            test?.Info(codeBlock);
         }
 
         // Flush the report to save changes

@@ -16,7 +16,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\OCRDEVEnv\" />
+	  <Folder Include="Features\MFGDataServiceTSTEnvironment\" />
+	  <Folder Include="Features\ProcessControlServiceDEVEnvironment\" />
+	  <Folder Include="Features\OCRDEVEnvironment\" />
+	  <Folder Include="MFGDataFiles\" />
 	</ItemGroup>
 
 </Project>

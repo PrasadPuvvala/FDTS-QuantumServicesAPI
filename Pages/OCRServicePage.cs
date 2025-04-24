@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
+using AventStack.ExtentReports.MarkupUtils;
 using CucumberExpressions;
 using QuantumServicesAPI.APIHelper;
 using QuantumServicesAPI.DTO;
@@ -28,7 +29,7 @@ namespace QuantumServicesAPI.Pages
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
-            string imageFolderPath = Path.Combine(projectRoot, "Images", image);
+            string imageFolderPath = Path.Combine(projectRoot, "OCRImages", image);
 
             try
             {
@@ -37,29 +38,9 @@ namespace QuantumServicesAPI.Pages
 
                 // Add Image as Binary Body
                 request.AddParameter("application/octet-stream", imageBytes, ParameterType.RequestBody);
-
-                // Measure response time
-                //Stopwatch stopwatch = new Stopwatch();
-                //stopwatch.Start();
-
-                //// Execute Request
+            
+                // Execute Request
                 var response = await client.ExecuteAsync(request);
-
-                //stopwatch.Stop();
-                //long responseTimeMs = stopwatch.ElapsedMilliseconds;
-
-                //// Store response time
-                //_responseTimes.Add(responseTimeMs);
-                //double medianResponseTime = CalculateMedian(_responseTimes);
-
-                //if (medianResponseTime < 3000)
-                //{
-                //    ExtentReportManager.GetInstance().LogToReport(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
-                //}
-                //else
-                //{
-                //    ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
-                //}
                 return response;
             }
             catch (Exception ex)
@@ -75,7 +56,7 @@ namespace QuantumServicesAPI.Pages
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
-            string imageFolderPath = Path.Combine(projectRoot, "Images", image);
+            string imageFolderPath = Path.Combine(projectRoot, "OCRImages", image);
 
             try
             {
@@ -101,17 +82,17 @@ namespace QuantumServicesAPI.Pages
 
                 if (medianResponseTime < 3000)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
+                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Green);
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
+                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Info, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Transparent);
                 }
                 return response;
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"{ex.Message}");
+                ExtentReportManager.GetInstance().LogWithColor(test, Status.Fail, $"{ex.Message}", ExtentColor.Red);
                 return null;
             }
         }
