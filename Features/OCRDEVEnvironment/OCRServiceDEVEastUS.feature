@@ -88,4 +88,3 @@ Scenario: 09Test Case ID 1780485: Verify the Response Time for OCR Service Under
 	When Send a request to the OCR service under normal system load and verify the median response time
 		| ImageFormat    | Env | Region | APIkey                           |
 		| PNGImage.png   | dev | us     | 9d6eb02ecab94926a74bcd5edccf28fa |
-		| PNGImage.png   | dev | us     | 9d6eb02ecab94926a74bcd5edccf28fa |
