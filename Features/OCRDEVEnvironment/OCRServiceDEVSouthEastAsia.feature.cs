@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace QuantumServicesAPI.Features.OCRDEVEnvironment
+namespace QuantumServicesAPI.Features.OCRDEVEnv
 {
     using Reqnroll;
     using System;
@@ -28,7 +28,7 @@ namespace QuantumServicesAPI.Features.OCRDEVEnvironment
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/OCRDEVEnvironment", "OCR Service – DEV Environment (Southeast Asia Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/OCRDEVEnv", "OCR Service – DEV Environment (Southeast Asia Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "OCRServiceDEVSouthEastAsia.feature"
 #line hidden
@@ -106,18 +106,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table17.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 8
- await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table17, "When ");
+ await testRunner.WhenAsync("Send the request with a correct image as input", ((string)(null)), table13, "When ");
 #line hidden
 #line 11
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -154,34 +154,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table18.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "More256KBImage.jpg",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 17
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table18, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size more than 256kb", ((string)(null)), table14, "When ");
 #line hidden
 #line 20
  await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table19.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Less256KBImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 21
- await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table19, "When ");
+ await testRunner.WhenAsync("Send a request with input as an image in PNG format with size less than 256kb", ((string)(null)), table15, "When ");
 #line hidden
 #line 24
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -218,18 +218,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table20.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "BlurryPNGImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 30
- await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table20, "When ");
+ await testRunner.WhenAsync("Send the request with a blurry image as input", ((string)(null)), table16, "When ");
 #line hidden
 #line 33
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -266,18 +266,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table21.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "NoCharacters.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 39
- await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table21, "When ");
+ await testRunner.WhenAsync("Send the request with an invalid image (no characters)", ((string)(null)), table17, "When ");
 #line hidden
 #line 42
  await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -314,18 +314,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "InvalidAPIkey"});
-                table22.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "NoCharacters.png",
                             "dev",
                             "asia",
                             "1234567890"});
 #line 48
- await testRunner.WhenAsync("Send a request to the South-East Asia region using an invalid API key", ((string)(null)), table22, "When ");
+ await testRunner.WhenAsync("Send a request to the South-East Asia region using an invalid API key", ((string)(null)), table18, "When ");
 #line hidden
 #line 51
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -359,18 +359,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "InvalidAPIkey"});
-                table23.AddRow(new string[] {
+                table19.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "asia",
                             ""});
 #line 56
- await testRunner.WhenAsync("Send a request to the SouthEastAsia region without an API key", ((string)(null)), table23, "When ");
+ await testRunner.WhenAsync("Send a request to the SouthEastAsia region without an API key", ((string)(null)), table19, "When ");
 #line hidden
 #line 59
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -404,18 +404,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table24.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 64
- await testRunner.WhenAsync("Send the request with a correct APIkey as input", ((string)(null)), table24, "When ");
+ await testRunner.WhenAsync("Send the request with a correct APIkey as input", ((string)(null)), table20, "When ");
 #line hidden
 #line 67
  await testRunner.AndAsync("Verify the response when correct APIkey is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -449,63 +449,63 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table25.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "JPEGImage.jpeg",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table25.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table25.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "BMPImage.bmp",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table25.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "PDFImage.pdf",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table25.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "TIFFImage.tiff",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 72
  await testRunner.WhenAsync("Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF," +
-                        " TIFF) and verify the response and list of all the identified character strings", ((string)(null)), table25, "When ");
+                        " TIFF) and verify the response and list of all the identified character strings", ((string)(null)), table21, "When ");
 #line hidden
-                global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table26.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "GIFImage.gif",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table26.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "WEBPImage.webp",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
-                table26.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "SVGImage.svg",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 79
  await testRunner.AndAsync("Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SV" +
-                        "G, etc.) and verify the 400 error returned", ((string)(null)), table26, "And ");
+                        "G, etc.) and verify the 400 error returned", ((string)(null)), table22, "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -536,19 +536,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table27 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table27.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "asia",
                             "69df563662e74ba8811e47a9a61ccf7b"});
 #line 88
  await testRunner.WhenAsync("Send a request to the OCR service under normal system load and verify the median " +
-                        "response time", ((string)(null)), table27, "When ");
+                        "response time", ((string)(null)), table23, "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region")]
+        [NUnit.Framework.CategoryAttribute("1780470")]
+        [NUnit.Framework.CategoryAttribute("DEV")]
+        [NUnit.Framework.CategoryAttribute("SouthEastAsia")]
+        public async System.Threading.Tasks.Task _10TestCaseID1780470VerifyOCRServiceDeploymentInEachCloudRegion()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780470",
+                    "DEV",
+                    "SouthEastAsia"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 93
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table24.AddRow(new string[] {
+                            "PNGImage.png",
+                            "dev",
+                            "asia",
+                            "69df563662e74ba8811e47a9a61ccf7b"});
+#line 95
+ await testRunner.WhenAsync("OCR service is deployed to the SouthEast Asia cloud region", ((string)(null)), table24, "When ");
+#line hidden
+#line 98
+ await testRunner.AndAsync("OCR service should be operational in the SouthEast Asia cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

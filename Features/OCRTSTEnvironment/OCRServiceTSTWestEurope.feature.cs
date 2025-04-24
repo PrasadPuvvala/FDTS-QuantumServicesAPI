@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace QuantumServicesAPI.Features.OCRTSTEnvironment
+namespace QuantumServicesAPI.Features.OCRTSTEnv
 {
     using Reqnroll;
     using System;
@@ -28,7 +28,7 @@ namespace QuantumServicesAPI.Features.OCRTSTEnvironment
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/OCRTSTEnvironment", "OCR Service – TST Environment (West Europe Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/OCRTSTEnv", "OCR Service – TST Environment (West Europe Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "OCRServiceTSTWestEurope.feature"
 #line hidden
@@ -549,6 +549,49 @@ this.ScenarioInitialize(scenarioInfo);
 #line 88
  await testRunner.WhenAsync("Send a request to the OCR service under normal system load and verify the median " +
                         "response time", ((string)(null)), table71, "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region")]
+        [NUnit.Framework.CategoryAttribute("1780470")]
+        [NUnit.Framework.CategoryAttribute("TST")]
+        [NUnit.Framework.CategoryAttribute("WestEurope")]
+        public async System.Threading.Tasks.Task _10TestCaseID1780470VerifyOCRServiceDeploymentInEachCloudRegion()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780470",
+                    "TST",
+                    "WestEurope"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 93
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table72 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table72.AddRow(new string[] {
+                            "PNGImage.png",
+                            "tst",
+                            "europe",
+                            "781b802322d248079ba7cce2abc2531a"});
+#line 95
+ await testRunner.WhenAsync("OCR service is deployed to the WestEurope cloud region", ((string)(null)), table72, "When ");
+#line hidden
+#line 98
+ await testRunner.AndAsync("OCR service should be operational in the WestEurope cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
