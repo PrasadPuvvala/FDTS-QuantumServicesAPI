@@ -54,7 +54,9 @@ namespace QuantumServicesAPI.ExtentReport
         // Log messages to the report
         public void LogToReport(ExtentTest test, Status status, string message)
         {
-            test?.Log(status, message);
+            var color = status == Status.Pass ? "lightgreen" : "red";
+            var styled = $"<span style='color:{color};'>{message}</span>";
+            test?.Log(status, styled);
         }
         public void LogJson(ExtentTest test, Status status, string title, string json)
         {
@@ -82,6 +84,12 @@ namespace QuantumServicesAPI.ExtentReport
         {
             var errorHtml = $"<span style='color:red;'>Error Message: {message}</span>";
             test?.Log(Status.Fail, errorHtml);
+        }
+
+        public void LogInfo(ExtentTest test, Status status, string message)
+        {
+            var errorHtml = $"<span style='color:red;'>Error Message: {message}</span>";
+            test?.Log(Status.Info, errorHtml);
         }
 
         // Flush the report to save changes

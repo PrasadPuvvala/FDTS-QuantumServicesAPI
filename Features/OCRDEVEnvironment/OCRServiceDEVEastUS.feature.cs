@@ -577,18 +577,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat",
                             "Env",
                             "Region",
                             "APIkey"});
-                table12.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "PNGImage.png",
                             "dev",
                             "us",
                             "9d6eb02ecab94926a74bcd5edccf28fa"});
 #line 96
- await testRunner.WhenAsync("OCR service is deployed to the East US cloud region", ((string)(null)), table12, "When ");
+ await testRunner.WhenAsync("OCR service is deployed to the East US cloud region", ((string)(null)), table17, "When ");
 #line hidden
 #line 99
  await testRunner.AndAsync("OCR service should be operational in the East US cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
