@@ -37,13 +37,13 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _mfgDataServicePage.PostMFGData(step, apiEndpoint, mfgDataFile, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
                 {
                     ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Sent POST request Successfully");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Response Body: {_response.Content}");
+                    ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Response Body: ", _response.Content);
                 }
             }
         }
@@ -58,13 +58,13 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
                 var responseContent = _response.Content;
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Response Body:", responseContent);
 
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 
@@ -83,7 +83,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _mfgDataServicePage.PostMFGData(step, apiEndpoint, mfgDataFile, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -103,13 +103,13 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.BadRequest, _response?.StatusCode, "Expected 400 BadRequest status code");
                 var responseContent = _response.Content;
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Response Body: ", responseContent);
 
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 
@@ -130,13 +130,13 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _mfgDataServicePage.PostMFGData(step, apiEndpoint, mfgDataFile, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
                 {
                     ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Sent POST request Successfully");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Response Body: {_response.Content}");
+                    ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Response Body:", _response.Content);
                 }
             }
         }
@@ -151,14 +151,14 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.Unauthorized, _response?.StatusCode, "Expected 401 Unauthorized status code");
                 var responseContent = _response.Content;
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Response Body:", responseContent);
 
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
-        }      
+        }
     }
 }

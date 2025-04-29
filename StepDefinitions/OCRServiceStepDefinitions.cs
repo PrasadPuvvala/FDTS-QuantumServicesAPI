@@ -30,7 +30,7 @@ namespace QuantumServicesAPI.StepDefinitions
 
 
         [When("OCR service is deployed to the WestEurope cloud region")]
-        [When("OCR service is deployed to the SouthEast Asia cloud region")]   
+        [When("OCR service is deployed to the SouthEast Asia cloud region")]
         [When("OCR service is deployed to the East US cloud region")]
         [When("Send the request with a correct APIkey as input")]
         [When("Send the request with a correct image as input")]
@@ -50,7 +50,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -74,25 +74,19 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
                 var responseContent = _response.Content;
-                //var prettyJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
                 ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                //var statusCodeHtml = $"<span style='color:lightgreen;'>Status Code: {_response?.StatusCode}</span>";
-                //ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, statusCodeHtml);
-
-                //var formattedHtml = $"<pre><span style='color:lightgreen;'>{prettyJson}</span></pre>";
                 ExtentReportManager.GetInstance().LogJson(step, Status.Info, "Response Body", _response.Content);
-                //ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail,$"<span style='color:red;'>Error Message: {ex.Message}</span>");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"<span style='color:red;'>Error Message: {ex.Message}</span>");
             }
         }
 
         [Then("The response must contain a list of all the identified character strings.")]
         public void ThenTheResponseMustContainAListOfAllTheIdentifiedCharacterStrings_()
         {
-            
+
             var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 
@@ -124,7 +118,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -144,7 +138,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.BadRequest, _response?.StatusCode, "Expected 400 BAdRequest status code");
                 ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Image Analysis Data",_response.Content);
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Image Analysis Data", _response.Content);
             }
             catch (Exception ex)
             {
@@ -167,7 +161,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -204,11 +198,11 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 
@@ -221,11 +215,11 @@ namespace QuantumServicesAPI.StepDefinitions
 
             if (result?.Count == 0)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Image Analysis Data : {_response.Content}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Image Analysis Data :", _response.Content);
             }
             else
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Image Analysis Data is Not null : {_response.Content}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Image Analysis Data is Not null : {_response.Content}");
             }
         }
 
@@ -250,7 +244,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -276,13 +270,13 @@ namespace QuantumServicesAPI.StepDefinitions
 
                 if (_response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Status code is 401 Unauthorized as expected.");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"{_response.Content}");
+                    ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Status code is 401 Unauthorized as expected.");
+                    ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Response Body :", $"{_response.Content}");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Expected status code 401 Unauthorized but got {_response.StatusCode}.");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"{_response.Content}");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Expected status code 401 Unauthorized but got {_response.StatusCode}.");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"{_response.Content}");
                 }
             }
             catch (Exception ex)
@@ -305,7 +299,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"POST request failed: Response is null for {image} format");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"POST request failed: Response is null for {image} format");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -316,22 +310,22 @@ namespace QuantumServicesAPI.StepDefinitions
                 {
                     Assert.NotNull(_response, "Response should not be null");
                     Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
+                    ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
                 }
                 catch (Exception ex)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
                 }
                 try
                 {
                     var result = JsonConvert.DeserializeObject<List<dynamic>>(_response.Content);
                     Assert.NotNull(result, "Deserialized response should not be null");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Identified characters from {image} format : {_response.Content}");
+                    ExtentReportManager.GetInstance().LogJson(step, Status.Pass, $"Identified characters from {image} format :", _response.Content);
                 }
                 catch (Exception ex)
                 {
                     Assert.Fail("Failed to deserialize JSON response: " + ex.Message);
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Image Analysis Data is Not found : {ex.Message}");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Image Analysis Data is Not found : {ex.Message}");
                 }
             }
         }
@@ -351,7 +345,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageAnalyzeAsync(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"POST request failed: Response is null for {image} format");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"POST request failed: Response is null for {image} format");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else
@@ -362,11 +356,11 @@ namespace QuantumServicesAPI.StepDefinitions
                 {
                     Assert.NotNull(_response, "Response should not be null");
                     Assert.AreEqual(HttpStatusCode.MethodNotAllowed, _response?.StatusCode, "Expected Method Not Allowed status code");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
+                    ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode} for {image} format");
                 }
                 catch (Exception ex)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
                 }
             }
         }
@@ -386,7 +380,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 _response = await _OCRServicePage.PostImageMedianResponseTime(step, apiEndpoint, image, env, region, apikey);
                 if (_response == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "POST request failed: Response is null");
                     throw new Exception("POST request failed: Response is null");
                 }
                 else

@@ -45,7 +45,7 @@ namespace QuantumServicesAPI.Pages
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"{ex.Message}");
+                ExtentReportManager.GetInstance().LogError(test, Status.Fail, $"{ex.Message}");
                 return null;
             }
         }
@@ -82,17 +82,17 @@ namespace QuantumServicesAPI.Pages
 
                 if (medianResponseTime < 3000)
                 {
-                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Green);
+                    ExtentReportManager.GetInstance().LogStatusCode(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Info, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Transparent);
+                    ExtentReportManager.GetInstance().LogInfo(test, Status.Info, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
                 }
                 return response;
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogWithColor(test, Status.Fail, $"{ex.Message}", ExtentColor.Red);
+                ExtentReportManager.GetInstance().LogError(test, Status.Fail, $"{ex.Message}");
                 return null;
             }
         }
