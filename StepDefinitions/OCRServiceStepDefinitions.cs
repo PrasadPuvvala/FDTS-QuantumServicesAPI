@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
+using AventStack.ExtentReports.MarkupUtils;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuantumServicesAPI.DTO;
@@ -27,6 +28,10 @@ namespace QuantumServicesAPI.StepDefinitions
             _scenarioContext = scenarioContext;
         }
 
+
+        [When("OCR service is deployed to the WestEurope cloud region")]
+        [When("OCR service is deployed to the SouthEast Asia cloud region")]   
+        [When("OCR service is deployed to the East US cloud region")]
         [When("Send the request with a correct APIkey as input")]
         [When("Send the request with a correct image as input")]
         [When("Send the request with a blurry image as input")]
@@ -55,6 +60,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        [When("OCR service should be operational in the WestEurope cloud region")]
+        [When("OCR service should be operational in the SouthEast Asia cloud region")]
+        [When("OCR service should be operational in the East US cloud region")]
         [When("Verify the response when correct APIkey is inputted")]
         [When("Verify the response when correct image is inputted")]
         public void WhenVerifyTheResponseWhenCorrectImageIsInputted()
@@ -66,22 +74,25 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
                 var responseContent = _response.Content;
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+                //var prettyJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                //var statusCodeHtml = $"<span style='color:lightgreen;'>Status Code: {_response?.StatusCode}</span>";
+                //ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, statusCodeHtml);
 
+                //var formattedHtml = $"<pre><span style='color:lightgreen;'>{prettyJson}</span></pre>";
+                ExtentReportManager.GetInstance().LogJson(step, Status.Info, "Response Body", _response.Content);
+                //ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail,$"<span style='color:red;'>Error Message: {ex.Message}</span>");
             }
         }
 
         [Then("The response must contain a list of all the identified character strings.")]
         public void ThenTheResponseMustContainAListOfAllTheIdentifiedCharacterStrings_()
         {
-            //Assert.NotNull(_response, "Response should not be null");
-            //Assert.NotNull(_response?.Content, "Response content should not be null");
-
+            
             var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 
@@ -89,12 +100,12 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 var result = JsonConvert.DeserializeObject<List<dynamic>>(_response.Content);
                 Assert.NotNull(result, "Deserialized response should not be null");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Image Analysis Data : {_response.Content}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Image Analysis Data", _response.Content);
             }
             catch (Exception ex)
             {
                 Assert.Fail("Failed to deserialize JSON response: " + ex.Message);
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Image Analysis Data is Not found : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Image Analysis Data is Not found : {ex.Message}");
             }
         }
 
@@ -132,12 +143,12 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.BadRequest, _response?.StatusCode, "Expected 400 BAdRequest status code");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Image Analysis Data : {_response.Content}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Image Analysis Data",_response.Content);
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 
@@ -175,11 +186,11 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Error Message : {ex.Message}");
             }
         }
 

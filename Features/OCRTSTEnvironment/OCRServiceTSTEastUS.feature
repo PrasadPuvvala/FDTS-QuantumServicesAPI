@@ -88,3 +88,11 @@ Scenario: 09Test Case ID 1780485: Verify the Response Time for OCR Service Under
 	When Send a request to the OCR service under normal system load and verify the median response time
 		| ImageFormat  | Env | Region | APIkey                           |
 		| PNGImage.png | tst | us     | 74ccd49dac554d16b395ba814ed324c9 |
+
+@1780470 @TST @EastUS
+Scenario: 10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region
+	
+	When OCR service is deployed to the East US cloud region
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | tst | us     | 74ccd49dac554d16b395ba814ed324c9 |
+	And OCR service should be operational in the East US cloud region

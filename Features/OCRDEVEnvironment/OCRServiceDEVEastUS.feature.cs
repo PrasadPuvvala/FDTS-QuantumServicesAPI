@@ -553,6 +553,49 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region")]
+        [NUnit.Framework.CategoryAttribute("1780470")]
+        [NUnit.Framework.CategoryAttribute("DEV")]
+        [NUnit.Framework.CategoryAttribute("EastUS")]
+        public async System.Threading.Tasks.Task _10TestCaseID1780470VerifyOCRServiceDeploymentInEachCloudRegion()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "1780470",
+                    "DEV",
+                    "EastUS"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 94
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                            "ImageFormat",
+                            "Env",
+                            "Region",
+                            "APIkey"});
+                table12.AddRow(new string[] {
+                            "PNGImage.png",
+                            "dev",
+                            "us",
+                            "9d6eb02ecab94926a74bcd5edccf28fa"});
+#line 96
+ await testRunner.WhenAsync("OCR service is deployed to the East US cloud region", ((string)(null)), table12, "When ");
+#line hidden
+#line 99
+ await testRunner.AndAsync("OCR service should be operational in the East US cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

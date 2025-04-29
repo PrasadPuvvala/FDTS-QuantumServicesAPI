@@ -3,9 +3,11 @@ using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Config;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,7 +28,6 @@ namespace QuantumServicesAPI.ExtentReport
             _extent.AttachReporter(_htmlReporter);
             _extent.AddSystemInfo("Environment", "QA");
             _extent.AddSystemInfo("Executed By", Environment.UserName);
-            _extent.AddSystemInfo("Platform", Environment.OSVersion.ToString());
         }
 
         // Singleton instance to ensure only one report instance
@@ -55,15 +56,32 @@ namespace QuantumServicesAPI.ExtentReport
         {
             test?.Log(status, message);
         }
-        public void LogWithColor(ExtentTest test, Status status, string labelText, ExtentColor color)
+        public void LogJson(ExtentTest test, Status status, string title, string json)
         {
-            var label = MarkupHelper.CreateLabel(labelText, color);
-            test?.Log(status, label);
+            try
+            {
+                var prettyJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(json), Formatting.Indented);
+                var formattedJson = $"<pre><span style='color:lightgreen;'>{prettyJson}</span></pre>";
+                test?.Log(status, $"{title}:<br>{formattedJson}");
+            }
+            catch (Exception ex)
+            {
+                var fallback = $"<span style='color:red;'>Failed to format JSON: {ex.Message}</span><br><pre>{json}</pre>";
+                test?.Log(Status.Warning, fallback);
+            }
         }
-        public void LogJson(ExtentTest test, string jsonContent)
+
+        public void LogStatusCode(ExtentTest test, Status status, string message)
         {
-            var codeBlock = MarkupHelper.CreateCodeBlock(jsonContent, CodeLanguage.Json);
-            test?.Info(codeBlock);
+            var color = status == Status.Pass ? "lightgreen" : "red";
+            var styled = $"<span style='color:{color};'>{message}</span>";
+            test?.Log(status, styled);
+        }
+
+        public void LogError(ExtentTest test, Status status, string message)
+        {
+            var errorHtml = $"<span style='color:red;'>Error Message: {message}</span>";
+            test?.Log(Status.Fail, errorHtml);
         }
 
         // Flush the report to save changes

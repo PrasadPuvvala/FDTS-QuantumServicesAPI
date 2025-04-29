@@ -88,3 +88,11 @@ Scenario: 09Test Case ID 1780485: Verify the Response Time for OCR Service Under
 	When Send a request to the OCR service under normal system load and verify the median response time
 		| ImageFormat  | Env | Region | APIkey                           |
 		| PNGImage.png | dev | europe | 39731117349c436792eca8513c7d2eb6 |
+
+@1780470 @DEV @WestEurope
+Scenario: 10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region
+	
+	When OCR service is deployed to the WestEurope cloud region
+		| ImageFormat  | Env | Region | APIkey                           |
+		| PNGImage.png | dev | europe | 39731117349c436792eca8513c7d2eb6 |
+	And OCR service should be operational in the WestEurope cloud region
