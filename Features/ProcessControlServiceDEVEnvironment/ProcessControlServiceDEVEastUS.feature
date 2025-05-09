@@ -6,5 +6,5 @@ A short summary of the feature
 Scenario: 01Test Case ID 1784405: Verify that the Process Control Service API authenticates requests with a valid API key per cloud region
 
 	When Send a request to the Process Control Service using a valid API key for its respective cloud region
-		| APIkey                           |
-		| dab1453076f24424881b96d408fcd504 |
+		| APIkey                           | Env | Region |
+		| dab1453076f24424881b96d408fcd504 | tst | us     |

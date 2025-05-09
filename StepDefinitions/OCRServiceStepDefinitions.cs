@@ -136,7 +136,7 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 Assert.NotNull(_response, "Response should not be null");
-                Assert.AreEqual(HttpStatusCode.BadRequest, _response?.StatusCode, "Expected 400 BAdRequest status code");
+                Assert.AreEqual(HttpStatusCode.BadRequest, _response?.StatusCode, "Expected 400 BadRequest status code");
                 ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
                 ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Image Analysis Data", _response.Content);
             }

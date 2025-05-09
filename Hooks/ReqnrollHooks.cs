@@ -3,7 +3,7 @@ using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using Reqnroll;
 
-namespace QuantumServicesAPI.Images.Hooks
+namespace QuantumServicesAPI.Hooks
 {
     [Binding]
     public sealed class ReqnrollHooks

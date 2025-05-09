@@ -107,9 +107,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
                 global::Reqnroll.Table table78 = new global::Reqnroll.Table(new string[] {
-                            "APIkey"});
+                            "APIkey",
+                            "Env",
+                            "Region"});
                 table78.AddRow(new string[] {
-                            "dab1453076f24424881b96d408fcd504"});
+                            "dab1453076f24424881b96d408fcd504",
+                            "tst",
+                            "us"});
 #line 8
  await testRunner.WhenAsync("Send a request to the Process Control Service using a valid API key for its respe" +
                         "ctive cloud region", ((string)(null)), table78, "When ");

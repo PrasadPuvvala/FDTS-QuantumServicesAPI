@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
+using Microsoft.VisualStudio.TestPlatform.Common;
 using QuantumServicesAPI.APIHelper;
 using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
@@ -14,15 +16,15 @@ namespace QuantumServicesAPI.Pages
     public class ProcessControlServicePage
     {
         private readonly ProcessControlServiceAPIHelperClass _processControlServiceAPIHelperClass;
-        public ProcessControlServicePage() 
-        { 
+        public ProcessControlServicePage()
+        {
             _processControlServiceAPIHelperClass = new ProcessControlServiceAPIHelperClass();
         }
-        public async Task<RestResponse?> PostEventData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string apikey)
+        public async Task<RestResponse?> PostEventData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string apikey, string env, string region)
         {
             try
             {
-                var client = await _processControlServiceAPIHelperClass.SetUrl(apiEndpointsDTO.apiEndpoint.actionUrl, apiEndpointsDTO.apiEndpoint.partitionKey);
+                var client = await _processControlServiceAPIHelperClass.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.actionUrl, apiEndpointsDTO.apiEndpoint.partitionKey);
                 var request = await _processControlServiceAPIHelperClass.CreatePostRequest(apikey);
                 // Create your DTO and fill it with data
                 var eventData = new EventData
@@ -57,16 +59,16 @@ namespace QuantumServicesAPI.Pages
                     }
                 };
                 // Add JSON body to request
-                request.AddJsonBody(eventData);
+                request.AddStringBody(JsonSerializer.Serialize(eventData), DataFormat.Json);
                 // Execute the request
                 var response = await client.ExecuteAsync(request);
                 return response;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"{ex.Message}");
                 return null;
-            }        
+            }
         }
     }
 }
