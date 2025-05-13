@@ -37,4 +37,4 @@ Scenario: 04Test Case ID 1784416: Verify that the MFG Data Service API rejects r
 		| MFGDataFile | Env | Region | APIkey                           |
 		| file.zip    | tst | europe | d71a0c7fc0e74b058bd66488e2ac9210 |
 	Then Verify the API response
-
+	 

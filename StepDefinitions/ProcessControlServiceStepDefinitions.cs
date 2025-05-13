@@ -28,7 +28,9 @@ namespace QuantumServicesAPI.StepDefinitions
             foreach (var row in dataTable.Rows)
             {
                 string apikey = row["APIkey"];
-                _response = await _processControlServicePage.PostEventData(step, apiEndpoint, apikey);
+                string env = row["Env"];
+                string region = row["Region"];
+                _response = await _processControlServicePage.PostEventData(step, apiEndpoint, apikey, env, region);
                 if (_response == null)
                 {
                     ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, "POST request failed: Response is null");
