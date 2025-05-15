@@ -14,8 +14,8 @@ namespace QuantumServicesAPI.Pages
     public class ProcessControlServicePage
     {
         private readonly ProcessControlServiceAPIHelperClass _processControlServiceAPIHelperClass;
-        public ProcessControlServicePage() 
-        { 
+        public ProcessControlServicePage()
+        {
             _processControlServiceAPIHelperClass = new ProcessControlServiceAPIHelperClass();
         }
         public async Task<RestResponse?> PostEventData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string apikey)
@@ -62,11 +62,11 @@ namespace QuantumServicesAPI.Pages
                 var response = await client.ExecuteAsync(request);
                 return response;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, $"{ex.Message}");
                 return null;
-            }        
+            }
         }
     }
 }

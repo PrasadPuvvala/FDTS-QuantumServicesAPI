@@ -14,7 +14,7 @@ namespace QuantumServicesAPI.Pages
     public class MFGDataServicePage
     {
         private readonly MFGDataServiceAPIHelperClass _APIHelper;
-        public MFGDataServicePage() 
+        public MFGDataServicePage()
         {
             _APIHelper = new MFGDataServiceAPIHelperClass();
         }

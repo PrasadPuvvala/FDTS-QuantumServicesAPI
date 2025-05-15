@@ -9,7 +9,9 @@
 	<ItemGroup>
 		<PackageReference Include="ExtentReports" Version="5.0.4" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-		<PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
+		<PackageReference Include="Reqnroll" Version="2.4.1" />
+		<PackageReference Include="Reqnroll.ExternalData" Version="2.4.1" />
+		<PackageReference Include="Reqnroll.NUnit" Version="2.4.1" />
 		<PackageReference Include="nunit" Version="3.14.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
 		<PackageReference Include="RestSharp" Version="112.1.0" />
@@ -18,7 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="Features\MFGDataServiceTSTEnvironment\" />
 	  <Folder Include="Features\ProcessControlServiceDEVEnvironment\" />
-	  <Folder Include="Features\OCRDEVEnvironment\" />
 	  <Folder Include="MFGDataFiles\" />
 	</ItemGroup>
 

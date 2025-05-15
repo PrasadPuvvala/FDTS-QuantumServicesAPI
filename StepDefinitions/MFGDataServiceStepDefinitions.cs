@@ -159,6 +159,6 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Fail, $"Error Message : {ex.Message}");
             }
-        }      
+        }
     }
 }

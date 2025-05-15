@@ -16,15 +16,15 @@ namespace QuantumServicesAPI.Pages
 {
     public class OCRServicePage
     {
-        private readonly OCRAPIHelperClass _APIHelper;
+        private readonly APIHelperClass _APIHelper;
         private static List<double> _responseTimes = new List<double>();  // Stores response times
         public OCRServicePage()
         {
-            _APIHelper = new OCRAPIHelperClass();
+            _APIHelper = new APIHelperClass();
         }
-        public async Task<RestResponse?> PostImageAnalyzeAsync(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string env, string region, string apikey)
+        public async Task<RestResponse?> PostImageRequest(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
-            var client = await _APIHelper.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
+            var client = await _APIHelper.OCRUrl(baseUrl, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
             var request = await _APIHelper.CreatePostRequest(apikey);
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -38,7 +38,7 @@ namespace QuantumServicesAPI.Pages
 
                 // Add Image as Binary Body
                 request.AddParameter("application/octet-stream", imageBytes, ParameterType.RequestBody);
-            
+
                 // Execute Request
                 var response = await client.ExecuteAsync(request);
                 return response;
@@ -49,9 +49,9 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
-        public async Task<RestResponse?> PostImageMedianResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string env, string region, string apikey)
+        public async Task<RestResponse?> PostImageMedianResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
-            var client = await _APIHelper.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
+            var client = await _APIHelper.OCRUrl(baseUrl, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
             var request = await _APIHelper.CreatePostRequest(apikey);
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -82,17 +82,17 @@ namespace QuantumServicesAPI.Pages
 
                 if (medianResponseTime < 3000)
                 {
-                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Green);
+                    ExtentReportManager.GetInstance().LogToReport(test, Status.Pass, $"Median response time is below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogWithColor(test, Status.Info, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods", ExtentColor.Transparent);
+                    ExtentReportManager.GetInstance().LogError(test, Status.Fail, $"Median response time is not below 3 seconds and actual response time is : {medianResponseTime} milli scenods");
                 }
                 return response;
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogWithColor(test, Status.Fail, $"{ex.Message}", ExtentColor.Red);
+                ExtentReportManager.GetInstance().LogError(test, Status.Fail, $"Error Message : {ex.Message}");
                 return null;
             }
         }

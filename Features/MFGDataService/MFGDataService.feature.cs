@@ -11,25 +11,29 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.ProcessControlServiceDEVEnvironment
+namespace QuantumServicesAPI.Features.MFGDataService
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Process Control Service - DEV Environment (East US Region)")]
+    [NUnit.Framework.DescriptionAttribute("MFG Data Service")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class ProcessControlService_DEVEnvironmentEastUSRegionFeature
+    [NUnit.Framework.CategoryAttribute("DataSource:mfg-environments.json")]
+    [NUnit.Framework.CategoryAttribute("DataSet:MfgDataService")]
+    public partial class MFGDataServiceFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "DataSource:mfg-environments.json",
+                "DataSet:MfgDataService"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/ProcessControlServiceDEVEnvironment", "Process Control Service - DEV Environment (East US Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/MFGDataService", "MFG Data Service", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "ProcessControlServiceDEVEastUS.feature"
+#line 1 "MFGDataService.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -103,21 +107,32 @@ namespace QuantumServicesAPI.Features.ProcessControlServiceDEVEnvironment
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
-            " requests with a valid API key per cloud region")]
-        [NUnit.Framework.CategoryAttribute("1784405")]
-        [NUnit.Framework.CategoryAttribute("DEV")]
-        [NUnit.Framework.CategoryAttribute("EastUS")]
-        public async global::System.Threading.Tasks.Task _01TestCaseID1784405VerifyThatTheProcessControlServiceAPIAuthenticatesRequestsWithAValidAPIKeyPerCloudRegion()
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1784675: Verify that the MFG Data Service processes valid compress" +
+            "ed JSON test data within the allowed size")]
+        [NUnit.Framework.CategoryAttribute("mfgdataservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/mfg-data-service/v1", "71a70650274d47e39dee5f00c9950007", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/mfg-data-service/v1", "7fc67228750046a1a9e364d725db6c9b", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/mfg-data-service/v1", "86065fd57ea04e32bb2e52cf8b3d84f8", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/mfg-data-service/v1", "4038ebf7e3ea45c29795b494d02fb117", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/mfg-data-service/v1", "d71a0c7fc0e74b058bd66488e2ac9210", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/mfg-data-service/v1", "c8aa703e5ef24b6ab4a28688f6c0bcd7", null)]
+        public async global::System.Threading.Tasks.Task _01TestCaseID1784675VerifyThatTheMFGDataServiceProcessesValidCompressedJSONTestDataWithinTheAllowedSize(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "1784405",
-                    "DEV",
-                    "EastUS"};
+            string[] @__tags = new string[] {
+                    "mfgdataservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
-                    " requests with a valid API key per cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1784675: Verify that the MFG Data Service processes valid compress" +
+                    "ed JSON test data within the allowed size", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -127,13 +142,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
-                            "APIkey"});
-                table19.AddRow(new string[] {
-                            "dab1453076f24424881b96d408fcd504"});
-#line 8
- await testRunner.WhenAsync("Send a request to the Process Control Service using a valid API key for its respe" +
-                        "ctive cloud region", ((string)(null)), table19, "When ");
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                            "MFGDataFile"});
+                table6.AddRow(new string[] {
+                            "file.zip"});
+#line 9
+ await testRunner.WhenAsync("Send a request to MFG data service with a compressed JSON below 256 kb", ((string)(null)), table6, "When ");
+#line hidden
+#line 12
+ await testRunner.ThenAsync("Verify the response with the compressed data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

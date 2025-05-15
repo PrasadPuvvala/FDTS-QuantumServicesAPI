@@ -1,0 +1,40 @@
+{
+    "MfgDataService": [
+        {
+            "Environment": "dev",
+            "Region": "europe",
+            "BaseUrl": "https://dev.europe.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "71a70650274d47e39dee5f00c9950007"
+        },
+        {
+            "Environment": "dev",
+            "Region": "us",
+            "BaseUrl": "https://dev.us.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "7fc67228750046a1a9e364d725db6c9b"
+        },
+        {
+            "Environment": "dev",
+            "Region": "asia",
+            "BaseUrl": "https://dev.asia.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "86065fd57ea04e32bb2e52cf8b3d84f8"
+        },
+        {
+            "Environment": "tst",
+            "Region": "europe",
+            "BaseUrl": "https://tst.europe.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "4038ebf7e3ea45c29795b494d02fb117"
+        },
+        {
+            "Environment": "tst",
+            "Region": "us",
+            "BaseUrl": "https://tst.us.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "d71a0c7fc0e74b058bd66488e2ac9210"
+        },
+        {
+            "Environment": "tst",
+            "Region": "asia",
+            "BaseUrl": "https://tst.asia.api.apt.gn.com/mfg-data-service/v1",
+            "ApiKey": "c8aa703e5ef24b6ab4a28688f6c0bcd7"
+        }
+    ]
+}

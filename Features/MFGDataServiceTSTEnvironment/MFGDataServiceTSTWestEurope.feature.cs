@@ -10,17 +10,16 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
+using Reqnroll;
 namespace QuantumServicesAPI.Features.MFGDataServiceTSTEnvironment
 {
-    using Reqnroll;
-    using System;
-    using System.Linq;
     
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("MFG Data Service - TST Environment (West Europe Region)")]
+    [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
     public partial class MFGDataService_TSTEnvironmentWestEuropeRegionFeature
     {
         
@@ -28,41 +27,63 @@ namespace QuantumServicesAPI.Features.MFGDataServiceTSTEnvironment
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/MFGDataServiceTSTEnvironment", "MFG Data Service - TST Environment (West Europe Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/MFGDataServiceTSTEnvironment", "MFG Data Service - TST Environment (West Europe Region)", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "MFGDataServiceTSTWestEurope.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
-        public static async System.Threading.Tasks.Task FeatureSetupAsync()
+        public static async global::System.Threading.Tasks.Task FeatureSetupAsync()
         {
         }
         
         [NUnit.Framework.OneTimeTearDownAttribute()]
-        public static async System.Threading.Tasks.Task FeatureTearDownAsync()
+        public static async global::System.Threading.Tasks.Task FeatureTearDownAsync()
         {
         }
         
         [NUnit.Framework.SetUpAttribute()]
-        public async System.Threading.Tasks.Task TestInitializeAsync()
+        public async global::System.Threading.Tasks.Task TestInitializeAsync()
         {
             testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(featureHint: featureInfo);
-            if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Equals(featureInfo) == false)))
+            try
             {
-                await testRunner.OnFeatureEndAsync();
+                if (((testRunner.FeatureContext != null) 
+                            && (testRunner.FeatureContext.FeatureInfo.Equals(featureInfo) == false)))
+                {
+                    await testRunner.OnFeatureEndAsync();
+                }
             }
-            if ((testRunner.FeatureContext == null))
+            finally
             {
-                await testRunner.OnFeatureStartAsync(featureInfo);
+                if (((testRunner.FeatureContext != null) 
+                            && testRunner.FeatureContext.BeforeFeatureHookFailed))
+                {
+                    throw new global::Reqnroll.ReqnrollException("Scenario skipped because of previous before feature hook error");
+                }
+                if ((testRunner.FeatureContext == null))
+                {
+                    await testRunner.OnFeatureStartAsync(featureInfo);
+                }
             }
         }
         
         [NUnit.Framework.TearDownAttribute()]
-        public async System.Threading.Tasks.Task TestTearDownAsync()
+        public async global::System.Threading.Tasks.Task TestTearDownAsync()
         {
-            await testRunner.OnScenarioEndAsync();
-            global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
+            if ((testRunner == null))
+            {
+                return;
+            }
+            try
+            {
+                await testRunner.OnScenarioEndAsync();
+            }
+            finally
+            {
+                global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
+                testRunner = null;
+            }
         }
         
         public void ScenarioInitialize(global::Reqnroll.ScenarioInfo scenarioInfo)
@@ -71,12 +92,12 @@ namespace QuantumServicesAPI.Features.MFGDataServiceTSTEnvironment
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
         }
         
-        public async System.Threading.Tasks.Task ScenarioStartAsync()
+        public async global::System.Threading.Tasks.Task ScenarioStartAsync()
         {
             await testRunner.OnScenarioStartAsync();
         }
         
-        public async System.Threading.Tasks.Task ScenarioCleanupAsync()
+        public async global::System.Threading.Tasks.Task ScenarioCleanupAsync()
         {
             await testRunner.CollectScenarioErrorsAsync();
         }
@@ -87,13 +108,13 @@ namespace QuantumServicesAPI.Features.MFGDataServiceTSTEnvironment
         [NUnit.Framework.CategoryAttribute("1784675")]
         [NUnit.Framework.CategoryAttribute("TST")]
         [NUnit.Framework.CategoryAttribute("WestEurope")]
-        public async System.Threading.Tasks.Task _01TestCaseID1784675VerifyThatTheMFGDataServiceProcessesValidCompressedJSONTestDataWithinTheAllowedSize()
+        public async global::System.Threading.Tasks.Task _01TestCaseID1784675VerifyThatTheMFGDataServiceProcessesValidCompressedJSONTestDataWithinTheAllowedSize()
         {
             string[] tagsOfScenario = new string[] {
                     "1784675",
                     "TST",
                     "WestEurope"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1784675: Verify that the MFG Data Service processes valid compress" +
                     "ed JSON test data within the allowed size", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
@@ -132,13 +153,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("1785191")]
         [NUnit.Framework.CategoryAttribute("TST")]
         [NUnit.Framework.CategoryAttribute("WestEurope")]
-        public async System.Threading.Tasks.Task _02TestCaseID1785191VerifyThatTheMFGDataServiceRejectsUncompressedJSONTestData()
+        public async global::System.Threading.Tasks.Task _02TestCaseID1785191VerifyThatTheMFGDataServiceRejectsUncompressedJSONTestData()
         {
             string[] tagsOfScenario = new string[] {
                     "1785191",
                     "TST",
                     "WestEurope"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1785191: Verify that the MFG Data Service rejects uncompressed JSO" +
                     "N test data", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 14
@@ -177,13 +198,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("1784417")]
         [NUnit.Framework.CategoryAttribute("TST")]
         [NUnit.Framework.CategoryAttribute("WestEurope")]
-        public async System.Threading.Tasks.Task _03TestCaseID1784417VerifyThatTheMFGDataServiceRejectsRequestsWithoutInvalidAPIKey()
+        public async global::System.Threading.Tasks.Task _03TestCaseID1784417VerifyThatTheMFGDataServiceRejectsRequestsWithoutInvalidAPIKey()
         {
             string[] tagsOfScenario = new string[] {
                     "1784417",
                     "TST",
                     "WestEurope"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1784417: Verify that the MFG Data Service rejects requests without" +
                     "/invalid API key", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 22
@@ -238,13 +259,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("1784416")]
         [NUnit.Framework.CategoryAttribute("TST")]
         [NUnit.Framework.CategoryAttribute("WestEurope")]
-        public async System.Threading.Tasks.Task _04TestCaseID1784416VerifyThatTheMFGDataServiceAPIRejectsRequestsUsingAnAPIKeyFromADifferentCloudRegion()
+        public async global::System.Threading.Tasks.Task _04TestCaseID1784416VerifyThatTheMFGDataServiceAPIRejectsRequestsUsingAnAPIKeyFromADifferentCloudRegion()
         {
             string[] tagsOfScenario = new string[] {
                     "1784416",
                     "TST",
                     "WestEurope"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1784416: Verify that the MFG Data Service API rejects requests usi" +
                     "ng an API key from a different cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 34

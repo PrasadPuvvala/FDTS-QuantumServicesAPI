@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Config;
@@ -22,8 +23,12 @@ namespace QuantumServicesAPI.ExtentReport
         // Constructor to initialize the report
         private ExtentReportManager()
         {
-            string reportPath = Path.Combine(Directory.GetCurrentDirectory(), "APIAutomationReport.html");
-            _htmlReporter = new ExtentSparkReporter(reportPath) { Config = { Theme = Theme.Dark, ReportName = "API Regression Test", DocumentTitle = "API Automation Report" } };
+            // report path: one HTML per env+region
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            var reportDir = Path.Combine(Directory.GetCurrentDirectory(), "Reports");
+            Directory.CreateDirectory(reportDir);
+            var reportFile = Path.Combine(reportDir, $"APIAutomationReport_{timestamp}.html");
+            _htmlReporter = new ExtentSparkReporter(reportFile) { Config = { Theme = Theme.Dark, ReportName = "API Regression Test", DocumentTitle = "API Automation Report" } };
             _extent = new ExtentReports();
             _extent.AttachReporter(_htmlReporter);
             _extent.AddSystemInfo("Environment", "QA");
@@ -41,20 +46,32 @@ namespace QuantumServicesAPI.ExtentReport
         }
 
         // Create a new test case in the report
-        public ExtentTest CreateTest(string testName)
+        public ExtentTest CreateFeature(string featureTitle)
         {
-            return _extent.CreateTest(testName);
+            return _extent.CreateTest(featureTitle);
         }
-
         public ExtentTest CreateTestStep(ExtentTest test, string stepName)
         {
             return test.CreateNode(stepName);
+        }
+        public ExtentTest CreateEnvironment(ExtentTest test, string environment)
+        {
+            return test.CreateNode(environment);
+        }
+        public ExtentTest CreateRegion(ExtentTest test, string region)
+        {
+            return test.CreateNode(region);
+        }
+        public ExtentTest CreateScenario(ExtentTest test, string scenario)
+        {
+            return test.CreateNode(scenario);
         }
 
         // Log messages to the report
         public void LogToReport(ExtentTest test, Status status, string message)
         {
-            test?.Log(status, message);
+            var logMessage = $"<span style='color:lightgreen;'>{message}</span>";
+            test?.Log(status, logMessage);
         }
         public void LogJson(ExtentTest test, Status status, string title, string json)
         {
@@ -80,8 +97,8 @@ namespace QuantumServicesAPI.ExtentReport
 
         public void LogError(ExtentTest test, Status status, string message)
         {
-            var errorHtml = $"<span style='color:red;'>Error Message: {message}</span>";
-            test?.Log(Status.Fail, errorHtml);
+            var errorMessage = $"<span style='color:red;'>{message}</span>";
+            test?.Log(Status.Fail, errorMessage);
         }
 
         // Flush the report to save changes
