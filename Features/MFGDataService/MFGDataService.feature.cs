@@ -142,15 +142,128 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "MFGDataFile"});
-                table6.AddRow(new string[] {
-                            "file.zip"});
+                table1.AddRow(new string[] {
+                            "file_16.zip"});
 #line 9
- await testRunner.WhenAsync("Send a request to MFG data service with a compressed JSON below 256 kb", ((string)(null)), table6, "When ");
+ await testRunner.WhenAsync(string.Format("Send a request to MFG data service with a compressed JSON below 256 kb using base" +
+                            "Url \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table1, "When ");
 #line hidden
 #line 12
  await testRunner.ThenAsync("Verify the response with the compressed data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1785191: Verify that the MFG Data Service rejects uncompressed JSO" +
+            "N test data")]
+        [NUnit.Framework.CategoryAttribute("mfgdataservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/mfg-data-service/v1", "71a70650274d47e39dee5f00c9950007", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/mfg-data-service/v1", "7fc67228750046a1a9e364d725db6c9b", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/mfg-data-service/v1", "86065fd57ea04e32bb2e52cf8b3d84f8", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/mfg-data-service/v1", "4038ebf7e3ea45c29795b494d02fb117", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/mfg-data-service/v1", "d71a0c7fc0e74b058bd66488e2ac9210", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/mfg-data-service/v1", "c8aa703e5ef24b6ab4a28688f6c0bcd7", null)]
+        public async global::System.Threading.Tasks.Task _02TestCaseID1785191VerifyThatTheMFGDataServiceRejectsUncompressedJSONTestData(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "mfgdataservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1785191: Verify that the MFG Data Service rejects uncompressed JSO" +
+                    "N test data", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 15
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                            "MFGDataFile"});
+                table2.AddRow(new string[] {
+                            "json_valid.json"});
+#line 17
+ await testRunner.WhenAsync(string.Format("Send a request to MFG data service with an uncompressed JSON using baseUrl \"{0}\" " +
+                            "and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table2, "When ");
+#line hidden
+#line 20
+ await testRunner.ThenAsync("Verify the response with the uncompressed data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1784417: Verify that the MFG Data Service rejects requests without" +
+            "/invalid API key")]
+        [NUnit.Framework.CategoryAttribute("mfgdataservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/mfg-data-service/v1", "71a70650274d47e39dee5f00c9950007", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/mfg-data-service/v1", "7fc67228750046a1a9e364d725db6c9b", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/mfg-data-service/v1", "86065fd57ea04e32bb2e52cf8b3d84f8", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/mfg-data-service/v1", "4038ebf7e3ea45c29795b494d02fb117", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/mfg-data-service/v1", "d71a0c7fc0e74b058bd66488e2ac9210", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/mfg-data-service/v1", "c8aa703e5ef24b6ab4a28688f6c0bcd7", null)]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1784417VerifyThatTheMFGDataServiceRejectsRequestsWithoutInvalidAPIKey(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "mfgdataservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1784417: Verify that the MFG Data Service rejects requests without" +
+                    "/invalid API key", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 23
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                            "MFGDataFile"});
+                table3.AddRow(new string[] {
+                            "file_16.zip"});
+#line 25
+ await testRunner.WhenAsync(string.Format("Send a request to the MFG Data Service using an invalid API key \"{0}\" with baseUr" +
+                            "l \"{1}\"", apiKey, baseUrl), ((string)(null)), table3, "When ");
+#line hidden
+#line 28
+ await testRunner.ThenAsync("Verify the API response", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                            "MFGDataFile"});
+                table4.AddRow(new string[] {
+                            "file_16.zip"});
+#line 29
+ await testRunner.WhenAsync(string.Format("Send a request to the MFG Data Service without API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table4, "When ");
+#line hidden
+#line 32
+ await testRunner.ThenAsync("Verify the API response", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

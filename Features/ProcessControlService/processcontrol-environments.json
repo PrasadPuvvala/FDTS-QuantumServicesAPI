@@ -1,0 +1,40 @@
+{
+  "ProcessControlService": [
+    {
+      "Environment": "dev",
+      "Region": "europe",
+      "BaseUrl": "https://dev.europe.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "f1ccb763d6654bbda62547c99a8b37fd"
+    },
+    {
+      "Environment": "dev",
+      "Region": "us",
+      "BaseUrl": "https://dev.us.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "b02660d72a374ba9a4cf1220d3a8da27"
+    },
+    {
+      "Environment": "dev",
+      "Region": "asia",
+      "BaseUrl": "https://dev.asia.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "ce2c2d2f115b435e9d5e4622df65d927"
+    },
+    {
+      "Environment": "tst",
+      "Region": "europe",
+      "BaseUrl": "https://tst.europe.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "710dec5061df40768a8116cf4a4650a0"
+    },
+    {
+      "Environment": "tst",
+      "Region": "us",
+      "BaseUrl": "https://tst.us.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "dab1453076f24424881b96d408fcd504"
+    },
+    {
+      "Environment": "tst",
+      "Region": "asia",
+      "BaseUrl": "https://tst.asia.api.apt.gn.com/process-control-service/v1",
+      "ApiKey": "7500f09cbdd947618aaf22a046aaed54"
+    }
+  ]
+}

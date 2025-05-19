@@ -13,17 +13,17 @@ namespace QuantumServicesAPI.Pages
 {
     public class ProcessControlServicePage
     {
-        private readonly ProcessControlServiceAPIHelperClass _processControlServiceAPIHelperClass;
+        private readonly APIHelperClass _APIHelper;
         public ProcessControlServicePage()
         {
-            _processControlServiceAPIHelperClass = new ProcessControlServiceAPIHelperClass();
+            _APIHelper = new APIHelperClass();
         }
-        public async Task<RestResponse?> PostEventData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string apikey)
+        public async Task<RestResponse?> PostEventData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string baseUrl, string apikey)
         {
             try
             {
-                var client = await _processControlServiceAPIHelperClass.SetUrl(apiEndpointsDTO.apiEndpoint.actionUrl, apiEndpointsDTO.apiEndpoint.partitionKey);
-                var request = await _processControlServiceAPIHelperClass.CreatePostRequest(apikey);
+                var client = await _APIHelper.ProcessControlUrl(baseUrl, apiEndpointsDTO.apiEndpoint.actionUrl, apiEndpointsDTO.apiEndpoint.partitionKey);
+                var request = await _APIHelper.CreatePostRequest(apikey);
                 // Create your DTO and fill it with data
                 var eventData = new EventData
                 {

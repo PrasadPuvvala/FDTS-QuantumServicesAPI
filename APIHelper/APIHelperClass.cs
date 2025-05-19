@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using RestSharp;
 
 namespace QuantumServicesAPI.APIHelper
 {
@@ -23,6 +24,13 @@ namespace QuantumServicesAPI.APIHelper
         public Task<RestClient> ProcessControlUrl(string baseUrl, string actionUrl, string partitionKey)
         {
             var url = $"{baseUrl}/{actionUrl}/{partitionKey}";
+            return Task.FromResult(new RestClient(url));
+        }
+        public Task<RestClient> MFGDataUrl(string baseUrl, string endpoint, string mfgDataFile)
+        {
+            string mfgFile = mfgDataFile.Substring(0, mfgDataFile.Length - ".zip".Length);
+            string testDate = DateTime.Now.ToString("yyyy-MM-dd");
+            var url = $"{baseUrl}/{endpoint}/{testDate}/{mfgFile}";
             return Task.FromResult(new RestClient(url));
         }
         public Task<RestRequest> CreatePostRequest(string apikey)

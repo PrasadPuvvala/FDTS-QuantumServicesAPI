@@ -13,12 +13,12 @@ namespace QuantumServicesAPI.Pages
 {
     public class MFGDataServicePage
     {
-        private readonly MFGDataServiceAPIHelperClass _APIHelper;
+        private readonly APIHelperClass _APIHelper;
         public MFGDataServicePage()
         {
-            _APIHelper = new MFGDataServiceAPIHelperClass();
+            _APIHelper = new APIHelperClass();
         }
-        public async Task<RestResponse?> PostMFGData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string mfgDataFile, string env, string region, string apikey)
+        public async Task<RestResponse?> PostMFGData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string mfgDataFile, string baseUrl, string apikey)
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
@@ -30,7 +30,7 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
 
-            var client = await _APIHelper.SetUrl(env, region, apiEndpointsDTO.apiEndpoint.storeTestDataRoute, mfgDataFile);
+            var client = await _APIHelper.MFGDataUrl(baseUrl, apiEndpointsDTO.apiEndpoint.storeTestDataRoute, mfgDataFile);
             var request = await _APIHelper.CreatePostRequest(apikey);
             try
             {
