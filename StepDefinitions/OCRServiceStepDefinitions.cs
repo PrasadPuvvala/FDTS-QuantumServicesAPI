@@ -204,7 +204,7 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
-        [When("Verify the response when correct APIkey is inputted")]
+        [Then("Verify the response when correct APIkey is inputted")]
         [When("Verify the response when correct image is inputted")]
         [Then("Verify the response when the inputted image is blurry")]
         [Then("Verify the response when the inputted image is an invalid image \\(no characters)")]
@@ -215,13 +215,16 @@ namespace QuantumServicesAPI.StepDefinitions
             var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
             try
             {
+                if (_response == null)
+                {
+                    throw new Exception("Response is null");
+                }
+
                 Assert.NotNull(_response, "Response should not be null");
-                Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
-                var responseContent = _response.Content;
-                //var prettyJson = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
-                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogJson(step, Status.Info, "Response Body", _response.Content);
-                //ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Response Body: {responseContent}");
+                Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode, "Expected 200 OK status code");
+                var responseContent = _response.Content ?? string.Empty; // Ensure Content is not null
+                ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response.StatusCode}");
+                ExtentReportManager.GetInstance().LogJson(step, Status.Info, "Response Body", responseContent);
             }
             catch (Exception ex)
             {
@@ -232,15 +235,19 @@ namespace QuantumServicesAPI.StepDefinitions
         [Then("The response must contain a list of all the identified character strings.")]
         public void ThenTheResponseMustContainAListOfAllTheIdentifiedCharacterStrings_()
         {
-
             var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 
             try
             {
-                var result = JsonConvert.DeserializeObject<List<dynamic>>(_response.Content);
+                if (_response == null || string.IsNullOrEmpty(_response.Content)) // Ensure _response and its Content are not null or empty
+                {
+                    throw new Exception("Response or its content is null or empty");
+                }
+
+                var result = JsonConvert.DeserializeObject<List<dynamic>>(_response.Content!); // Use null-forgiving operator to suppress CS8604
                 Assert.NotNull(result, "Deserialized response should not be null");
-                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Response Body", _response.Content);
+                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Response Body", _response.Content); // Log the content
             }
             catch (Exception ex)
             {

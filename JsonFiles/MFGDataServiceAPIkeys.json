@@ -1,0 +1,10 @@
+{
+  "MFGDataServiceAPIKeys": {
+    "DevEurope": "71a70650274d47e39dee5f00c9950007",
+    "DevUs": "7fc67228750046a1a9e364d725db6c9b",
+    "DevAsia": "86065fd57ea04e32bb2e52cf8b3d84f8",
+    "TstEurope": "4038ebf7e3ea45c29795b494d02fb117",
+    "TstUs": "d71a0c7fc0e74b058bd66488e2ac9210",
+    "TstAsia": "c8aa703e5ef24b6ab4a28688f6c0bcd7"
+  }
+}

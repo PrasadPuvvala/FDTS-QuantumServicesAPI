@@ -46,16 +46,16 @@ Scenario: 04Test Case ID 1776266: Verify that the OCR service returns an empty l
 Scenario: 05Test Case ID 1780460: Verify that requests sent to the OCR Service with an invalid API key are rejected
 
 	When Send a request using an invalid API key "<ApiKey>" with baseUrl "<BaseUrl>"
-		| ImageFormat      | 
-		| NoCharacters.png | 
+		| ImageFormat      |
+		| NoCharacters.png |
 	Then The request is rejected and returns a 401 Unauthorized error
 
 @ocrservice
 Scenario: 06Test Case ID 1780459: Verify that requests without an API key for OCR Service are rejected
 
 	When Send a request without API key "<ApiKey>" with baseUrl "<BaseUrl>"
-		| ImageFormat  | 
-		| PNGImage.png | 
+		| ImageFormat  |
+		| PNGImage.png |
 	Then The request is rejected and returns a 401 Unauthorized error
 
 @ocrservice
@@ -64,35 +64,35 @@ Scenario: 07Test Case ID 1780458: Verify that requests with a valid API key for 
 	When Send the request with baseUrl "<BaseUrl>" and correct API key "<ApiKey>" as input
 		| ImageFormat  |
 		| PNGImage.png |
-	And Verify the response when correct APIkey is inputted
+	Then Verify the response when correct APIkey is inputted
 
 @ocrservice
 Scenario: 08Test Case ID 1769059: Verify that the OCR service only accepts supported image formats (JPEG, PNG, BMP, PDF, and TIFF)
 
 	When Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF, TIFF) using baseUrl "<BaseUrl>" and apiKey "<ApiKey>" and verify the response and list of all the identified character strings
 		| ImageFormat    |
-		| JPEGImage.jpeg | 
-		| PNGImage.png   | 
-		| BMPImage.bmp   | 
-		| PDFImage.pdf   | 
+		| JPEGImage.jpeg |
+		| PNGImage.png   |
+		| BMPImage.bmp   |
+		| PDFImage.pdf   |
 		| TIFFImage.tiff |
 	And Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SVG, etc.) using baseUrl "<BaseUrl>" and apiKey "<ApiKey>" and verify the 400 error returned
 		| ImageFormat    |
-		| GIFImage.gif   | 
-		| WEBPImage.webp | 
-		| SVGImage.svg   | 
+		| GIFImage.gif   |
+		| WEBPImage.webp |
+		| SVGImage.svg   |
 
 @ocrservice
 Scenario: 09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Conditions
 
 	When Send a request to the OCR service under normal system load using baseUrl "<BaseUrl>" and apiKey "<ApiKey>" and verify the median response time
-		| ImageFormat  | 
-		| PNGImage.png | 
+		| ImageFormat  |
+		| PNGImage.png |
 
 @ocrservice
 Scenario: 10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region
 	
 	When OCR service is deployed to all the cloud regions using baseUrl "<BaseUrl>" and apiKey "<ApiKey>"
-		| ImageFormat  | 
-		| PNGImage.png | 
+		| ImageFormat  |
+		| PNGImage.png |
 	And OCR service should be operational in all the cloud region

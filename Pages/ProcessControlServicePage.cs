@@ -22,6 +22,11 @@ namespace QuantumServicesAPI.Pages
         {
             try
             {
+                if (apiEndpointsDTO?.apiEndpoint == null)
+                {
+                    throw new ArgumentNullException(nameof(apiEndpointsDTO.apiEndpoint), "API endpoint details cannot be null.");
+                }
+
                 var client = await _APIHelper.ProcessControlUrl(baseUrl, apiEndpointsDTO.apiEndpoint.actionUrl, apiEndpointsDTO.apiEndpoint.partitionKey);
                 var request = await _APIHelper.CreatePostRequest(apikey);
                 // Create your DTO and fill it with data

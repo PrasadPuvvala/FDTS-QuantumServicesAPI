@@ -50,7 +50,16 @@ namespace QuantumServicesAPI.StepDefinitions
                 Assert.NotNull(_response, "Response should not be null");
                 Assert.AreEqual(HttpStatusCode.OK, _response?.StatusCode, "Expected 200 OK status code");
                 ExtentReportManager.GetInstance().LogStatusCode(step, Status.Pass, $"Statuscode : {_response?.StatusCode}");
-                ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Response Body", _response.Content);
+
+                // Fix for CS8602 and CS8604: Ensure _response.Content is not null before passing it
+                if (!string.IsNullOrEmpty(_response?.Content))
+                {
+                    ExtentReportManager.GetInstance().LogJson(step, Status.Pass, "Response Body", _response.Content);
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Response content is null or empty");
+                }
             }
             catch (Exception ex)
             {

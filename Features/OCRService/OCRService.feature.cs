@@ -142,13 +142,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table5.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "PNGImage.png"});
 #line 8
  await testRunner.WhenAsync(string.Format("Send the request with a correct image as input using baseUrl \"{0}\" and apiKey \"{1" +
-                            "}\"", baseUrl, apiKey), ((string)(null)), table5, "When ");
+                            "}\"", baseUrl, apiKey), ((string)(null)), table4, "When ");
 #line hidden
 #line 11
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -196,24 +196,24 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table6.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "More256KBImage.jpg"});
 #line 17
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in PNG format with size more than 256kb usi" +
-                            "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table6, "When ");
+                            "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table5, "When ");
 #line hidden
 #line 20
  await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table7.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Less256KBImage.png"});
 #line 21
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in PNG format with size less than 256kb usi" +
-                            "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table7, "When ");
+                            "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table6, "When ");
 #line hidden
 #line 24
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -261,13 +261,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table8.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "BlurryPNGImage.png"});
 #line 30
  await testRunner.WhenAsync(string.Format("Send the request with a blurry image as input using baseUrl \"{0}\" and apiKey \"{1}" +
-                            "\"", baseUrl, apiKey), ((string)(null)), table8, "When ");
+                            "\"", baseUrl, apiKey), ((string)(null)), table7, "When ");
 #line hidden
 #line 33
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -315,13 +315,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table9.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "NoCharacters.png"});
 #line 39
  await testRunner.WhenAsync(string.Format("Send the request with an invalid image (no characters) using baseUrl \"{0}\" and ap" +
-                            "iKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table9, "When ");
+                            "iKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table8, "When ");
 #line hidden
 #line 42
  await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -369,12 +369,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table10.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "NoCharacters.png"});
 #line 48
- await testRunner.WhenAsync(string.Format("Send a request using an invalid API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table10, "When ");
+ await testRunner.WhenAsync(string.Format("Send a request using an invalid API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table9, "When ");
 #line hidden
 #line 51
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -419,12 +419,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table11.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "PNGImage.png"});
 #line 56
- await testRunner.WhenAsync(string.Format("Send a request without API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table11, "When ");
+ await testRunner.WhenAsync(string.Format("Send a request without API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table10, "When ");
 #line hidden
 #line 59
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -469,15 +469,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table12.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "PNGImage.png"});
 #line 64
- await testRunner.WhenAsync(string.Format("Send the request with baseUrl \"{0}\" and correct API key \"{1}\" as input", baseUrl, apiKey), ((string)(null)), table12, "When ");
+ await testRunner.WhenAsync(string.Format("Send the request with baseUrl \"{0}\" and correct API key \"{1}\" as input", baseUrl, apiKey), ((string)(null)), table11, "When ");
 #line hidden
 #line 67
- await testRunner.AndAsync("Verify the response when correct APIkey is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.ThenAsync("Verify the response when correct APIkey is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -519,34 +519,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table13.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "JPEGImage.jpeg"});
-                table13.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "PNGImage.png"});
-                table13.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "BMPImage.bmp"});
-                table13.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "PDFImage.pdf"});
-                table13.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "TIFFImage.tiff"});
 #line 72
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF," +
                             " TIFF) using baseUrl \"{0}\" and apiKey \"{1}\" and verify the response and list of " +
-                            "all the identified character strings", baseUrl, apiKey), ((string)(null)), table13, "When ");
+                            "all the identified character strings", baseUrl, apiKey), ((string)(null)), table12, "When ");
 #line hidden
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table14.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "GIFImage.gif"});
-                table14.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "WEBPImage.webp"});
-                table14.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "SVGImage.svg"});
 #line 79
  await testRunner.AndAsync(string.Format("Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SV" +
-                            "G, etc.) using baseUrl \"{0}\" and apiKey \"{1}\" and verify the 400 error returned", baseUrl, apiKey), ((string)(null)), table14, "And ");
+                            "G, etc.) using baseUrl \"{0}\" and apiKey \"{1}\" and verify the 400 error returned", baseUrl, apiKey), ((string)(null)), table13, "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -588,13 +588,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table15.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "PNGImage.png"});
 #line 88
  await testRunner.WhenAsync(string.Format("Send a request to the OCR service under normal system load using baseUrl \"{0}\" an" +
-                            "d apiKey \"{1}\" and verify the median response time", baseUrl, apiKey), ((string)(null)), table15, "When ");
+                            "d apiKey \"{1}\" and verify the median response time", baseUrl, apiKey), ((string)(null)), table14, "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -634,13 +634,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
-                table16.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "PNGImage.png"});
 #line 95
  await testRunner.WhenAsync(string.Format("OCR service is deployed to all the cloud regions using baseUrl \"{0}\" and apiKey \"" +
-                            "{1}\"", baseUrl, apiKey), ((string)(null)), table16, "When ");
+                            "{1}\"", baseUrl, apiKey), ((string)(null)), table15, "When ");
 #line hidden
 #line 98
  await testRunner.AndAsync("OCR service should be operational in all the cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

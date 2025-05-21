@@ -24,6 +24,11 @@ namespace QuantumServicesAPI.Pages
         }
         public async Task<RestResponse?> PostImageRequest(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
+            if (apiEndpointsDTO.apiEndpoint == null || string.IsNullOrEmpty(apiEndpointsDTO.apiEndpoint.AnalyzeImage))
+            {
+                ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, "API endpoint or AnalyzeImage is null or empty.");
+                return null;
+            }
             var client = await _APIHelper.OCRUrl(baseUrl, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
             var request = await _APIHelper.CreatePostRequest(apikey);
 
@@ -51,6 +56,11 @@ namespace QuantumServicesAPI.Pages
         }
         public async Task<RestResponse?> PostImageMedianResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
+            if (apiEndpointsDTO.apiEndpoint == null || string.IsNullOrEmpty(apiEndpointsDTO.apiEndpoint.AnalyzeImage))
+            {
+                ExtentReportManager.GetInstance().LogToReport(test, Status.Fail, "API endpoint or AnalyzeImage is null or empty.");
+                return null;
+            }
             var client = await _APIHelper.OCRUrl(baseUrl, apiEndpointsDTO.apiEndpoint.AnalyzeImage);
             var request = await _APIHelper.CreatePostRequest(apikey);
 

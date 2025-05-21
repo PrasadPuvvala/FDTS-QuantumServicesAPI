@@ -24,8 +24,13 @@ namespace QuantumServicesAPI.Hooks
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
+            if (_reportManager == null)
+            {
+                throw new InvalidOperationException("ExtentReportManager instance is not initialized. Ensure Setup() is called before using the report manager.");
+            }
+
             var featureTitle = featureContext.FeatureInfo.Title;
-            var styledFeatureTitle = $"<span font-size:18px; font-weight:bold;'>{featureTitle.ToUpper()} : FEATURE</span>"; 
+            var styledFeatureTitle = $"<span font-size:18px; font-weight:bold;'>{featureTitle.ToUpper()} : FEATURE</span>";
             var featureTest = _reportManager.CreateFeature(styledFeatureTitle);
             featureContext.Set(featureTest, "FeatureTest");
             if (!_featureHierarchy.ContainsKey(featureTitle))
@@ -42,12 +47,29 @@ namespace QuantumServicesAPI.Hooks
 
             //TODO: implement logic that has to run before executing each scenario
 
-            string apiEndpointsConfig = @"../../../APIEndpoints.json";
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string projectRootDirectory = Directory.GetParent(baseDirectory)!.Parent!.Parent!.Parent!.FullName;
+            string APIEndpointsFilesDirectory = Path.Combine(projectRootDirectory, "JsonFiles");
+
+            // Find the first JSON file in the folder
+            var apiEndpointsConfig = Directory.GetFiles(APIEndpointsFilesDirectory, "APIEndpoints.json").FirstOrDefault();
             if (File.Exists(apiEndpointsConfig))
             {
                 string json = File.ReadAllText(apiEndpointsConfig);
                 var apiendpointssettings = Newtonsoft.Json.JsonConvert.DeserializeObject<APIEndpointsDTO>(json);
                 scenarioContext.Add("apiendpoints", apiendpointssettings);
+            }
+            else
+            {
+                throw new FileNotFoundException("Configuration file not found at path: " + apiEndpointsConfig);
+            }
+
+            var mfgDataServiceAPIkeyConfig= Directory.GetFiles(APIEndpointsFilesDirectory, "MFGDataServiceAPIkeys.json").FirstOrDefault();
+            if (File.Exists(mfgDataServiceAPIkeyConfig))
+            {
+                string mfgjson = File.ReadAllText(mfgDataServiceAPIkeyConfig);
+                var mfgdataserviceapikeyssettings = Newtonsoft.Json.JsonConvert.DeserializeObject<MFGDataServiceAPIKeysDTO>(mfgjson);
+                scenarioContext.Add("mfgdataserviceapikeys", mfgdataserviceapikeyssettings);
             }
             else
             {
@@ -63,7 +85,7 @@ namespace QuantumServicesAPI.Hooks
             {
                 var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} : ENVIRONMENT</span>"; 
                 _featureHierarchy[featureTitle][environment] = new Dictionary<string, ExtentTest>();
-                _featureHierarchy[featureTitle][environment]["__envRoot"] = _reportManager.CreateEnvironment(featureTest, envLabel);
+                _featureHierarchy[featureTitle][environment]["__envRoot"] = _reportManager!.CreateEnvironment(featureTest, envLabel);
             }
 
             var envNode = _featureHierarchy[featureTitle][environment]["__envRoot"];
@@ -72,14 +94,14 @@ namespace QuantumServicesAPI.Hooks
             if (!_featureHierarchy[featureTitle][environment].ContainsKey(region))
             {
                 var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} : REGION</span>"; 
-                _featureHierarchy[featureTitle][environment][region] = _reportManager.CreateRegion(envNode, regionLabel);
+                _featureHierarchy[featureTitle][environment][region] = _reportManager!.CreateRegion(envNode, regionLabel);
             }
 
             var regionNode = _featureHierarchy[featureTitle][environment][region];
 
             // Create scenario node
             var scenarioLabel = $"<span style='color:skyblue; font-weight:bold;'>{scenarioContext.ScenarioInfo.Title.ToUpper()}</span>";
-            _currentTest = _reportManager.CreateScenario(regionNode, scenarioLabel);
+            _currentTest = _reportManager!.CreateScenario(regionNode, scenarioLabel);
             scenarioContext.Set(_currentTest, "CurrentTest");
         }
 
@@ -92,7 +114,7 @@ namespace QuantumServicesAPI.Hooks
         [AfterTestRun]
         public static void TearDown()
         {
-            _reportManager.FlushReport();
+            _reportManager!.FlushReport();
         }
     }
 }
