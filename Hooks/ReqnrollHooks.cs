@@ -73,7 +73,19 @@ namespace QuantumServicesAPI.Hooks
             }
             else
             {
-                throw new FileNotFoundException("Configuration file not found at path: " + apiEndpointsConfig);
+                throw new FileNotFoundException("Configuration file not found at path: " + mfgDataServiceAPIkeyConfig);
+            }
+
+            var processControlServiceAPIkeyConfig= Directory.GetFiles(APIEndpointsFilesDirectory, "ProcessControlServiceAPIKeys.json").FirstOrDefault();
+            if (File.Exists(processControlServiceAPIkeyConfig))
+            {
+                string processControljson = File.ReadAllText(processControlServiceAPIkeyConfig);
+                var processControlserviceapikeyssettings = Newtonsoft.Json.JsonConvert.DeserializeObject<ProcessControlServiceAPIKeysDTO>(processControljson);
+                scenarioContext.Add("processcontrolserviceapikeys", processControlserviceapikeyssettings);
+            }
+            else
+            {
+                throw new FileNotFoundException("Configuration file not found at path: " + processControlServiceAPIkeyConfig);
             }
             var featureTitle = featureContext.FeatureInfo.Title;
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "UnknownEnv";

@@ -142,12 +142,486 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table16.AddRow(new string[] {
+                            "EventData.json"});
 #line 9
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using a valid APIkey \"{0}\" and base" +
-                            "Url \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+                            "Url \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table16, "When ");
 #line hidden
-#line 10
+#line 12
  await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1782446: Verify that the Process Control Service API returns an er" +
+            "ror when required metadata fields are missing")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _02TestCaseID1782446VerifyThatTheProcessControlServiceAPIReturnsAnErrorWhenRequiredMetadataFieldsAreMissing(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1782446: Verify that the Process Control Service API returns an er" +
+                    "ror when required metadata fields are missing", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 15
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table17.AddRow(new string[] {
+                            "MissingMetaData.json"});
+#line 17
+ await testRunner.WhenAsync(string.Format("Send a request to the API with missing required metadata fileds (e.g., without Ev" +
+                            "entDateTime, EventName, Status, SiteId, or WorkstationId) using a valid APIkey \"" +
+                            "{0}\" and baseUrl \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table17, "When ");
+#line hidden
+#line 20
+ await testRunner.ThenAsync("Verify the API response is missing metadata for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1783278: Verify that the Process Control Service API returns an er" +
+            "ror when invalid metadata is provided")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1783278VerifyThatTheProcessControlServiceAPIReturnsAnErrorWhenInvalidMetadataIsProvided(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1783278: Verify that the Process Control Service API returns an er" +
+                    "ror when invalid metadata is provided", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 23
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table18.AddRow(new string[] {
+                            "InvalidMetaData.json"});
+#line 25
+ await testRunner.WhenAsync(string.Format("Send a request with a Invalid metadata fields such as Incorrect TimestampUtc/Inva" +
+                            "lid Status/Non-unique SiteId or WorkstationId using a valid APIkey \"{0}\" and bas" +
+                            "eUrl \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table18, "When ");
+#line hidden
+#line 28
+ await testRunner.ThenAsync("Verify the API response is invalid metadata for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1783279: Verify that the Process Control Service API correctly pro" +
+            "cesses optional metadata fields")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _04TestCaseID1783279VerifyThatTheProcessControlServiceAPICorrectlyProcessesOptionalMetadataFields(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1783279: Verify that the Process Control Service API correctly pro" +
+                    "cesses optional metadata fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 31
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table19.AddRow(new string[] {
+                            "ExcludeMetaData.json"});
+#line 33
+ await testRunner.WhenAsync(string.Format("Send a request to the API with only the required metadata fields, excluding all o" +
+                            "ptional fields (Description, OrderNumber, ProductName, ProcessName, ProcessStepN" +
+                            "ame, Tags, Data) using a valid APIkey \"{0}\" and baseUrl \"{1}\" for its respective" +
+                            " cloud region", apiKey, baseUrl), ((string)(null)), table19, "When ");
+#line hidden
+#line 36
+ await testRunner.ThenAsync("Verify the API response excludes metadata fields for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1782454: Verify that the Process Control Service is accessible in " +
+            "all specified environments")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1782454VerifyThatTheProcessControlServiceIsAccessibleInAllSpecifiedEnvironments(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1782454: Verify that the Process Control Service is accessible in " +
+                    "all specified environments", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 39
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table20.AddRow(new string[] {
+                            "EventData.json"});
+#line 41
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" Region " +
+                            "using a valid APIkey \"{2}\" and baseUrl \"{3}\"", environment, region, apiKey, baseUrl), ((string)(null)), table20, "When ");
+#line hidden
+#line 44
+ await testRunner.ThenAsync("Verify the API response for specified environment", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("06Test Case ID 1789179: Verify Process Control Service Deployment in Each Cloud R" +
+            "egion")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _06TestCaseID1789179VerifyProcessControlServiceDeploymentInEachCloudRegion(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1789179: Verify Process Control Service Deployment in Each Cloud R" +
+                    "egion", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 47
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table21.AddRow(new string[] {
+                            "EventData.json"});
+#line 49
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" Region " +
+                            "using a valid APIkey \"{2}\" and baseUrl \"{3}\"", environment, region, apiKey, baseUrl), ((string)(null)), table21, "When ");
+#line hidden
+#line 52
+ await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("07Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
+            " requests with a valid API key per cloud region")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _07TestCaseID1784405VerifyThatTheProcessControlServiceAPIAuthenticatesRequestsWithAValidAPIKeyPerCloudRegion(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
+                    " requests with a valid API key per cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 55
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table22.AddRow(new string[] {
+                            "EventData.json"});
+#line 57
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using a valid APIkey \"{0}\" and base" +
+                            "Url \"{1}\" for its respective cloud region (Ex: EastUS, WestEurope, SouthEastAsia" +
+                            ")", apiKey, baseUrl), ((string)(null)), table22, "When ");
+#line hidden
+#line 60
+ await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("08Test Case ID 1784407: Verify that the Process Control Service API rejects reque" +
+            "sts using an API key from a different cloud region")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _08TestCaseID1784407VerifyThatTheProcessControlServiceAPIRejectsRequestsUsingAnAPIKeyFromADifferentCloudRegion(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1784407: Verify that the Process Control Service API rejects reque" +
+                    "sts using an API key from a different cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 63
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table23.AddRow(new string[] {
+                            "EventData.json"});
+#line 65
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" cloud R" +
+                            "egion using baseUrl \"{2}\" and apiKey \"{3}\" from a different cloud region and ver" +
+                            "ify the response", environment, region, baseUrl, apiKey), ((string)(null)), table23, "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("09Test Case ID 1784409: Verify that the Process Control Service API rejects reque" +
+            "sts without/invalid API key")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _09TestCaseID1784409VerifyThatTheProcessControlServiceAPIRejectsRequestsWithoutInvalidAPIKey(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1784409: Verify that the Process Control Service API rejects reque" +
+                    "sts without/invalid API key", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 70
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table24.AddRow(new string[] {
+                            "EventData.json"});
+#line 72
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using an invalid API key \"{0}\" with" +
+                            " baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table24, "When ");
+#line hidden
+#line 75
+ await testRunner.ThenAsync("Verify the API response using invalid API key", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table25.AddRow(new string[] {
+                            "EventData.json"});
+#line 76
+ await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service without API key \"{0}\" with baseUrl " +
+                            "\"{1}\"", apiKey, baseUrl), ((string)(null)), table25, "When ");
+#line hidden
+#line 79
+ await testRunner.ThenAsync("Verify the API response using without API key", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("10Test Case ID 1782464: Verify the Response Time for Process Control Service Unde" +
+            "r Normal Conditions")]
+        [NUnit.Framework.CategoryAttribute("processcontrolservice")]
+        [NUnit.Framework.TestCaseAttribute("dev", "europe", "https://dev.europe.api.apt.gn.com/process-control-service/v1", "f1ccb763d6654bbda62547c99a8b37fd", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "us", "https://dev.us.api.apt.gn.com/process-control-service/v1", "b02660d72a374ba9a4cf1220d3a8da27", null)]
+        [NUnit.Framework.TestCaseAttribute("dev", "asia", "https://dev.asia.api.apt.gn.com/process-control-service/v1", "ce2c2d2f115b435e9d5e4622df65d927", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/process-control-service/v1", "710dec5061df40768a8116cf4a4650a0", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/process-control-service/v1", "dab1453076f24424881b96d408fcd504", null)]
+        [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/process-control-service/v1", "7500f09cbdd947618aaf22a046aaed54", null)]
+        public async global::System.Threading.Tasks.Task _10TestCaseID1782464VerifyTheResponseTimeForProcessControlServiceUnderNormalConditions(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "processcontrolservice"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Environment", environment);
+            argumentsOfScenario.Add("Region", region);
+            argumentsOfScenario.Add("BaseUrl", baseUrl);
+            argumentsOfScenario.Add("ApiKey", apiKey);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1782464: Verify the Response Time for Process Control Service Unde" +
+                    "r Normal Conditions", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 82
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
+                            "MetaData"});
+                table26.AddRow(new string[] {
+                            "EventData.json"});
+#line 84
+ await testRunner.WhenAsync(string.Format("Send a request to the process control service under normal system load using base" +
+                            "Url \"{0}\" and apiKey \"{1}\" and verify the median response time", baseUrl, apiKey), ((string)(null)), table26, "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

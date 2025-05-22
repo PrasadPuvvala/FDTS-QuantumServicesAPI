@@ -1,0 +1,24 @@
+{
+  "description": "DSA test event data",
+  "orderNumber": null,
+  "serialNumber": "2100819205",
+  "processName": null,
+  "processStepName": null,
+  "productName": "RU962-DRW",
+  "userId": "TESTER",
+  "domainProperties": {
+    "productBrand": "ReSound",
+    "productFamily": "ReSound OMNIA 9",
+    "testType": "",
+    "hybridSerialNumber": "BE27-570A-6150",
+    "bleId": "1092029696",
+    "bleAddress": "",
+    "hearingInstrumentId": "GDImT27D0IBWU-Zu55PQb2T8qi0",
+    "firmwareVersion": "",
+    "deviceName": "RS.D3.Top.CbRIE13DW.7.44.1.1",
+    "tpiVersion": "1.0.28",
+    "tpiReleaseCode": "0000-0000-0000",
+    "testFrameworkVersion": "13.7.0",
+    "dsaPlatform": "FDTS"
+  }
+}

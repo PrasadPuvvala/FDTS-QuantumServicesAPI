@@ -8,7 +8,7 @@ namespace QuantumServicesAPI.DTO
 {
     public class EventData
     {
-        public DateTime eventDateTime { get; set; }
+        public string? eventDateTime { get; set; }
         public string? eventName { get; set; }
         public string? status { get; set; }
         public string? description { get; set; }
