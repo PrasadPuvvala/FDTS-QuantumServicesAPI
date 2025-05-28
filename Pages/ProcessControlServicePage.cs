@@ -35,7 +35,7 @@ namespace QuantumServicesAPI.Pages
                 // Load EventData from JSON file
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
-                var jsonFilePath = Path.Combine(projectRoot, "TestData", $"{eventMetaData}");
+                var jsonFilePath = Path.Combine(projectRoot, "ProcessControlTestData", $"{eventMetaData}");
 
                 if (!File.Exists(jsonFilePath))
                 {
@@ -79,7 +79,7 @@ namespace QuantumServicesAPI.Pages
                 // Load EventData from JSON file
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string projectRoot = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
-                var jsonFilePath = Path.Combine(projectRoot, "TestData", $"{eventMetaData}");
+                var jsonFilePath = Path.Combine(projectRoot, "ProcessControlTestData", $"{eventMetaData}");
 
                 if (!File.Exists(jsonFilePath))
                 {

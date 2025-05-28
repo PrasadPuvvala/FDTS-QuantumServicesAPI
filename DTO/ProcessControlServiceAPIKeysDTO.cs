@@ -18,5 +18,8 @@ namespace QuantumServicesAPI.DTO
         public string TstEurope { get; set; } = string.Empty;
         public string TstUs { get; set; } = string.Empty;
         public string TstAsia { get; set; } = string.Empty;
+        public string PrdEurope { get; set; } = string.Empty;
+        public string PrdUs { get; set; } = string.Empty;
+        public string PrdAsia { get; set; } = string.Empty;
     }
 }

@@ -5,6 +5,9 @@
     "DevAsia": "86065fd57ea04e32bb2e52cf8b3d84f8",
     "TstEurope": "4038ebf7e3ea45c29795b494d02fb117",
     "TstUs": "d71a0c7fc0e74b058bd66488e2ac9210",
-    "TstAsia": "c8aa703e5ef24b6ab4a28688f6c0bcd7"
+    "TstAsia": "c8aa703e5ef24b6ab4a28688f6c0bcd7",
+    "PrdEurope": "27027cfe7165409292a811b22db16b15",
+    "PrdUs": "f85931facb094b488d133cb0a62d5f11",
+    "PrdAsia": "40b8121ad7774e12b7443cfdca9d153a"
   }
 }
