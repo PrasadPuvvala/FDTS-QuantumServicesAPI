@@ -1,7 +1,25 @@
-﻿@DataSource:ocr-environments.json @DataSet:OcrService
+﻿# OCR Service Feature Specification
+#
+# This feature file defines the acceptance criteria and test scenarios for the OCR (Optical Character Recognition) Service.
+# The OCR Service is responsible for extracting character strings from images in various formats, enforcing file size and format restrictions,
+# handling authentication via API keys, and ensuring correct operation across different cloud regions.
+#
+# Scenarios include:
+# - Verifying correct extraction of text from supported image formats
+# - Enforcing image size and format constraints
+# - Handling blurry or invalid images
+# - Validating authentication and authorization mechanisms
+# - Measuring response times under normal load
+# - Ensuring deployment and operation in multiple cloud regions
+#
+# Each scenario is tagged for test selection and uses parameterized inputs for flexibility.
+
+@DataSource:ocr-environments.json @DataSet:OcrService
 Feature: OCR Service
 
-A short summary of the feature
+A short summary of the feature:
+The OCR Service provides an API to extract text from images in supported formats (JPEG, PNG, BMP, PDF, TIFF), enforces file size and format restrictions, requires API key authentication, and is designed for deployment across multiple cloud regions. This feature file specifies the expected behavior and test cases for the OCR Service.
+
 @ocrservice
 Scenario: 01Test Case ID 1769058: Verify that the OCR service returns a list of all identified character strings from the image provided
 

@@ -5,22 +5,44 @@ using Reqnroll;
 
 namespace QuantumServicesAPI.Hooks
 {
+    /// <summary>
+    /// Contains Reqnroll hooks for test execution lifecycle events.
+    /// Manages Extent Report nodes for features, environments, regions, and scenarios.
+    /// Loads configuration files and attaches them to the scenario context.
+    /// </summary>
     [Binding]
     public sealed class ReqnrollHooks
     {
         // For additional details on Reqnroll hooks see https://go.reqnroll.net/doc-hooks
 
+        /// <summary>
+        /// Singleton instance of the ExtentReportManager.
+        /// </summary>
         private static ExtentReportManager? _reportManager;
+
+        /// <summary>
+        /// The current ExtentTest node for the running scenario.
+        /// </summary>
         private static ExtentTest? _currentTest;
-        // Feature → Environment → Region → ExtentTest Node
+
+        /// <summary>
+        /// Hierarchy for organizing ExtentTest nodes: Feature → Environment → Region → ExtentTest Node.
+        /// </summary>
         private static readonly Dictionary<string, Dictionary<string, Dictionary<string, ExtentTest>>> _featureHierarchy = new();
 
+        /// <summary>
+        /// Initializes the ExtentReportManager before any tests run.
+        /// </summary>
         [BeforeTestRun]
         public static void Setup()
         {
             _reportManager = ExtentReportManager.GetInstance();
         }
 
+        /// <summary>
+        /// Creates a feature node in the Extent Report before each feature.
+        /// </summary>
+        /// <param name="featureContext">The context of the current feature.</param>
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
@@ -39,14 +61,18 @@ namespace QuantumServicesAPI.Hooks
             }
         }
 
+        /// <summary>
+        /// Runs before each scenario. Loads configuration files and creates environment/region/scenario nodes in the Extent Report.
+        /// </summary>
+        /// <param name="scenarioContext">The context of the current scenario.</param>
+        /// <param name="featureContext">The context of the current feature.</param>
         [BeforeScenario]
         public void FirstBeforeScenario(ScenarioContext scenarioContext, FeatureContext featureContext)
         {
             // Example of ordering the execution of hooks
             // See https://go.reqnroll.net/doc-hooks#hook-execution-order
 
-            //TODO: implement logic that has to run before executing each scenario
-
+            // Load configuration files and add them to the scenario context
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string projectRootDirectory = Directory.GetParent(baseDirectory)!.Parent!.Parent!.Parent!.FullName;
             string APIEndpointsFilesDirectory = Path.Combine(projectRootDirectory, "JsonFiles");
@@ -64,7 +90,7 @@ namespace QuantumServicesAPI.Hooks
                 throw new FileNotFoundException("Configuration file not found at path: " + apiEndpointsConfig);
             }
 
-            var mfgDataServiceAPIkeyConfig= Directory.GetFiles(APIEndpointsFilesDirectory, "MFGDataServiceAPIkeys.json").FirstOrDefault();
+            var mfgDataServiceAPIkeyConfig = Directory.GetFiles(APIEndpointsFilesDirectory, "MFGDataServiceAPIkeys.json").FirstOrDefault();
             if (File.Exists(mfgDataServiceAPIkeyConfig))
             {
                 string mfgjson = File.ReadAllText(mfgDataServiceAPIkeyConfig);
@@ -76,7 +102,7 @@ namespace QuantumServicesAPI.Hooks
                 throw new FileNotFoundException("Configuration file not found at path: " + mfgDataServiceAPIkeyConfig);
             }
 
-            var processControlServiceAPIkeyConfig= Directory.GetFiles(APIEndpointsFilesDirectory, "ProcessControlServiceAPIKeys.json").FirstOrDefault();
+            var processControlServiceAPIkeyConfig = Directory.GetFiles(APIEndpointsFilesDirectory, "ProcessControlServiceAPIKeys.json").FirstOrDefault();
             if (File.Exists(processControlServiceAPIkeyConfig))
             {
                 string processControljson = File.ReadAllText(processControlServiceAPIkeyConfig);
@@ -87,6 +113,8 @@ namespace QuantumServicesAPI.Hooks
             {
                 throw new FileNotFoundException("Configuration file not found at path: " + processControlServiceAPIkeyConfig);
             }
+
+            // Create environment, region, and scenario nodes in the Extent Report
             var featureTitle = featureContext.FeatureInfo.Title;
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "UnknownEnv";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? "UnknownRegion";
@@ -95,7 +123,7 @@ namespace QuantumServicesAPI.Hooks
             // Ensure environment node
             if (!_featureHierarchy[featureTitle].ContainsKey(environment))
             {
-                var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} : ENVIRONMENT</span>"; 
+                var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} : ENVIRONMENT</span>";
                 _featureHierarchy[featureTitle][environment] = new Dictionary<string, ExtentTest>();
                 _featureHierarchy[featureTitle][environment]["__envRoot"] = _reportManager!.CreateEnvironment(featureTest, envLabel);
             }
@@ -105,7 +133,7 @@ namespace QuantumServicesAPI.Hooks
             // Ensure region node under environment
             if (!_featureHierarchy[featureTitle][environment].ContainsKey(region))
             {
-                var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} : REGION</span>"; 
+                var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} : REGION</span>";
                 _featureHierarchy[featureTitle][environment][region] = _reportManager!.CreateRegion(envNode, regionLabel);
             }
 
@@ -117,12 +145,18 @@ namespace QuantumServicesAPI.Hooks
             scenarioContext.Set(_currentTest, "CurrentTest");
         }
 
+        /// <summary>
+        /// Runs after each scenario. Place logic here to execute after scenario execution.
+        /// </summary>
         [AfterScenario]
         public void AfterScenario()
         {
             //TODO: implement logic that has to run after executing each scenario
         }
 
+        /// <summary>
+        /// Flushes the Extent Report after all tests have run.
+        /// </summary>
         [AfterTestRun]
         public static void TearDown()
         {

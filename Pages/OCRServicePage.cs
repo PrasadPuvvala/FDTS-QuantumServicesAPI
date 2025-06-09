@@ -14,14 +14,31 @@ using RestSharp;
 
 namespace QuantumServicesAPI.Pages
 {
+    /// <summary>
+    /// Provides methods for interacting with the OCR service, including sending image analysis requests and measuring response times.
+    /// </summary>
     public class OCRServicePage
     {
         private readonly APIHelperClass _APIHelper;
         private static List<double> _responseTimes = new List<double>();  // Stores response times
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OCRServicePage"/> class.
+        /// </summary>
         public OCRServicePage()
         {
             _APIHelper = new APIHelperClass();
         }
+
+        /// <summary>
+        /// Sends an image analysis request to the OCR service.
+        /// </summary>
+        /// <param name="test">The ExtentTest instance for reporting.</param>
+        /// <param name="apiEndpointsDTO">The DTO containing API endpoint information.</param>
+        /// <param name="image">The name of the image file.</param>
+        /// <param name="baseUrl">The base URL of the OCR service.</param>
+        /// <param name="apikey">The API key for authentication.</param>
+        /// <returns>The RestResponse from the API, or null if an error occurred.</returns>
         public async Task<RestResponse?> PostImageRequest(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
             if (apiEndpointsDTO.apiEndpoint == null || string.IsNullOrEmpty(apiEndpointsDTO.apiEndpoint.AnalyzeImage))
@@ -54,6 +71,16 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
+
+        /// <summary>
+        /// Sends an image analysis request to the OCR service and measures the median response time.
+        /// </summary>
+        /// <param name="test">The ExtentTest instance for reporting.</param>
+        /// <param name="apiEndpointsDTO">The DTO containing API endpoint information.</param>
+        /// <param name="image">The name of the image file.</param>
+        /// <param name="baseUrl">The base URL of the OCR service.</param>
+        /// <param name="apikey">The API key for authentication.</param>
+        /// <returns>The RestResponse from the API, or null if an error occurred.</returns>
         public async Task<RestResponse?> PostImageMedianResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string image, string baseUrl, string apikey)
         {
             if (apiEndpointsDTO.apiEndpoint == null || string.IsNullOrEmpty(apiEndpointsDTO.apiEndpoint.AnalyzeImage))
@@ -106,6 +133,12 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
+
+        /// <summary>
+        /// Calculates the median value from a list of doubles.
+        /// </summary>
+        /// <param name="responseTimes">A list of doubles representing response times.</param>
+        /// <returns>The median value of the response times. Returns 0 if the list is empty.</returns>
         private double CalculateMedian(List<double> responseTimes)
         {
             if (responseTimes.Count == 0)

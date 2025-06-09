@@ -31,7 +31,8 @@ namespace QuantumServicesAPI.Features.OCRService
                 "DataSource:ocr-environments.json",
                 "DataSet:OcrService"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/OCRService", "OCR Service", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/OCRService", "OCR Service", @"A short summary of the feature:
+The OCR Service provides an API to extract text from images in supported formats (JPEG, PNG, BMP, PDF, TIFF), enforces file size and format restrictions, requires API key authentication, and is designed for deployment across multiple cloud regions. This feature file specifies the expected behavior and test cases for the OCR Service.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "OCRService.feature"
 #line hidden
@@ -135,7 +136,7 @@ namespace QuantumServicesAPI.Features.OCRService
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1769058: Verify that the OCR service returns a list of all identif" +
                     "ied character strings from the image provided", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -149,14 +150,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table4.AddRow(new string[] {
                             "PNGImage.png"});
-#line 8
+#line 26
  await testRunner.WhenAsync(string.Format("Send the request with a correct image as input using baseUrl \"{0}\" and apiKey \"{1" +
                             "}\"", baseUrl, apiKey), ((string)(null)), table4, "When ");
 #line hidden
-#line 11
+#line 29
  await testRunner.AndAsync("Verify the response when correct image is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 30
  await testRunner.ThenAsync("The response must contain a list of all the identified character strings.", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -192,7 +193,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1769060: Verify that the OCR service does not accept image with si" +
                     "ze more than 256kb", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 15
+#line 33
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -206,25 +207,25 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table5.AddRow(new string[] {
                             "More256KBImage.jpg"});
-#line 17
+#line 35
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in PNG format with size more than 256kb usi" +
                             "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table5, "When ");
 #line hidden
-#line 20
+#line 38
  await testRunner.ThenAsync("Verify the response when image size is more than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
                 global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "ImageFormat"});
                 table6.AddRow(new string[] {
                             "Less256KBImage.png"});
-#line 21
+#line 39
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in PNG format with size less than 256kb usi" +
                             "ng baseUrl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table6, "When ");
 #line hidden
-#line 24
+#line 42
  await testRunner.ThenAsync("Verify the response when image size is less than 256kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 25
+#line 43
  await testRunner.AndAsync("The response must contain a list of all the identified character strings.", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -260,7 +261,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1769076: Verify that the OCR service returns an empty list as resp" +
                     "onse when a blurry image is passed as an input.", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 28
+#line 46
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -274,14 +275,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table7.AddRow(new string[] {
                             "BlurryPNGImage.png"});
-#line 30
+#line 48
  await testRunner.WhenAsync(string.Format("Send the request with a blurry image as input using baseUrl \"{0}\" and apiKey \"{1}" +
                             "\"", baseUrl, apiKey), ((string)(null)), table7, "When ");
 #line hidden
-#line 33
+#line 51
  await testRunner.ThenAsync("Verify the response when the inputted image is blurry", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 34
+#line 52
  await testRunner.AndAsync("The response must contain an empty list.", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -317,7 +318,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1776266: Verify that the OCR service returns an empty list as resp" +
                     "onse when an invalid image is passed as an input.", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 37
+#line 55
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -331,14 +332,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table8.AddRow(new string[] {
                             "NoCharacters.png"});
-#line 39
+#line 57
  await testRunner.WhenAsync(string.Format("Send the request with an invalid image (no characters) using baseUrl \"{0}\" and ap" +
                             "iKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table8, "When ");
 #line hidden
-#line 42
+#line 60
  await testRunner.ThenAsync("Verify the response when the inputted image is an invalid image (no characters)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 43
+#line 61
  await testRunner.AndAsync("The response must contain an empty list.", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -374,7 +375,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1780460: Verify that requests sent to the OCR Service with an inva" +
                     "lid API key are rejected", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 46
+#line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -388,10 +389,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table9.AddRow(new string[] {
                             "NoCharacters.png"});
-#line 48
+#line 66
  await testRunner.WhenAsync(string.Format("Send a request using an invalid API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table9, "When ");
 #line hidden
-#line 51
+#line 69
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -427,7 +428,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1780459: Verify that requests without an API key for OCR Service a" +
                     "re rejected", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 54
+#line 72
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -441,10 +442,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table10.AddRow(new string[] {
                             "PNGImage.png"});
-#line 56
+#line 74
  await testRunner.WhenAsync(string.Format("Send a request without API key \"{0}\" with baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table10, "When ");
 #line hidden
-#line 59
+#line 77
  await testRunner.ThenAsync("The request is rejected and returns a 401 Unauthorized error", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -480,7 +481,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1780458: Verify that requests with a valid API key for OCR Service" +
                     " are authenticated successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 62
+#line 80
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -494,10 +495,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table11.AddRow(new string[] {
                             "PNGImage.png"});
-#line 64
+#line 82
  await testRunner.WhenAsync(string.Format("Send the request with baseUrl \"{0}\" and correct API key \"{1}\" as input", baseUrl, apiKey), ((string)(null)), table11, "When ");
 #line hidden
-#line 67
+#line 85
  await testRunner.ThenAsync("Verify the response when correct APIkey is inputted", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -533,7 +534,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1769059: Verify that the OCR service only accepts supported image " +
                     "formats (JPEG, PNG, BMP, PDF, and TIFF)", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 70
+#line 88
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -555,7 +556,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "PDFImage.pdf"});
                 table12.AddRow(new string[] {
                             "TIFFImage.tiff"});
-#line 72
+#line 90
  await testRunner.WhenAsync(string.Format("Send a request with input as an image in a supported format (JPEG, PNG, BMP, PDF," +
                             " TIFF) using baseUrl \"{0}\" and apiKey \"{1}\" and verify the response and list of " +
                             "all the identified character strings", baseUrl, apiKey), ((string)(null)), table12, "When ");
@@ -568,7 +569,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "WEBPImage.webp"});
                 table13.AddRow(new string[] {
                             "SVGImage.svg"});
-#line 79
+#line 97
  await testRunner.AndAsync(string.Format("Send a request with input as an image in an unsupported format (Ex: GIF, WEBP, SV" +
                             "G, etc.) using baseUrl \"{0}\" and apiKey \"{1}\" and verify the 400 error returned", baseUrl, apiKey), ((string)(null)), table13, "And ");
 #line hidden
@@ -605,7 +606,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1780485: Verify the Response Time for OCR Service Under Normal Con" +
                     "ditions", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 86
+#line 104
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -619,7 +620,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table14.AddRow(new string[] {
                             "PNGImage.png"});
-#line 88
+#line 106
  await testRunner.WhenAsync(string.Format("Send a request to the OCR service under normal system load using baseUrl \"{0}\" an" +
                             "d apiKey \"{1}\" and verify the median response time", baseUrl, apiKey), ((string)(null)), table14, "When ");
 #line hidden
@@ -654,7 +655,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("BaseUrl", baseUrl);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1780470: Verify OCR Service Deployment in Each Cloud Region", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 93
+#line 111
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -668,11 +669,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "ImageFormat"});
                 table15.AddRow(new string[] {
                             "PNGImage.png"});
-#line 95
+#line 113
  await testRunner.WhenAsync(string.Format("OCR service is deployed to all the cloud regions using baseUrl \"{0}\" and apiKey \"" +
                             "{1}\"", baseUrl, apiKey), ((string)(null)), table15, "When ");
 #line hidden
-#line 98
+#line 116
  await testRunner.AndAsync("OCR service should be operational in all the cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

@@ -1,7 +1,21 @@
-﻿@DataSource:mfg-environments.json @DataSet:MfgDataService
+﻿# Documentation:
+# The MFG Data Service feature verifies the correct processing, validation, and authentication of manufacturing data submissions via API.
+# It covers the following scenarios:
+# 1. Handling compressed and uncompressed JSON data, including size constraints (256 kb limit).
+# 2. API key authentication, including valid, invalid, and missing API keys.
+# 3. Rejection of unsupported file formats (e.g., XML, TXT) and oversized files.
+# 4. Environment and cloud region accessibility and deployment validation.
+# 5. Response time requirements under normal system load.
+#
+# Each scenario below is tagged with @mfgdataservice and references a specific test case ID for traceability.
+# Scenario steps use parameterized values for baseUrl, apiKey, Environment, and Region to support data-driven testing.
+# Data tables are used for file-based test inputs where applicable.
+
+@DataSource:mfg-environments.json @DataSet:MfgDataService
 Feature: MFG Data Service
 
-A short summary of the feature
+A short summary of the feature:
+The MFG Data Service feature verifies the correct processing, validation, and authentication of manufacturing data submissions via API. It covers scenarios for handling compressed and uncompressed JSON, format and size constraints, API key authentication, environment accessibility, cloud region deployment, and response time requirements.
 
 @mfgdataservice
 Scenario: 01Test Case ID 1784675: Verify that the MFG Data Service processes valid compressed JSON test data within the allowed size

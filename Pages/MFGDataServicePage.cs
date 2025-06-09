@@ -13,14 +13,31 @@ using System.Threading.Tasks;
 
 namespace QuantumServicesAPI.Pages
 {
+    /// <summary>
+    /// Provides methods for interacting with the MFG Data Service API endpoints.
+    /// </summary>
     public class MFGDataServicePage
     {
         private readonly APIHelperClass _APIHelper;
         private static List<double> _responseTimes = new List<double>();  // Stores response times
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MFGDataServicePage"/> class.
+        /// </summary>
         public MFGDataServicePage()
         {
             _APIHelper = new APIHelperClass();
         }
+
+        /// <summary>
+        /// Posts MFG data to the specified API endpoint.
+        /// </summary>
+        /// <param name="test">The ExtentTest instance for reporting.</param>
+        /// <param name="apiEndpointsDTO">The DTO containing API endpoint information.</param>
+        /// <param name="mfgDataFile">The name of the MFG data file.</param>
+        /// <param name="baseUrl">The base URL of the API.</param>
+        /// <param name="apikey">The API key for authentication.</param>
+        /// <returns>The RestResponse from the API, or null if an error occurred.</returns>
         public async Task<RestResponse?> PostMFGData(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string mfgDataFile, string baseUrl, string apikey)
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -59,6 +76,15 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
+
+        /// <summary>
+        /// Posts a request containing an MFG data file (JSON) compressed as a ZIP archive to the specified API endpoint.
+        /// </summary>
+        /// <param name="test">The ExtentTest instance for reporting.</param>
+        /// <param name="apiEndpointsDTO">The DTO containing API endpoint information.</param>
+        /// <param name="baseUrl">The base URL of the API.</param>
+        /// <param name="apikey">The API key for authentication.</param>
+        /// <returns>The RestResponse from the API, or null if an error occurred.</returns>
         public async Task<RestResponse?> PostRequestMFGDataFile(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string baseUrl, string apikey)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -124,6 +150,14 @@ namespace QuantumServicesAPI.Pages
             }
         }
 
+        /// <summary>
+        /// Posts a request containing an MFG data file (JSON) compressed as a ZIP archive to the specified API endpoint and measures the response time.
+        /// </summary>
+        /// <param name="test">The ExtentTest instance for reporting.</param>
+        /// <param name="apiEndpointsDTO">The DTO containing API endpoint information.</param>
+        /// <param name="baseUrl">The base URL of the API.</param>
+        /// <param name="apikey">The API key for authentication.</param>
+        /// <returns>The RestResponse from the API, or null if an error occurred.</returns>
         public async Task<RestResponse?> PostRequestMFGDataFileResponseTime(ExtentTest test, APIEndpointsDTO apiEndpointsDTO, string baseUrl, string apikey)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -209,6 +243,12 @@ namespace QuantumServicesAPI.Pages
                 return null;
             }
         }
+
+        /// <summary>
+        /// Calculates the median value from a list of doubles.
+        /// </summary>
+        /// <param name="responseTimes">A list of doubles representing response times.</param>
+        /// <returns>The median value of the response times. Returns 0 if the list is empty.</returns>
         private double CalculateMedian(List<double> responseTimes)
         {
             if (responseTimes.Count == 0)

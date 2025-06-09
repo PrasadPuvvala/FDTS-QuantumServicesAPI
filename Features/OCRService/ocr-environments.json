@@ -1,36 +1,48 @@
 {
+  // This file contains configuration for the OCR Service environments.
+  // Each entry specifies the environment (e.g., dev, tst), region (e.g., europe, us, asia),
+  // the base URL for the OCR service API, and the corresponding API key.
+  // Use this configuration to select the correct endpoint and credentials
+  // when integrating with the OCR service in different deployment scenarios.
+
   "OcrService": [
     {
+      // Development environment for Europe region
       "Environment": "dev",
       "Region": "europe",
       "BaseUrl": "https://dev.europe.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "39731117349c436792eca8513c7d2eb6"
     },
     {
+      // Development environment for US region
       "Environment": "dev",
       "Region": "us",
       "BaseUrl": "https://dev.us.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "9d6eb02ecab94926a74bcd5edccf28fa"
     },
     {
+      // Development environment for Asia region
       "Environment": "dev",
       "Region": "asia",
       "BaseUrl": "https://dev.asia.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "69df563662e74ba8811e47a9a61ccf7b"
     },
     {
+      // Test environment for Europe region
       "Environment": "tst",
       "Region": "europe",
       "BaseUrl": "https://tst.europe.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "781b802322d248079ba7cce2abc2531a"
     },
     {
+      // Test environment for US region
       "Environment": "tst",
       "Region": "us",
       "BaseUrl": "https://tst.us.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "74ccd49dac554d16b395ba814ed324c9"
     },
     {
+      // Test environment for Asia region
       "Environment": "tst",
       "Region": "asia",
       "BaseUrl": "https://tst.asia.api.apt.gn.com/ocr-service/v1",

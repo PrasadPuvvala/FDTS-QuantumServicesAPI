@@ -16,18 +16,30 @@ using RestSharp;
 
 namespace QuantumServicesAPI.StepDefinitions
 {
+    /// <summary>
+    /// Step definitions for OCR service API tests.
+    /// Handles sending requests to the OCR service and validating responses for various scenarios.
+    /// </summary>
     [Binding]
     public class OCRServiceStepDefinitions
     {
         private readonly OCRServicePage _OCRServicePage;
         private RestResponse? _response;
         private readonly ScenarioContext _scenarioContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OCRServiceStepDefinitions"/> class.
+        /// </summary>
+        /// <param name="scenarioContext">The scenario context for sharing data between steps.</param>
         public OCRServiceStepDefinitions(ScenarioContext scenarioContext)
         {
             _OCRServicePage = new OCRServicePage();
             _scenarioContext = scenarioContext;
         }
 
+        /// <summary>
+        /// Sends a POST request to the OCR service with various image inputs and logs the result.
+        /// </summary>
         [When("Send the request with a correct image as input using baseUrl {string} and apiKey {string}")]
         [When("Send the request with a blurry image as input using baseUrl {string} and apiKey {string}")]
         [When("Send the request with an invalid image \\(no characters) using baseUrl {string} and apiKey {string}")]
@@ -54,6 +66,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request to the OCR service using an invalid API key and logs the result.
+        /// </summary>
         [When("Send a request using an invalid API key {string} with baseUrl {string}")]
         public async Task WhenSendARequestUsingAnInvalidAPIKeyWithBaseUrlAsync(string apiKey, string baseUrl, DataTable dataTable)
         {
@@ -80,6 +95,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request to the OCR service without an API key and logs the result.
+        /// </summary>
         [When("Send a request without API key {string} with baseUrl {string}")]
         public async Task WhenSendARequestWithoutAPIKeyWithBaseUrlAsync(string apiKey, string baseUrl, DataTable dataTable)
         {
@@ -106,6 +124,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request with a PNG image of specified size and logs the result.
+        /// </summary>
         [When("Send a request with input as an image in PNG format with size more than {int}kb using baseUrl {string} and apiKey {string}")]
         [When("Send a request with input as an image in PNG format with size less than {int}kb using baseUrl {string} and apiKey {string}")]
         public async Task WhenSendARequestWithInputAsAnImageInPNGFormatWithSizeMoreThanKbUsingBaseUrlAndApiKeyAsync(int p0, string baseUrl, string apiKey, DataTable dataTable)
@@ -129,6 +150,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request with images in supported formats and verifies the response and identified character strings.
+        /// </summary>
         [When("Send a request with input as an image in a supported format \\(JPEG, PNG, BMP, PDF, TIFF) using baseUrl {string} and apiKey {string} and verify the response and list of all the identified character strings")]
         public async Task WhenSendARequestWithInputAsAnImageInASupportedFormatJPEGPNGBMPPDFTIFFUsingBaseUrlAndApiKeyAndVerifyTheResponseAndListOfAllTheIdentifiedCharacterStringsAsync(string baseUrl, string apiKey, DataTable dataTable)
         {
@@ -172,6 +196,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request with images in unsupported formats and verifies the error response.
+        /// </summary>
         [When("Send a request with input as an image in an unsupported format \\(Ex: GIF, WEBP, SVG, etc.) using baseUrl {string} and apiKey {string} and verify the {int} error returned")]
         public async Task WhenSendARequestWithInputAsAnImageInAnUnsupportedFormatExGIFWEBPSVGEtc_UsingBaseUrlAndApiKeyAndVerifyTheErrorReturnedAsync(string baseUrl, string apiKey, int p2, DataTable dataTable)
         {
@@ -204,6 +231,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies the response when a correct image or API key is inputted, or for blurry/invalid images.
+        /// </summary>
         [Then("Verify the response when correct APIkey is inputted")]
         [When("Verify the response when correct image is inputted")]
         [Then("Verify the response when the inputted image is blurry")]
@@ -232,6 +262,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies that the response contains a list of all identified character strings.
+        /// </summary>
         [Then("The response must contain a list of all the identified character strings.")]
         public void ThenTheResponseMustContainAListOfAllTheIdentifiedCharacterStrings_()
         {
@@ -256,6 +289,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Sends a POST request to the OCR service under normal system load and verifies the median response time.
+        /// </summary>
         [When("Send a request to the OCR service under normal system load using baseUrl {string} and apiKey {string} and verify the median response time")]
         public async Task WhenSendARequestToTheOCRServiceUnderNormalSystemLoadUsingBaseUrlAndApiKeyAndVerifyTheMedianResponseTimeAsync(string baseUrl, string apiKey, DataTable dataTable)
         {
@@ -278,6 +314,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies the response when the image size is more than the specified value.
+        /// </summary>
         [Then("Verify the response when image size is more than {int}kb")]
         public void ThenVerifyTheResponseWhenImageSizeIsMoreThanKb(int p0)
         {
@@ -296,6 +335,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies the response when the image size is less than the specified value.
+        /// </summary>
         [Then("Verify the response when image size is less than {int}kb")]
         public void ThenVerifyTheResponseWhenImageSizeIsLessThanKb(int p0)
         {
@@ -313,6 +355,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies that the response contains an empty list.
+        /// </summary>
         [Then("The response must contain an empty list.")]
         public void ThenTheResponseMustContainAnEmptyList_()
         {
@@ -330,6 +375,9 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
+        /// <summary>
+        /// Verifies that the request is rejected and returns a 401 Unauthorized error.
+        /// </summary>
         [Then("The request is rejected and returns a {int} Unauthorized error")]
         public void ThenTheRequestIsRejectedAndReturnsAUnauthorizedError(int p0)
         {

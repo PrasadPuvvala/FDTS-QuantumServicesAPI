@@ -1,7 +1,30 @@
-﻿@DataSource:processcontrol-environments.json @DataSet:ProcessControlService
+﻿# Documentation for ProcessControlService.feature
+#
+# This feature file defines BDD scenarios for validating the Process Control Service API.
+# The API is responsible for managing and tracking process events across multiple cloud regions and environments.
+# The scenarios cover authentication, metadata validation, error handling, deployment accessibility, and performance.
+#
+# Scenario Overview:
+# 01: Validates authentication with a valid API key per cloud region.
+# 02: Checks error response when required metadata fields are missing.
+# 03: Checks error response for invalid metadata.
+# 04: Validates correct processing of optional metadata fields.
+# 05: Ensures service accessibility in all specified environments.
+# 06: Verifies deployment in each cloud region.
+# 07: Additional authentication validation for specific regions.
+# 08: Ensures API rejects requests with an API key from a different region.
+# 09: Ensures API rejects requests with invalid or missing API key.
+# 10: Measures response time under normal conditions.
+#
+# Data sources and datasets are referenced at the top of the file.
+# Each scenario uses parameterized values for API keys, base URLs, environments, and regions.
+# Metadata for requests is provided via JSON files referenced in the scenario tables.
+
+@DataSource:processcontrol-environments.json @DataSet:ProcessControlService
 Feature: Process Control Service
 
-A short summary of the feature
+A short summary of the feature:
+The Process Control Service API provides endpoints for managing and tracking process events across multiple cloud regions and environments. This feature validates authentication, metadata handling, error responses, and performance for the API, ensuring correct behavior under various scenarios including valid and invalid API keys, required and optional metadata, and deployment accessibility.
 
 @processcontrolservice
 Scenario: 01Test Case ID 1784405: Verify that the Process Control Service API authenticates requests with a valid API key per cloud region

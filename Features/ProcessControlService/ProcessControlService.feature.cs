@@ -31,7 +31,8 @@ namespace QuantumServicesAPI.Features.ProcessControlService
                 "DataSource:processcontrol-environments.json",
                 "DataSet:ProcessControlService"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/ProcessControlService", "Process Control Service", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/ProcessControlService", "Process Control Service", @"A short summary of the feature:
+The Process Control Service API provides endpoints for managing and tracking process events across multiple cloud regions and environments. This feature validates authentication, metadata handling, error responses, and performance for the API, ensuring correct behavior under various scenarios including valid and invalid API keys, required and optional metadata, and deployment accessibility.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "ProcessControlService.feature"
 #line hidden
@@ -135,7 +136,7 @@ namespace QuantumServicesAPI.Features.ProcessControlService
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
                     " requests with a valid API key per cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -149,11 +150,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table16.AddRow(new string[] {
                             "EventData.json"});
-#line 9
+#line 32
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using a valid APIkey \"{0}\" and base" +
                             "Url \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table16, "When ");
 #line hidden
-#line 12
+#line 35
  await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -189,7 +190,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1782446: Verify that the Process Control Service API returns an er" +
                     "ror when required metadata fields are missing", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 15
+#line 38
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -203,12 +204,12 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table17.AddRow(new string[] {
                             "MissingMetaData.json"});
-#line 17
+#line 40
  await testRunner.WhenAsync(string.Format("Send a request to the API with missing required metadata fileds (e.g., without Ev" +
                             "entDateTime, EventName, Status, SiteId, or WorkstationId) using a valid APIkey \"" +
                             "{0}\" and baseUrl \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table17, "When ");
 #line hidden
-#line 20
+#line 43
  await testRunner.ThenAsync("Verify the API response is missing metadata for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -244,7 +245,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1783278: Verify that the Process Control Service API returns an er" +
                     "ror when invalid metadata is provided", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 23
+#line 46
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -258,12 +259,12 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table18.AddRow(new string[] {
                             "InvalidMetaData.json"});
-#line 25
+#line 48
  await testRunner.WhenAsync(string.Format("Send a request with a Invalid metadata fields such as Incorrect TimestampUtc/Inva" +
                             "lid Status/Non-unique SiteId or WorkstationId using a valid APIkey \"{0}\" and bas" +
                             "eUrl \"{1}\" for its respective cloud region", apiKey, baseUrl), ((string)(null)), table18, "When ");
 #line hidden
-#line 28
+#line 51
  await testRunner.ThenAsync("Verify the API response is invalid metadata for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -299,7 +300,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1783279: Verify that the Process Control Service API correctly pro" +
                     "cesses optional metadata fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 31
+#line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -313,13 +314,13 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table19.AddRow(new string[] {
                             "ExcludeMetaData.json"});
-#line 33
+#line 56
  await testRunner.WhenAsync(string.Format("Send a request to the API with only the required metadata fields, excluding all o" +
                             "ptional fields (Description, OrderNumber, ProductName, ProcessName, ProcessStepN" +
                             "ame, Tags, Data) using a valid APIkey \"{0}\" and baseUrl \"{1}\" for its respective" +
                             " cloud region", apiKey, baseUrl), ((string)(null)), table19, "When ");
 #line hidden
-#line 36
+#line 59
  await testRunner.ThenAsync("Verify the API response excludes metadata fields for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -355,7 +356,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1782454: Verify that the Process Control Service is accessible in " +
                     "all specified environments", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 39
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -369,11 +370,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table20.AddRow(new string[] {
                             "EventData.json"});
-#line 41
+#line 64
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" Region " +
                             "using a valid APIkey \"{2}\" and baseUrl \"{3}\"", environment, region, apiKey, baseUrl), ((string)(null)), table20, "When ");
 #line hidden
-#line 44
+#line 67
  await testRunner.ThenAsync("Verify the API response for specified environment", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -409,7 +410,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1789179: Verify Process Control Service Deployment in Each Cloud R" +
                     "egion", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 47
+#line 70
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -423,11 +424,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table21.AddRow(new string[] {
                             "EventData.json"});
-#line 49
+#line 72
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" Region " +
                             "using a valid APIkey \"{2}\" and baseUrl \"{3}\"", environment, region, apiKey, baseUrl), ((string)(null)), table21, "When ");
 #line hidden
-#line 52
+#line 75
  await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -463,7 +464,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1784405: Verify that the Process Control Service API authenticates" +
                     " requests with a valid API key per cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 55
+#line 78
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -477,12 +478,12 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table22.AddRow(new string[] {
                             "EventData.json"});
-#line 57
+#line 80
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using a valid APIkey \"{0}\" and base" +
                             "Url \"{1}\" for its respective cloud region (Ex: EastUS, WestEurope, SouthEastAsia" +
                             ")", apiKey, baseUrl), ((string)(null)), table22, "When ");
 #line hidden
-#line 60
+#line 83
  await testRunner.ThenAsync("Verify the API response for each cloud region", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -518,7 +519,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1784407: Verify that the Process Control Service API rejects reque" +
                     "sts using an API key from a different cloud region", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 63
+#line 86
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -532,7 +533,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table23.AddRow(new string[] {
                             "EventData.json"});
-#line 65
+#line 88
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service \"{0}\" Environment and \"{1}\" cloud R" +
                             "egion using baseUrl \"{2}\" and apiKey \"{3}\" from a different cloud region and ver" +
                             "ify the response", environment, region, baseUrl, apiKey), ((string)(null)), table23, "When ");
@@ -570,7 +571,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1784409: Verify that the Process Control Service API rejects reque" +
                     "sts without/invalid API key", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 70
+#line 93
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -584,22 +585,22 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table24.AddRow(new string[] {
                             "EventData.json"});
-#line 72
+#line 95
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service using an invalid API key \"{0}\" with" +
                             " baseUrl \"{1}\"", apiKey, baseUrl), ((string)(null)), table24, "When ");
 #line hidden
-#line 75
+#line 98
  await testRunner.ThenAsync("Verify the API response using invalid API key", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
                 global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
                             "MetaData"});
                 table25.AddRow(new string[] {
                             "EventData.json"});
-#line 76
+#line 99
  await testRunner.WhenAsync(string.Format("Send a request to the Process Control Service without API key \"{0}\" with baseUrl " +
                             "\"{1}\"", apiKey, baseUrl), ((string)(null)), table25, "When ");
 #line hidden
-#line 79
+#line 102
  await testRunner.ThenAsync("Verify the API response using without API key", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -635,7 +636,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ApiKey", apiKey);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1782464: Verify the Response Time for Process Control Service Unde" +
                     "r Normal Conditions", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 82
+#line 105
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -649,7 +650,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "MetaData"});
                 table26.AddRow(new string[] {
                             "EventData.json"});
-#line 84
+#line 107
  await testRunner.WhenAsync(string.Format("Send a request to the process control service under normal system load using base" +
                             "Url \"{0}\" and apiKey \"{1}\" and verify the median response time", baseUrl, apiKey), ((string)(null)), table26, "When ");
 #line hidden
