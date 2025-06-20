@@ -45,27 +45,27 @@
       "Region": "asia",
       "BaseUrl": "https://tst.asia.api.apt.gn.com/mfg-data-service/v1",
       "ApiKey": "c8aa703e5ef24b6ab4a28688f6c0bcd7"
-    },
-    {
-      // Production environment for Europe region
-      "Environment": "prd",
-      "Region": "europe",
-      "BaseUrl": "https://europe.api.apt.gn.com/mfg-data-service/v1",
-      "ApiKey": "27027cfe7165409292a811b22db16b15"
-    },
-    {
-      // Production environment for US region
-      "Environment": "prd",
-      "Region": "us",
-      "BaseUrl": "https://us.api.apt.gn.com/mfg-data-service/v1",
-      "ApiKey": "f85931facb094b488d133cb0a62d5f11"
-    },
-    {
-      // Production environment for Asia region
-      "Environment": "prd",
-      "Region": "asia",
-      "BaseUrl": "https://asia.api.apt.gn.com/mfg-data-service/v1",
-      "ApiKey": "40b8121ad7774e12b7443cfdca9d153a"
+    //},
+    //{
+    //  // Production environment for Europe region
+    //  "Environment": "prd",
+    //  "Region": "europe",
+    //  "BaseUrl": "https://europe.api.apt.gn.com/mfg-data-service/v1",
+    //  "ApiKey": "27027cfe7165409292a811b22db16b15"
+    //},
+    //{
+    //  // Production environment for US region
+    //  "Environment": "prd",
+    //  "Region": "us",
+    //  "BaseUrl": "https://us.api.apt.gn.com/mfg-data-service/v1",
+    //  "ApiKey": "f85931facb094b488d133cb0a62d5f11"
+    //},
+    //{
+    //  // Production environment for Asia region
+    //  "Environment": "prd",
+    //  "Region": "asia",
+    //  "BaseUrl": "https://asia.api.apt.gn.com/mfg-data-service/v1",
+    //  "ApiKey": "40b8121ad7774e12b7443cfdca9d153a"
     }
   ]
 }

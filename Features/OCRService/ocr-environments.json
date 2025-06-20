@@ -47,24 +47,24 @@
       "Region": "asia",
       "BaseUrl": "https://tst.asia.api.apt.gn.com/ocr-service/v1",
       "ApiKey": "891b8ea3a52d4cce94d436d633eb1b07"
-    },
-    {
-      "Environment": "prd",
-      "Region": "europe",
-      "BaseUrl": "",
-      "ApiKey": ""
-    },
-    {
-      "Environment": "prd",
-      "Region": "us",
-      "BaseUrl": "",
-      "ApiKey": ""
-    },
-    {
-      "Environment": "prd",
-      "Region": "asia",
-      "BaseUrl": "",
-      "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "europe",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "us",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "asia",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
     }
   ]
 }

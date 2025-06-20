@@ -117,9 +117,6 @@ The OCR Service provides an API to extract text from images in supported formats
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _01TestCaseID1769058VerifyThatTheOCRServiceReturnsAListOfAllIdentifiedCharacterStringsFromTheImageProvided(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -174,9 +171,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _02TestCaseID1769060VerifyThatTheOCRServiceDoesNotAcceptImageWithSizeMoreThan256Kb(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -242,9 +236,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _03TestCaseID1769076VerifyThatTheOCRServiceReturnsAnEmptyListAsResponseWhenABlurryImageIsPassedAsAnInput_(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -299,9 +290,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _04TestCaseID1776266VerifyThatTheOCRServiceReturnsAnEmptyListAsResponseWhenAnInvalidImageIsPassedAsAnInput_(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -356,9 +344,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _05TestCaseID1780460VerifyThatRequestsSentToTheOCRServiceWithAnInvalidAPIKeyAreRejected(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -409,9 +394,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _06TestCaseID1780459VerifyThatRequestsWithoutAnAPIKeyForOCRServiceAreRejected(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -462,9 +444,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _07TestCaseID1780458VerifyThatRequestsWithAValidAPIKeyForOCRServiceAreAuthenticatedSuccessfully(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -515,9 +494,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _08TestCaseID1769059VerifyThatTheOCRServiceOnlyAcceptsSupportedImageFormatsJPEGPNGBMPPDFAndTIFF(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -587,9 +563,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _09TestCaseID1780485VerifyTheResponseTimeForOCRServiceUnderNormalConditions(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -637,9 +610,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("tst", "europe", "https://tst.europe.api.apt.gn.com/ocr-service/v1", "781b802322d248079ba7cce2abc2531a", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "us", "https://tst.us.api.apt.gn.com/ocr-service/v1", "74ccd49dac554d16b395ba814ed324c9", null)]
         [NUnit.Framework.TestCaseAttribute("tst", "asia", "https://tst.asia.api.apt.gn.com/ocr-service/v1", "891b8ea3a52d4cce94d436d633eb1b07", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "europe", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "us", "", "", null)]
-        [NUnit.Framework.TestCaseAttribute("prd", "asia", "", "", null)]
         public async global::System.Threading.Tasks.Task _10TestCaseID1780470VerifyOCRServiceDeploymentInEachCloudRegion(string environment, string region, string baseUrl, string apiKey, string[] exampleTags)
         {
             string[] @__tags = new string[] {

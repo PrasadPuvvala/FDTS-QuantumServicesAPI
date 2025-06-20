@@ -47,24 +47,24 @@
       "Region": "asia",
       "BaseUrl": "https://tst.asia.api.apt.gn.com/process-control-service/v1",
       "ApiKey": "7500f09cbdd947618aaf22a046aaed54"
-    },
-    {
-      "Environment": "prd",
-      "Region": "europe",
-      "BaseUrl": "",
-      "ApiKey": ""
-    },
-    {
-      "Environment": "prd",
-      "Region": "us",
-      "BaseUrl": "",
-      "ApiKey": ""
-    },
-    {
-      "Environment": "prd",
-      "Region": "asia",
-      "BaseUrl": "",
-      "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "europe",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "us",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
+    //},
+    //{
+    //  "Environment": "prd",
+    //  "Region": "asia",
+    //  "BaseUrl": "",
+    //  "ApiKey": ""
     }
   ]
 }
