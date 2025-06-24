@@ -1,0 +1,262 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.HearingInstrument";
+
+package Avalon.Dooku3.gRPCService;
+
+service HearingInstrument {
+  rpc Initialize (EmptyRequest) returns (VoidResponse);
+  rpc ConfigureProduct (ConfigureProductRequest) returns (VoidResponse);
+  rpc DetectBySerialNumber (DetectBySerialNumberRequest) returns (DetectBySerialNumberResponse);  
+  rpc DetectClosest (EmptyRequest) returns (DetectClosestResponse);
+  rpc DetectOnSide (DetectOnSideRequest) returns (DetectOnSideResponse);
+  rpc EnableMasterConnect (EnableMasterConnectRequest) returns (EnableMasterConnectResponse);
+  rpc EnableFittingMode (EnableFittingModeRequest) returns (EnableFittingModeResponse);
+  rpc GetDeviceNode (EmptyRequest) returns (GetDeviceNodeResponse);
+  rpc Connect (ConnectRequest) returns (ConnectResponse);
+  rpc GetBootMode (EmptyRequest) returns (GetBootModeResponse);
+  rpc Boot (BootRequest) returns (VoidResponse);
+  rpc GetFlashWriteProtectStatus (EmptyRequest) returns (GetFlashWriteProtectStatusResponse);
+  rpc SetFlashWriteProtectState (SetFlashWriteProtectStateRequest) returns (SetFlashWriteProtectStateResponse);
+  rpc IsRechargeable (EmptyRequest) returns (IsRechargeableResponse);
+  rpc GetBatteryLevel (EmptyRequest) returns (GetBatteryLevelResponse);
+  rpc ShouldVerifyMfiChip (EmptyRequest) returns (ShouldVerifyMfiChipResponse);
+  rpc VerifyMfiChipIsHealthy (EmptyRequest) returns (VoidResponse);
+  rpc GetBatteryType (EmptyRequest) returns (GetBatteryTypeResponse);
+  rpc SetBatteryType (SetBatteryTypeRequest) returns (VoidResponse);
+  rpc GetBatteryVoltage (EmptyRequest) returns (GetBatteryVoltageResponse);
+  rpc MakeDeviceFunctional (MakeDeviceFunctionalRequest) returns (VoidResponse);
+  rpc SetPowerOff (EmptyRequest) returns (VoidResponse);
+}
+
+enum AvalonStatus
+{
+    Unspecified = 0;
+    Success = 1;
+    FittingDongleNotFound = 2;
+    FittingDongleCreationFailed = 3;
+    FittingDongleDeterminationFailed = 4;
+    FittingDongleCloseFailed = 5;
+    FittingDongleOpenFailed = 6;
+    DeviceNotFound = 7;
+    DeviceIsCharging = 8;
+    ConnectFailed = 9;
+    AuthenticationFailed = 10;
+    FittingModeEnableFailed = 11;
+    HearingInstrumentCreationFailed = 12;
+    BlackBoardException = 13;
+    BootFailure = 14;
+    Calibration = 15;
+    StorageLayoutError = 16;
+    DeviceWriteError = 17;
+    DeviceReadError = 18;
+    FittingSessionError = 19;
+    HearingInstrumentPropertyReadFailed = 20;
+    FirmwareVariableReadFailed = 21;
+    MultipleDevicesFound = 22;
+    ResetBatteryRelatedDataFailed = 23;
+}
+
+enum Protocol
+{
+    None = 0;
+    I2C = 1;
+    Proximity = 2;
+    Ble = 4;
+    DetectionDefaultDetectionProtocols = 7;
+}
+
+enum BootMode
+{
+    Unknown = 0;
+    Normal = 1;
+    Dfu = 2;
+    Fitting = 3;
+    NotConnectible = 4;
+    Charging = 5;
+    Service = 6;
+}
+
+enum LoLaStatus
+{
+    LoLaStatus_Unknown = 0;
+    NotEnabled = 1;
+    Enabled = 2;
+    NotAvailable = 3;
+}
+
+enum BootType
+{
+    DspStopped = 0;
+    DspRunning = 1;
+    DspRunningNotInHostMode = 2;
+    DspRunningNotInHostModeAsync = 3;
+    DfuMode = 4;
+    ServiceMode = 5;
+}
+
+enum FlashWriteProtectStatus
+{
+    FlashWriteProtectStatus_Unknown = 0;
+    NotLocked = 1;
+    Locked = 2;
+    LockedPermanent = 3;
+}
+
+enum FlashWriteProtectState
+{
+    UnLock = 0;
+    Lock = 4;
+    LockPermanent = 8;
+}
+
+enum ChannelSide
+{
+    ChannelSide_Unspecified = 0;
+    Right = 1;
+    Left = 2;
+    Both = 3;
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message ConfigureProductRequest 
+{
+	string folderPath = 1;
+}
+
+message DetectBySerialNumberRequest 
+{
+	string serialNumber = 1;
+}
+
+message DetectBySerialNumberResponse
+{
+	AvalonStatus avalonStatus = 1;
+}
+
+message DetectOnSideRequest 
+{
+	ChannelSide side = 1;
+}
+
+message DetectOnSideResponse
+{
+	AvalonStatus avalonStatus = 1;
+}
+
+message DetectClosestResponse
+{
+	AvalonStatus avalonStatus = 1;
+}
+
+message EnableMasterConnectRequest 
+{
+	bool isEnabled = 1;
+}
+
+message EnableMasterConnectResponse
+{
+	bool isEnabled = 1;
+}
+
+message EnableFittingModeRequest 
+{
+	bool isEnabled = 1;
+}
+
+message EnableFittingModeResponse
+{
+	bool isEnabled = 1;
+}
+
+message DeviceNode
+{
+    Protocol protocol = 1;
+    BootMode bootMode = 2;
+    LoLaStatus loLaStatus = 3;
+    string deviceName = 4;
+    string serialNumber = 5;
+    bytes bleDeviceIdentityBlob = 6;  
+    bytes deviceId = 7;
+}
+ 
+message GetDeviceNodeResponse
+{
+	DeviceNode deviceNode = 1;
+}
+ 
+message ConnectRequest 
+{
+	DeviceNode deviceNode = 1;
+}
+
+message ConnectResponse
+{
+	AvalonStatus avalonStatus = 1;
+}
+
+message GetBootModeResponse 
+{
+	BootMode bootMode = 1;
+}
+
+message BootRequest 
+{
+	BootType bootType = 1;
+    bool reconnect = 2;
+}
+
+message GetFlashWriteProtectStatusResponse 
+{
+	FlashWriteProtectStatus flashWriteProtectStatus = 1;
+}
+
+message SetFlashWriteProtectStateRequest
+{
+	FlashWriteProtectState flashWriteProtectState = 1;
+}
+
+message SetFlashWriteProtectStateResponse
+{
+    FlashWriteProtectStatus flashWriteProtectStatus = 1;
+}
+
+message IsRechargeableResponse 
+{
+	bool isRechargeable = 1;
+}
+
+message GetBatteryLevelResponse
+{
+    int32 batteryLevel = 1;
+}
+
+message ShouldVerifyMfiChipResponse
+{
+    bool isVerifyMfiChip = 1;
+}
+
+message GetBatteryTypeResponse 
+{
+	string batteryType = 1;
+}
+
+message SetBatteryTypeRequest 
+{
+	string batteryType = 1;
+}
+
+message GetBatteryVoltageResponse 
+{
+	int32 voltage = 1;
+	int32 minVoltage = 2;
+	int32 maxVoltage = 3;
+}
+
+message MakeDeviceFunctionalRequest 
+{
+    bool deviceIsFunctional = 1;
+}

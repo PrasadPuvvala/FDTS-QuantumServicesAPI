@@ -1,0 +1,131 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.ProductIdentification";
+
+package Avalon.Dooku3.gRPCService;
+
+service ProductIdentification {
+  rpc ReadPcbaPartNumber (EmptyRequest) returns (ReadPcbaPartNumberResponse);
+  rpc ReadInProductionCertInput (EmptyRequest) returns (ReadInProductionCertInputResponse);
+  rpc Read (EmptyRequest) returns (VoidResponse);
+  rpc GetPlatformName (EmptyRequest) returns (GetPlatformNameResponse);
+  rpc GetSerialNumber (EmptyRequest) returns (GetSerialNumberResponse);
+  rpc SetSerialNumber (SetSerialNumberRequest) returns (VoidResponse);
+  rpc GetSide (EmptyRequest) returns (GetSideResponse);
+  rpc SetSide (SetSideRequest) returns (VoidResponse);
+  rpc GetNetworkAddress (EmptyRequest) returns (GetNetworkAddressResponse);
+  rpc SetNewNetworkAddress (EmptyRequest) returns (VoidResponse);
+  rpc GetDateModified (EmptyRequest) returns (GetDateModifiedResponse);
+  rpc ResetDateModified (EmptyRequest) returns (VoidResponse);
+  rpc GetOptionsForDevice (EmptyRequest) returns (GetOptionsForDeviceResponse);
+  rpc SetOptionsForDevice (SetOptionsForDeviceRequest) returns (VoidResponse);
+  rpc GetPrivateLabelCode (EmptyRequest) returns (GetPrivateLabelCodeResponse);
+  rpc SetPrivateLabelCode (SetPrivateLabelCodeRequest) returns (VoidResponse);
+  rpc VerifyProduct (VerifyProductRequest) returns (VerifyProductResponse);
+  rpc Write (EmptyRequest) returns (VoidResponse);
+  rpc ReadHybridSerialNumber (EmptyRequest) returns (ReadHybridSerialNumberResponse);
+  rpc UpdateGattDatabase (UpdateGattDatabaseRequest) returns (VoidResponse);
+  rpc ReadCloudRegistrationInput (ReadCloudRegistrationInputRequest) returns (ReadCloudRegistrationInputResponse);
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message ReadPcbaPartNumberResponse 
+{
+	uint32 pcbaPartNumber = 1;
+}
+
+message ReadInProductionCertInputResponse
+{
+    string readInProductionCertInput = 1;
+}
+
+message GetPlatformNameResponse
+{
+    string platformName = 1;
+}
+
+message GetSerialNumberResponse 
+{
+    string serialNumber = 1;
+}
+
+message SetSerialNumberRequest
+{
+    string serialNumber = 1;
+}
+
+message GetSideResponse
+{
+    string side = 1;
+}
+
+message SetSideRequest
+{
+    string side = 1;
+}
+
+message GetNetworkAddressResponse
+{
+    int32 networkAddress = 1;
+}
+
+message GetDateModifiedResponse
+{
+    string dateModified = 1;
+}
+
+message GetOptionsForDeviceResponse 
+{
+    int32 optionsForDevice = 1;
+}
+
+message SetOptionsForDeviceRequest
+{
+    int32 optionsForDevice = 1;
+}
+
+message GetPrivateLabelCodeResponse
+{
+    int32 privateLabelCode = 1;
+}
+
+message SetPrivateLabelCodeRequest
+{
+    int32 privateLabelCode = 1;
+}
+
+message VerifyProductRequest 
+{
+    int32 bleId = 1;
+    string brand = 2;
+    int32 privateLabel = 3;
+}
+
+message VerifyProductResponse 
+{
+    bool isSuccess = 1;
+}
+
+message ReadHybridSerialNumberResponse
+{
+    string hybridSerialNumber = 1;
+}
+
+message UpdateGattDatabaseRequest 
+{
+    map<string, string> gattKeyValueDictionary = 1;
+}
+
+message ReadCloudRegistrationInputRequest 
+{
+	bool rfuEnabled = 1;
+    bool rftEnabled = 2;
+}
+
+message ReadCloudRegistrationInputResponse 
+{
+	string cloudRegistrationInput = 1;
+}

@@ -1,0 +1,50 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.DeviceImage";
+
+package Avalon.Dooku3.gRPCService;
+
+service DeviceImage {
+  rpc LoadImageDataFromFile (LoadImageDataFromFileRequest) returns (VoidResponse);
+  rpc IsCustomProduct (EmptyRequest) returns (IsCustomProductResponse);
+  rpc IsOptimizedProgramming (IsOptimizedProgrammingRequest) returns (IsOptimizedProgrammingResponse);
+  rpc IsDfuCompatible (EmptyRequest) returns (IsDfuCompatibleResponse);
+  rpc Write (WriteRequest) returns (VoidResponse);
+  rpc WriteImageHash (EmptyRequest) returns (VoidResponse);
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message LoadImageDataFromFileRequest
+{
+	string fdiPath = 1;
+	string hdiPath = 2;
+}
+
+message IsCustomProductResponse 
+{
+	bool isCustomProduct = 1;
+}
+
+message IsOptimizedProgrammingRequest 
+{
+	int32 imageHashCookie = 1;
+	string deviceName = 2;
+}
+
+message IsOptimizedProgrammingResponse
+{
+	bool isOptimizedProgramming = 1;
+}
+
+message IsDfuCompatibleResponse
+{
+	bool isDfuCompatible = 1;
+}
+
+message WriteRequest 
+{
+	bool isOptimizedProgramming = 1;
+}

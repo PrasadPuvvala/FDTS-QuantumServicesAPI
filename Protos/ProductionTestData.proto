@@ -1,0 +1,79 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.ProductionTestData";
+
+package Avalon.Dooku3.gRPCService;
+
+service ProductionTestData {
+  rpc Read (EmptyRequest) returns (VoidResponse);
+  rpc GetTestSite (EmptyRequest) returns (GetTestSiteResponse);
+  rpc SetTestSite (SetTestSiteRequest) returns (VoidResponse);
+  rpc GetTestStation (EmptyRequest) returns (GetTestStationResponse);
+  rpc SetTestStation (SetTestStationRequest) returns (VoidResponse);
+  rpc GetTpiReleaseCode (EmptyRequest) returns (GetTpiReleaseCodeResponse);
+  rpc SetTpiReleaseCode (SetTpiReleaseCodeRequest) returns (VoidResponse);
+  rpc GetTestDate (EmptyRequest) returns (GetTestDateResponse);
+  rpc SetTestData (SetTestDateRequest) returns (VoidResponse);
+  rpc GetModelVerificationId (EmptyRequest) returns (GetModelVerificationIdResponse);
+  rpc SetModelVerificationId (SetModelVerificationIdRequest) returns (VoidResponse);
+  rpc Write (EmptyRequest) returns (VoidResponse);
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message GetTestSiteResponse 
+{
+	string testSite = 1;
+}
+
+message SetTestSiteRequest
+{
+	string testSite = 1;
+}
+
+message GetTestStationResponse
+{
+	string testStation = 1;
+}
+
+message SetTestStationRequest
+{
+	string testStation = 1;
+}
+
+message GetTpiReleaseCodeResponse
+{
+	string tpiReleaseCode = 1;
+}
+
+message SetTpiReleaseCodeRequest
+{
+	string tpiReleaseCode = 1;
+}
+
+message GetTestDateResponse
+{
+	string testData = 1;
+}
+
+message SetTestDateRequest
+{
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+	int32 hour = 4;
+	int32 minute = 5;
+	int32 second = 6;
+}
+
+message GetModelVerificationIdResponse
+{
+	int32 modelVerificationId = 1;
+}
+
+message SetModelVerificationIdRequest
+{
+	int32 modelVerificationId = 1;
+}

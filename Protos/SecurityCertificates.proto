@@ -1,0 +1,49 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.SecurityCertificates";
+
+package Avalon.Dooku3.gRPCService;
+
+service SecurityCertificates {
+  rpc WriteInProductionCertificate (WriteInProductionCertificateRequest) returns (VoidResponse);
+  rpc VerifyModelInPricePointCertificate (EmptyRequest) returns (VerifyModelInPricePointCertificateResponse);
+  rpc IsFamilyCertificateValid (EmptyRequest) returns (IsFamilyCertificateValidResponse);
+  rpc ReadPricePointCertInput (EmptyRequest) returns (ReadPricePointCertInputResponse);
+  rpc WritePricePointCertificate (WritePricePointCertificateRequest) returns (VoidResponse);
+}
+
+enum PricePointCertValidation
+{
+    ValidCertModelMatch = 0;
+    ValidCertModelMismatch = 1;
+    InvalidCert = 2;
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message WriteInProductionCertificateRequest 
+{
+	string certificate = 1;
+}
+
+message VerifyModelInPricePointCertificateResponse
+{
+	PricePointCertValidation pricePointCertValidation = 1;
+}
+
+message IsFamilyCertificateValidResponse
+{
+	bool isFamilyCertificateValid = 1;
+}
+
+message ReadPricePointCertInputResponse
+{
+	string pricePointCertInput = 1;
+}
+
+message WritePricePointCertificateRequest
+{
+	string certificate = 1;
+}

@@ -8,6 +8,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="ExtentReports" Version="5.0.4" />
+		<PackageReference Include="Google.Protobuf" Version="3.31.1" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.72.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 		<PackageReference Include="Reqnroll" Version="2.4.1" />
 		<PackageReference Include="Reqnroll.ExternalData" Version="2.4.1" />
@@ -18,7 +24,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- 💡 Moved Protobuf include outside the PackageReference block -->
+		<Protobuf Include="Protos\HearingInstrument.proto" GrpcServices="Client" />
+	</ItemGroup>
+	
+	<ItemGroup>
 	  <Folder Include="MFGDataFiles\" />
+	  <Folder Include="Protos\" />
 	</ItemGroup>
 
 </Project>
