@@ -103,14 +103,14 @@ namespace QuantumServicesAPI.Features.GRPCService
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01GRPC Services for Initialize method")]
+        [NUnit.Framework.DescriptionAttribute("01 GRPC Services for Initialize method")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _01GRPCServicesForInitializeMethod()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01GRPC Services for Initialize method", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01 GRPC Services for Initialize method", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -132,14 +132,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("02GRPC Service for ConfigureProduct")]
+        [NUnit.Framework.DescriptionAttribute("02 GRPC Service for ConfigureProduct")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _02GRPCServiceForConfigureProduct()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02GRPC Service for ConfigureProduct", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02 GRPC Service for ConfigureProduct", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -162,14 +162,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("03GRPC Service for DetectBySerialNumber")]
+        [NUnit.Framework.DescriptionAttribute("03 GRPC Service for DetectBySerialNumber")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _03GRPCServiceForDetectBySerialNumber()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03GRPC Service for DetectBySerialNumber", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03 GRPC Service for DetectBySerialNumber", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -192,14 +192,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("04GRPC Service for DetectClosest")]
+        [NUnit.Framework.DescriptionAttribute("04 GRPC Service for DetectClosest")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _04GRPCServiceForDetectClosest()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04GRPC Service for DetectClosest", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04 GRPC Service for DetectClosest", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 21
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -221,14 +221,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("05GRPC Service for DetectOnSide")]
+        [NUnit.Framework.DescriptionAttribute("05 GRPC Service for DetectOnSide")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _05GRPCServiceForDetectOnSide()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05GRPC Service for DetectOnSide", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05 GRPC Service for DetectOnSide", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 26
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -250,14 +250,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("06GRPC Service for EnableMasterConnect")]
+        [NUnit.Framework.DescriptionAttribute("06 GRPC Service for EnableMasterConnect")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _06GRPCServiceForEnableMasterConnect()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06GRPC Service for EnableMasterConnect", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06 GRPC Service for EnableMasterConnect", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 31
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -279,14 +279,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("07GRPC Service for EnableFittingMode")]
+        [NUnit.Framework.DescriptionAttribute("07 GRPC Service for EnableFittingMode")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _07GRPCServiceForEnableFittingMode()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07GRPC Service for EnableFittingMode", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07 GRPC Service for EnableFittingMode", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -308,14 +308,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("08GRPC Service for GetDeviceNode")]
+        [NUnit.Framework.DescriptionAttribute("08 GRPC Service for GetDeviceNode")]
         [NUnit.Framework.CategoryAttribute("GRPCService")]
         public async global::System.Threading.Tasks.Task _08GRPCServiceForGetDeviceNode()
         {
             string[] tagsOfScenario = new string[] {
                     "GRPCService"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08GRPC Service for GetDeviceNode", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08 GRPC Service for GetDeviceNode", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 41
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -331,6 +331,412 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 43
  await testRunner.ThenAsync("Verify the response for the GetDeviceNode on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("09 GRPC Service for Connect")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _09GRPCServiceForConnect()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09 GRPC Service for Connect", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 46
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 47
+ await testRunner.WhenAsync("I call the Connect on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 48
+ await testRunner.ThenAsync("Verify the response for the Connect on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("10 GRPC Service for GetBootMode")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _10GRPCServiceForGetBootMode()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10 GRPC Service for GetBootMode", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 51
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 52
+ await testRunner.WhenAsync("I call the GetBootMode on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 53
+ await testRunner.ThenAsync("Verify the response for the GetBootMode on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("11 GRPC Service for Boot")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _11GRPCServiceForBoot()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("11 GRPC Service for Boot", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 56
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 57
+ await testRunner.WhenAsync("I call the Boot on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 58
+ await testRunner.ThenAsync("Verify the response for the Boot on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("12 GRPC Service for GetFlashWriteProtectStatus")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _12GRPCServiceForGetFlashWriteProtectStatus()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("12 GRPC Service for GetFlashWriteProtectStatus", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 61
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 62
+ await testRunner.WhenAsync("I call the GetFlashWriteProtectStatus on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 63
+ await testRunner.ThenAsync("Verify the response for the GetFlashWriteProtectStatus on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("13 GRPC Service for SetFlashWriteProtectState")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _13GRPCServiceForSetFlashWriteProtectState()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("13 GRPC Service for SetFlashWriteProtectState", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 66
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 67
+ await testRunner.WhenAsync("I call the SetFlashWriteProtectState on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 68
+ await testRunner.ThenAsync("Verify the response for the SetFlashWriteProtectState on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("14 GRPC Service for IsRechargeable")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _14GRPCServiceForIsRechargeable()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("14 GRPC Service for IsRechargeable", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 71
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 72
+ await testRunner.WhenAsync("I call the IsRechargeable on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 73
+ await testRunner.ThenAsync("Verify the response for the IsRechargeable on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("15 GRPC Service for GetBatteryLevel")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _15GRPCServiceForGetBatteryLevel()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("15 GRPC Service for GetBatteryLevel", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 76
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 77
+ await testRunner.WhenAsync("I call the GetBatteryLevel on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 78
+ await testRunner.ThenAsync("Verify the response for the GetBatteryLevel on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("16 GRPC Service for ShouldVerifyMfiChip")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _16GRPCServiceForShouldVerifyMfiChip()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("16 GRPC Service for ShouldVerifyMfiChip", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 81
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 82
+ await testRunner.WhenAsync("I call the ShouldVerifyMfiChip on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 83
+ await testRunner.ThenAsync("Verify the response for the ShouldVerifyMfiChip on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("17 GRPC Service for VerifyMfiChipIsHealthy")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _17GRPCServiceForVerifyMfiChipIsHealthy()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("17 GRPC Service for VerifyMfiChipIsHealthy", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 86
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 87
+ await testRunner.WhenAsync("I call the VerifyMfiChipIsHealthy on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 88
+ await testRunner.ThenAsync("Verify the response for the VerifyMfiChipIsHealthy on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("18 GRPC Service for GetBatteryType")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _18GRPCServiceForGetBatteryType()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("18 GRPC Service for GetBatteryType", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 91
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 92
+ await testRunner.WhenAsync("I call the GetBatteryType on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 93
+ await testRunner.ThenAsync("Verify the response for the GetBatteryType on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("19 GRPC Service for SetBatteryType")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _19GRPCServiceForSetBatteryType()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("19 GRPC Service for SetBatteryType", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 96
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 97
+ await testRunner.WhenAsync("I call the SetBatteryType on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 98
+ await testRunner.ThenAsync("Verify the response for the SetBatteryType on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("20 GRPC Service for GetBatteryVoltage")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _20GRPCServiceForGetBatteryVoltage()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("20 GRPC Service for GetBatteryVoltage", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 101
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 102
+ await testRunner.WhenAsync("I call the GetBatteryVoltage on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 103
+ await testRunner.ThenAsync("Verify the response for the GetBatteryVoltage on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("21 GRPC Service for MakeDeviceFunctional")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _21GRPCServiceForMakeDeviceFunctional()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("21 GRPC Service for MakeDeviceFunctional", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 106
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 107
+ await testRunner.WhenAsync("I call the MakeDeviceFunctional on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 108
+ await testRunner.ThenAsync("Verify the response for the MakeDeviceFunctional on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("22 GRPC Service for SetPowerOff")]
+        [NUnit.Framework.CategoryAttribute("GRPCService")]
+        public async global::System.Threading.Tasks.Task _22GRPCServiceForSetPowerOff()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "GRPCService"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("22 GRPC Service for SetPowerOff", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 111
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 112
+ await testRunner.WhenAsync("I call the SetPowerOff on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 113
+ await testRunner.ThenAsync("Verify the response for the SetPowerOff on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

@@ -124,7 +124,7 @@ namespace QuantumServicesAPI.Hooks
 
             // Create environment, region, and scenario nodes in the Extent Report
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService")
+            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success")
             {
                 var url = GRPCAPIHelperClass.Url;
                 var sharedChannel = GrpcChannel.ForAddress(url);
@@ -146,8 +146,7 @@ namespace QuantumServicesAPI.Hooks
                 _featureHierarchy[featureTitle][environment] = new Dictionary<string, ExtentTest>();
                 _featureHierarchy[featureTitle][environment]["__envRoot"] = _reportManager!.CreateEnvironment(featureTest, envLabel);
             }
-
-
+            // Retrieve or create the environment node
             var envNode = _featureHierarchy[featureTitle][environment]["__envRoot"];
 
             // Ensure region node under environment
