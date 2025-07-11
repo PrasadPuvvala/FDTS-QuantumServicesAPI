@@ -55,7 +55,7 @@ namespace QuantumServicesAPI.Hooks
             }
 
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService")
+            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success")
             {
                 var exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
                 GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
@@ -135,7 +135,7 @@ namespace QuantumServicesAPI.Hooks
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
-            var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? "HearingInstrument";
+            var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";
             // Retrieve the feature node and create a scenario node under it
             var featureTest = featureContext.Get<ExtentTest>("FeatureTest");
             // Ensure environment node

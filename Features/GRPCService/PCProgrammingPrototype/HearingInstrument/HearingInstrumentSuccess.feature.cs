@@ -103,76 +103,17 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Hearing
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01 GRPC Services for Initialize method")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _01GRPCServicesForInitializeMethod()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01 GRPC Services for Initialize method", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 7
- await testRunner.WhenAsync("I call the Initialize method on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 8
- await testRunner.ThenAsync("Verify the response for the Initialize method on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("02 GRPC Service for ConfigureProduct")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _02GRPCServiceForConfigureProduct()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02 GRPC Service for ConfigureProduct", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 11
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 12
- await testRunner.WhenAsync("I call the ConfigureProduct on the GRPC service with folder path \"C:\\\\ProgramData" +
-                        "\\\\GN GOP\\\\Configuration\\\\FDTS\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 13
- await testRunner.ThenAsync("Verify the response for the ConfigureProduct on the GRPC service", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber API Returns " +
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber API Returns " +
             "\'Success\' When Valid Serial Number Matches a Device")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _03TestCaseID1809101AvalonServiceVerifyDetectBySerialNumberAPIReturnsSuccessWhenValidSerialNumberMatchesADevice()
+        public async global::System.Threading.Tasks.Task _01TestCaseID1809101AvalonServiceVerifyDetectBySerialNumberAPIReturnsSuccessWhenValidSerialNumberMatchesADevice()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber API Returns " +
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber API Returns " +
                     "\'Success\' When Valid Serial Number Matches a Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 16
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -185,13 +126,202 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table1.AddRow(new string[] {
-                            "2400800242"});
-#line 18
+                            "2400801520"});
+#line 8
  await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that ma" +
                         "tches an existing device", ((string)(null)), table1, "When ");
 #line hidden
-#line 21
- await testRunner.ThenAsync("API returns device node data and status \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 11
+ await testRunner.ThenAsync("API returns device node data and AvalonStatus \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1807206: [Avalon Service] Verify DetectClosest API Returns Correct" +
+            " Device Node Data for One or Multiple Devices")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _02TestCaseID1807206AvalonServiceVerifyDetectClosestAPIReturnsCorrectDeviceNodeDataForOneOrMultipleDevices()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1807206: [Avalon Service] Verify DetectClosest API Returns Correct" +
+                    " Device Node Data for One or Multiple Devices", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 14
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 16
+ await testRunner.WhenAsync("Send a request to the DetectClosest API when one device is found", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 17
+ await testRunner.ThenAsync("API returns the correct device node data and AvalonStatus \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Curre" +
+            "nt Fitting Side of the Device")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1809265AvalonServiceVerifyFittingSideAPIReturnsTheCurrentFittingSideOfTheDevice()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Curre" +
+                    "nt Fitting Side of the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 22
+ await testRunner.WhenAsync("Send a request to the FittingSide API to read the current fitting side from the d" +
+                        "evice", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 23
+ await testRunner.ThenAsync("API returns the fitting side of the connected device (Ex: Left or Right)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1809122: [Avalon Service] Verify DeviceNodeData API Returns Device" +
+            " Node Details When Device Is Connected")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _04TestCaseID1809122AvalonServiceVerifyDeviceNodeDataAPIReturnsDeviceNodeDetailsWhenDeviceIsConnected()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1809122: [Avalon Service] Verify DeviceNodeData API Returns Device" +
+                    " Node Details When Device Is Connected", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 26
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 28
+ await testRunner.WhenAsync("Connect a supported device Send a request to the DeviceNodeData API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 29
+ await testRunner.ThenAsync("API returns complete device node data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1809114: [Avalon Service] Verify ConnectToDevice API Returns \'Succ" +
+            "ess\' When Valid Device Node Data Is Provided")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1809114AvalonServiceVerifyConnectToDeviceAPIReturnsSuccessWhenValidDeviceNodeDataIsProvided()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1809114: [Avalon Service] Verify ConnectToDevice API Returns \'Succ" +
+                    "ess\' When Valid Device Node Data Is Provided", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 34
+ await testRunner.WhenAsync("Send a request to the ConnectToDevice API with valid and detected device node dat" +
+                        "a", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 35
+ await testRunner.ThenAsync("API successfully connects to the device and returns status \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("06Test Case ID 1809127: [Avalon Service] Verify CheckBootMode API Returns Boot Mo" +
+            "de of the Connected Device")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _06TestCaseID1809127AvalonServiceVerifyCheckBootModeAPIReturnsBootModeOfTheConnectedDevice()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1809127: [Avalon Service] Verify CheckBootMode API Returns Boot Mo" +
+                    "de of the Connected Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 40
+ await testRunner.WhenAsync("Connect a supported device Send a request to the CheckBootMode API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 41
+ await testRunner.ThenAsync("API returns the current boot mode of the connected device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("07Test Case ID 1810795: [Avalon Service] Verify BootDevice API Boots Device with " +
+            "selected Boot mode and reconnects when reconnect flag is True")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _07TestCaseID1810795AvalonServiceVerifyBootDeviceAPIBootsDeviceWithSelectedBootModeAndReconnectsWhenReconnectFlagIsTrue()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1810795: [Avalon Service] Verify BootDevice API Boots Device with " +
+                    "selected Boot mode and reconnects when reconnect flag is True", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 44
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 46
+ await testRunner.WhenAsync("Send a request to the BootDevice API with any boot type(Ex: DspRunning, DfuMode, " +
+                        "ServiceMode) and reconnect flag set to True", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 47
+ await testRunner.ThenAsync("Device boots and API reconnects to the device successfully.", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

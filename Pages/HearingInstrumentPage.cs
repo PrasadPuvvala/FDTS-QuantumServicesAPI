@@ -67,7 +67,7 @@ namespace QuantumServicesAPI.Pages
                 Reconnect = reconnect
             };
             return await _client.BootAsync(request);
-        }
+         }
         public async Task<GetFlashWriteProtectStatusResponse> CallGetFlashWriteProtectStatusAsync()
         {
             var request = new EmptyRequest();
