@@ -103,14 +103,16 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Hearing
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("[scenario name]")]
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber API Returns " +
+            "\'DeviceNotFound\' When No Matching Serial Number Exists")]
         [NUnit.Framework.CategoryAttribute("tag1")]
-        public async global::System.Threading.Tasks.Task ScenarioName()
+        public async global::System.Threading.Tasks.Task _01TestCaseID1809102AvalonServiceVerifyDetectBySerialNumberAPIReturnsDeviceNotFoundWhenNoMatchingSerialNumberExists()
         {
             string[] tagsOfScenario = new string[] {
                     "tag1"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("[scenario name]", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber API Returns " +
+                    "\'DeviceNotFound\' When No Matching Serial Number Exists", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -121,14 +123,45 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
- await testRunner.GivenAsync("[context]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
+                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber"});
+                table1.AddRow(new string[] {
+                            "2400801520"});
 #line 8
- await testRunner.WhenAsync("[action]", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that do" +
+                        "es not match any device.", ((string)(null)), table1, "When ");
 #line hidden
-#line 9
- await testRunner.ThenAsync("[outcome]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 11
+ await testRunner.ThenAsync("API returns null for device node data and status \"DeviceNotfound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Returns \'Device" +
+            "NotFound\' When No Devices Are Nearby")]
+        public async global::System.Threading.Tasks.Task _02TestCaseID1807118AvalonServiceVerifyDetectClosestAPIReturnsDeviceNotFoundWhenNoDevicesAreNearby()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Returns \'Device" +
+                    "NotFound\' When No Devices Are Nearby", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 15
+ await testRunner.WhenAsync("Send a request to the DetectClosest API when no devices are nearby", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 16
+ await testRunner.ThenAsync("DetectClosest API returns null for device node data and status \"DeviceNotFound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

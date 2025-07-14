@@ -26,6 +26,7 @@ namespace QuantumServicesAPI.StepDefinitions
         private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
         private ConnectResponse? _connectResponse;
         private GetBootModeResponse? _getBootModeResponse;
+        private GetFlashWriteProtectStatusResponse? _getFlashWriteProtectStatusResponse; // Declare '_getFlashWriteProtectStatusResponse' as nullable to fix CS8618
         public HearingInstrumentSuccessStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -279,18 +280,18 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
-        [When("Send a request to the BootDevice API with any boot type\\(Ex: DspRunning, DfuMode, ServiceMode) and reconnect flag set to True")]
-        public async Task WhenSendARequestToTheBootDeviceAPIWithAnyBootTypeExDspRunningDfuModeServiceModeAndReconnectFlagSetToTrueAsync()
+        [When("Send a request to the BootDevice API with any boot type\\(Ex: DspRunning, DfuMode, ServiceMode) {string} and reconnect flag set to True")]
+        public async Task WhenSendARequestToTheBootDeviceAPIWithAnyBootTypeExDspRunningDfuModeServiceModeAndReconnectFlagSetToTrueAsync(string bootMode)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
-            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
-            _getBootModeResponse = await _hearingInstrumentPage.CallGetBootModeAsync();
-            var bootMode = _getBootModeResponse.BootMode;                    // Get enum value
-            BootType bootTypeToUse = bootMode switch                      // Map BootMode → BootType
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());      
+            BootType bootTypeToUse = bootMode switch                     
             {
-                BootMode.Dfu => BootType.DfuMode,
-                BootMode.Fitting => BootType.DspRunning,
-                BootMode.Service => BootType.ServiceMode,
+                "ServiceMode" => BootType.ServiceMode,
+                "DspRunning" => BootType.DspRunning,
+                "DfuMode" => BootType.DfuMode,
+                "DspRunningNotInHostMode" => BootType.DspRunningNotInHostMode,
+                "DspRunningNotInHostModeAsync" => BootType.DspRunningNotInHostModeAsync,
                 _ => BootType.DspStopped
             };
             _response = await _hearingInstrumentPage.CallBootAsync(bootTypeToUse, true);
@@ -319,6 +320,54 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device booted successfully and API reconnected without errors.");
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Boot API Response", $"{_response?.ToString()}");
+            }
+        }
+
+        [When("Send a request to the FlashWriteProtect API to read current status")]
+        public async Task WhenSendARequestToTheFlashWriteProtectAPIToReadCurrentStatusAsync()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            _getFlashWriteProtectStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
+            if (_getFlashWriteProtectStatusResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GET request failed: Response is null");
+                throw new Exception("GET request failed: Response is null");
+            }
+            else
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Sent GET request Successfully");
+            }
+        }
+
+        [Then("API returns one of the valid states {string} , {string} & {string}")]
+        public void ThenAPIReturnsOneOfTheValidStates(string unLock, string @lock, string lockedPermanent)
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            if (_getFlashWriteProtectStatusResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "FlashWriteProtectStatus response is null.");
+                throw new Exception("FlashWriteProtectStatus response is null.");
+            }
+            // Validate FlashWriteProtectStatus
+            var actualStatus = _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus.ToString();
+            _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus.GetType().GetProperties()
+                .ToList().ForEach(p => ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"{p.Name} : {p.GetValue(_getFlashWriteProtectStatusResponse)}"));
+            var validStates = new[] { unLock, @lock, lockedPermanent };
+
+            var enumProp = _getFlashWriteProtectStatusResponse.GetType().GetProperties().FirstOrDefault(p => p.PropertyType.IsEnum);
+
+            if (validStates.Contains(actualStatus))
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtectStatus is valid: '{actualStatus}' (expected one of: {string.Join(", ", validStates)}).");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtectStatus Response : {actualStatus}");
+            }
+            else
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"FlashWriteProtectStatus '{actualStatus}' is not among expected values: {string.Join(", ", validStates)}.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"FlashWriteProtectStatus Response : {_getFlashWriteProtectStatusResponse.FlashWriteProtectStatus}");
+                throw new Exception("FlashWriteProtectStatus response is not one of the valid states.");
             }
         }
     }

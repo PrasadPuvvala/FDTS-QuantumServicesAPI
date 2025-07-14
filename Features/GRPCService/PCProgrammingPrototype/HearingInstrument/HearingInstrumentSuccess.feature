@@ -43,5 +43,11 @@ Scenario: 06Test Case ID 1809127: [Avalon Service] Verify CheckBootMode API Retu
 @HearingInstrument
 Scenario: 07Test Case ID 1810795: [Avalon Service] Verify BootDevice API Boots Device with selected Boot mode and reconnects when reconnect flag is True
 
-	When Send a request to the BootDevice API with any boot type(Ex: DspRunning, DfuMode, ServiceMode) and reconnect flag set to True
+	When Send a request to the BootDevice API with any boot type(Ex: DspRunning, DfuMode, ServiceMode) "ServiceMode" and reconnect flag set to True
 	Then Device boots and API reconnects to the device successfully.
+
+@HearingInstrument
+Scenario: 08Test Case ID 1810811: [Avalon Service] Verify FlashWriteProtect API returns current Flash Write Protect status on read request
+
+	When Send a request to the FlashWriteProtect API to read current status 
+	Then API returns one of the valid states "NotLocked" , "Locked" & "LockedPermanent"  

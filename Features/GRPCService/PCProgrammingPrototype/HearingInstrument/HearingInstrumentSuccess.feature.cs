@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table1.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "2400801520"});
 #line 8
  await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that ma" +
-                        "tches an existing device", ((string)(null)), table1, "When ");
+                        "tches an existing device", ((string)(null)), table2, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns device node data and AvalonStatus \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -318,10 +318,41 @@ this.ScenarioInitialize(scenarioInfo);
                 await this.ScenarioStartAsync();
 #line 46
  await testRunner.WhenAsync("Send a request to the BootDevice API with any boot type(Ex: DspRunning, DfuMode, " +
-                        "ServiceMode) and reconnect flag set to True", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+                        "ServiceMode) \"ServiceMode\" and reconnect flag set to True", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 47
  await testRunner.ThenAsync("Device boots and API reconnects to the device successfully.", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("08Test Case ID 1810811: [Avalon Service] Verify FlashWriteProtect API returns cur" +
+            "rent Flash Write Protect status on read request")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _08TestCaseID1810811AvalonServiceVerifyFlashWriteProtectAPIReturnsCurrentFlashWriteProtectStatusOnReadRequest()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1810811: [Avalon Service] Verify FlashWriteProtect API returns cur" +
+                    "rent Flash Write Protect status on read request", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 50
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 52
+ await testRunner.WhenAsync("Send a request to the FlashWriteProtect API to read current status", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 53
+ await testRunner.ThenAsync("API returns one of the valid states \"NotLocked\" , \"Locked\" & \"LockedPermanent\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

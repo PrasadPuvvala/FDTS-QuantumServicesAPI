@@ -55,7 +55,7 @@ namespace QuantumServicesAPI.Hooks
             }
 
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success")
+            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success" || featureTitle == "HearingInstrument Fail")
             {
                 var exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
                 GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
@@ -124,7 +124,7 @@ namespace QuantumServicesAPI.Hooks
 
             // Create environment, region, and scenario nodes in the Extent Report
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success")
+            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success" || featureTitle == "HearingInstrument Fail")
             {
                 var url = GRPCAPIHelperClass.Url;
                 var sharedChannel = GrpcChannel.ForAddress(url);
