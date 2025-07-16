@@ -105,11 +105,11 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Hearing
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber API Returns " +
             "\'DeviceNotFound\' When No Matching Serial Number Exists")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
         public async global::System.Threading.Tasks.Task _01TestCaseID1809102AvalonServiceVerifyDetectBySerialNumberAPIReturnsDeviceNotFoundWhenNoMatchingSerialNumberExists()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber API Returns " +
                     "\'DeviceNotFound\' When No Matching Serial Number Exists", null, tagsOfScenario, argumentsOfScenario, featureTags);
@@ -141,13 +141,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Returns \'Device" +
             "NotFound\' When No Devices Are Nearby")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
         public async global::System.Threading.Tasks.Task _02TestCaseID1807118AvalonServiceVerifyDetectClosestAPIReturnsDeviceNotFoundWhenNoDevicesAreNearby()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Returns \'Device" +
                     "NotFound\' When No Devices Are Nearby", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -157,10 +159,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 15
+#line 16
  await testRunner.WhenAsync("Send a request to the DetectClosest API when no devices are nearby", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 16
+#line 17
  await testRunner.ThenAsync("DetectClosest API returns null for device node data and status \"DeviceNotFound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
