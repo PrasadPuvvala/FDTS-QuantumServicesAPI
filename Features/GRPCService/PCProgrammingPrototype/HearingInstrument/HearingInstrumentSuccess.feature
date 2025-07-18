@@ -74,43 +74,55 @@ Scenario: 11Test Case ID 1810815: [Avalon Service] Verify FlashWriteProtect API 
 	Then API returns status as "LockPermanent"
 
 @HearingInstrument
-Scenario: 12Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns 'False' for Non-Rechargeable Devices
+Scenario: 12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'Lock'
+
+	When Send a request to FlashWriteProtect API with state "Lock"
+	Then API returns status as "LockPermanent" when state is set to Lock
+
+@HearingInstrument
+Scenario: 13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'UnLock'
+
+	When Send a request to FlashWriteProtect API with state "UnLock" 
+	Then API returns status as "LockPermanent" when state is set to UnLock
+
+@HearingInstrument
+Scenario: 14Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns 'False' for Non-Rechargeable Devices
 
 	When Connect a non-rechargeable device and send a request to the RHI Status API
 	Then API returns "False" for the RHI status
 
 @HearingInstrument
-Scenario: 13Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns 'True' for Rechargeable Devices
+Scenario: 15Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns 'True' for Rechargeable Devices
 
 	When Connect a rechargeable RHI device and send a request to the RHI Status API
 	Then API returns "True" for the RHI status
 
 @HearingInstrument
-Scenario: 14Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Battery Level of the Connected Device
+Scenario: 16Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Battery Level of the Connected Device
 
 	When Connect a supported RHI device Send a request to the RHIBatteryLevel API
 	Then API returns the battery level of the device values between 0 to 10
 
 @HearingInstrument
-Scenario: 15Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns 'False' When MFI Chip Is Unhealthy
+Scenario: 17Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns 'False' When MFI Chip Is Unhealthy
 
 	When Send a request to the MFI Chip Health API with a connected device having unhealthy MFI chip
 	Then API returns "False" for the MFI chip health status
 
 @HearingInstrument
-Scenario: 16Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns 'True' When MFI Chip Is Healthy
+Scenario: 18Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns 'True' When MFI Chip Is Healthy
 
 	When Send a request to the MFI Chip Health API with a connected device having healthy MFI chip
 	Then API returns "True" for the MFI chip health status
 
 @HearingInstrument
-Scenario: 17Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Battery Type from Device Successfully
+Scenario: 19Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Battery Type from Device Successfully
 
 	When Send a request to the RHI Battery Type API to read the battery type from the connected RHI device
 	Then API returns the correct battery type from the device
 
 @HearingInstrument
-Scenario: 18Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Battery Type to Device Successfully
+Scenario: 20Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Battery Type to Device Successfully
 
 	When Send a request to the RHI Battery Type API with a valid battery type to write to the connected RHI device
 		| BatteryType    |
@@ -118,25 +130,25 @@ Scenario: 18Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API W
 	Then Battery type is successfully written to the device
 
 @HearingInstrument
-Scenario: 19Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns battery voltage values for a RHI device
+Scenario: 21Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns battery voltage values for a RHI device
 
 	When Send a request to the ReadBatteryVoltage API on a RHI device
 	Then API returns valid values for Voltage,MinimumVoltage,MaximumVoltage
 
 @HearingInstrument
-Scenario: 20Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device Functional When 'Enable Functionality' Is Set to True
+Scenario: 22Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device Functional When 'Enable Functionality' Is Set to True
 
 	When Send a request to the DeviceFunctional API with enable functionality is "true"
 	Then Verify the response when enable functionality input is set to true
 
 @HearingInstrument
-Scenario: 21Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device Functional When 'Enable Functionality' Is Set to False
+Scenario: 23Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device Functional When 'Enable Functionality' Is Set to False
 
 	When Send a request to the DeviceFunctional API with enable functionality is "false"
 	Then Verify the response when enable functionality input is set to false
 
 @HearingInstrument
-Scenario: 22Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the Device When Requested
+Scenario: 24Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the Device When Requested
 
 	When Send a request to the RHIPowerOff API to power off the connected RHI device
 	Then Verify the response when RHIPowerOff API is called

@@ -55,10 +55,28 @@ namespace QuantumServicesAPI.Hooks
             }
 
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success" || featureTitle == "HearingInstrument Fail")
+            if (featureTitle.Contains("Success", StringComparison.OrdinalIgnoreCase) || featureTitle.Contains("Fail", StringComparison.OrdinalIgnoreCase))
             {
-                var exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
-                GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
+                // Use switch for faster branching and avoid repeated string comparisons
+                switch (featureTitle)
+                {
+                    case string s when s.Contains("Success", StringComparison.OrdinalIgnoreCase):
+                        SocketHelperClass.SuccessSocketCommands();
+                        break;
+                    case string s when s.Contains("Fail", StringComparison.OrdinalIgnoreCase):
+                        SocketHelperClass.FailureSocketCommands();
+                        break;
+                    default:
+                        // For GRPCService, we assume success commands are needed.
+                        SocketHelperClass.SuccessSocketCommands();
+                        break;
+                }
+                // Only launch the gRPC process if not already running
+                if (GRPCAPIHelperClass.GrpcProcess == null || GRPCAPIHelperClass.GrpcProcess.HasExited)
+                {
+                    const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
+                    GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
+                }
             }
             var styledFeatureTitle = $"<span font-size:18px; font-weight:bold;'>{featureTitle.ToUpper()} : FEATURE</span>";
             var featureTest = _reportManager.CreateFeature(styledFeatureTitle);
@@ -124,25 +142,27 @@ namespace QuantumServicesAPI.Hooks
 
             // Create environment, region, and scenario nodes in the Extent Report
             var featureTitle = featureContext.FeatureInfo.Title;
-            if (featureTitle == "GRPCService" || featureTitle == "HearingInstrument Success" || featureTitle == "HearingInstrument Fail")
+            if (featureTitle.Contains("Success", StringComparison.OrdinalIgnoreCase) || featureTitle.Contains("Fail", StringComparison.OrdinalIgnoreCase))
             {
                 var url = GRPCAPIHelperClass.Url;
                 var sharedChannel = GrpcChannel.ForAddress(url);
 
                 var hearingHelper = new HearingInstrumentPage(sharedChannel);
+                var productIdentificationHelper = new ProductIdentificationPage(sharedChannel);
 
                 scenarioContext["GrpcUrl"] = url;
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
+                scenarioContext["GrpcProductIdentification"] = productIdentificationHelper; 
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";
             // Retrieve the feature node and create a scenario node under it
             var featureTest = featureContext.Get<ExtentTest>("FeatureTest");
             // Ensure environment node
-            if (!_featureHierarchy[featureTitle].ContainsKey(environment) )
+            if (!_featureHierarchy[featureTitle].ContainsKey(environment))
             {
                 var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} </span>";
-              //  var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} : ENVIRONMENT</span>";
+                //  var envLabel = $"<span style='color:skyblue; font-weight:bold;'>{environment.ToUpper()} : ENVIRONMENT</span>";
                 _featureHierarchy[featureTitle][environment] = new Dictionary<string, ExtentTest>();
                 _featureHierarchy[featureTitle][environment]["__envRoot"] = _reportManager!.CreateEnvironment(featureTest, envLabel);
             }
@@ -153,7 +173,7 @@ namespace QuantumServicesAPI.Hooks
             if (!_featureHierarchy[featureTitle][environment].ContainsKey(region))
             {
                 var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} </span>";
-              //  var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} : REGION</span>";
+                //  var regionLabel = $"<span style='color:skyblue; font-weight:bold;'>{region.ToUpper()} : REGION</span>";
                 _featureHierarchy[featureTitle][environment][region] = _reportManager!.CreateRegion(envNode, regionLabel);
             }
 
@@ -175,19 +195,30 @@ namespace QuantumServicesAPI.Hooks
         }
 
         /// <summary>
+        /// Runs after each feature has completed execution.
+        /// Handles any necessary cleanup, such as terminating sockets or processes
+        /// that were started for the feature.
+        /// </summary>
+        /// <param name="featureContext">The context of the feature that has just finished.</param>
+        [AfterFeature]
+        public static void AfterFeature(FeatureContext featureContext)
+        {
+            SocketHelperClass.HandleProcessExit();
+            // Fix for CS1061: Check if GRPCAPIHelperClass has a method or property to determine if the gRPC service is running.
+            // Since 'IsGrpcServiceRunning' does not exist in ExtentReportManager, we should use GRPCAPIHelperClass directly.
+            if (GRPCAPIHelperClass.GrpcProcess != null && !GRPCAPIHelperClass.GrpcProcess.HasExited)
+            {
+                GRPCAPIHelperClass.StopGrpcLocalPort();
+            }
+        }
+
+        /// <summary>
         /// Flushes the Extent Report after all tests have run.
         /// </summary>
         [AfterTestRun]
         public static void TearDown()
         {
             _reportManager!.FlushReport();
-
-            // Fix for CS1061: Check if GRPCAPIHelperClass has a method or property to determine if the gRPC service is running.
-            // Since 'IsGrpcServiceRunning' does not exist in ExtentReportManager, we should use GRPCAPIHelperClass directly.
-            if (GRPCAPIHelperClass.GrpcProcess != null && !GRPCAPIHelperClass.GrpcProcess.HasExited)
-            {
-                GRPCAPIHelperClass.StopGrpcLocalPort();
-            }   
         }
     }
 }

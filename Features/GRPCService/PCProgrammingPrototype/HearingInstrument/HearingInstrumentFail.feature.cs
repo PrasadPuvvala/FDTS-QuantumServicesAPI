@@ -168,6 +168,37 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
+            " When No Device Is Connected")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1809120AvalonServiceVerifyDeviceNodeDataAPIReturnsNullWhenNoDeviceIsConnected()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
+                    " When No Device Is Connected", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 22
+ await testRunner.WhenAsync("Ensure that no device is connected Send a request to the DeviceNodeData API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 23
+ await testRunner.ThenAsync("API returns null for device node data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

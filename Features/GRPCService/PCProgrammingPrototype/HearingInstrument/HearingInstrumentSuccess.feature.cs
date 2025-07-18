@@ -457,16 +457,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("12Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns \'False\' fo" +
-            "r Non-Rechargeable Devices")]
+        [NUnit.Framework.DescriptionAttribute("12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not all" +
+            "ow changing state from \'LockedPermanent\' to \'Lock\'")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _12TestCaseID1809214AvalonServiceVerifyRHIStatusAPIReturnsFalseForNon_RechargeableDevices()
+        public async global::System.Threading.Tasks.Task _12TestIDCase1840256HIAutomationVerifyFlashWriteProtectAPIDoesNotAllowChangingStateFromLockedPermanentToLock()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("12Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns \'False\' fo" +
-                    "r Non-Rechargeable Devices", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not all" +
+                    "ow changing state from \'LockedPermanent\' to \'Lock\'", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 77
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -478,26 +478,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 79
- await testRunner.WhenAsync("Connect a non-rechargeable device and send a request to the RHI Status API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to FlashWriteProtect API with state \"Lock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 80
- await testRunner.ThenAsync("API returns \"False\" for the RHI status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns status as \"LockPermanent\" when state is set to Lock", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("13Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns \'True\' for" +
-            " Rechargeable Devices")]
+        [NUnit.Framework.DescriptionAttribute("13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not all" +
+            "ow changing state from \'LockedPermanent\' to \'UnLock\'")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _13TestCaseID1809213AvalonServiceVerifyRHIStatusAPIReturnsTrueForRechargeableDevices()
+        public async global::System.Threading.Tasks.Task _13TestCaseID1810947HIAutomationVerifyFlashWriteProtectAPIDoesNotAllowChangingStateFromLockedPermanentToUnLock()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("13Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns \'True\' for" +
-                    " Rechargeable Devices", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not all" +
+                    "ow changing state from \'LockedPermanent\' to \'UnLock\'", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 83
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -509,26 +509,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 85
- await testRunner.WhenAsync("Connect a rechargeable RHI device and send a request to the RHI Status API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to FlashWriteProtect API with state \"UnLock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 86
- await testRunner.ThenAsync("API returns \"True\" for the RHI status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns status as \"LockPermanent\" when state is set to UnLock", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("14Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Batte" +
-            "ry Level of the Connected Device")]
+        [NUnit.Framework.DescriptionAttribute("14Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns \'False\' fo" +
+            "r Non-Rechargeable Devices")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _14TestCaseID1809130AvalonServiceVerifyRHIBatteryLevelAPIReturnsBatteryLevelOfTheConnectedDevice()
+        public async global::System.Threading.Tasks.Task _14TestCaseID1809214AvalonServiceVerifyRHIStatusAPIReturnsFalseForNon_RechargeableDevices()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("14Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Batte" +
-                    "ry Level of the Connected Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("14Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns \'False\' fo" +
+                    "r Non-Rechargeable Devices", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 89
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -540,26 +540,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 91
- await testRunner.WhenAsync("Connect a supported RHI device Send a request to the RHIBatteryLevel API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Connect a non-rechargeable device and send a request to the RHI Status API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 92
- await testRunner.ThenAsync("API returns the battery level of the device values between 0 to 10", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns \"False\" for the RHI status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("15Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns \'Fals" +
-            "e\' When MFI Chip Is Unhealthy")]
+        [NUnit.Framework.DescriptionAttribute("15Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns \'True\' for" +
+            " Rechargeable Devices")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _15TestCaseID1809222AvalonServiceVerifyMFIChipHealthAPIReturnsFalseWhenMFIChipIsUnhealthy()
+        public async global::System.Threading.Tasks.Task _15TestCaseID1809213AvalonServiceVerifyRHIStatusAPIReturnsTrueForRechargeableDevices()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("15Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns \'Fals" +
-                    "e\' When MFI Chip Is Unhealthy", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("15Test Case ID 1809213: [Avalon Service] Verify RHI Status API Returns \'True\' for" +
+                    " Rechargeable Devices", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 95
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -571,27 +571,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 97
- await testRunner.WhenAsync("Send a request to the MFI Chip Health API with a connected device having unhealth" +
-                        "y MFI chip", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Connect a rechargeable RHI device and send a request to the RHI Status API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 98
- await testRunner.ThenAsync("API returns \"False\" for the MFI chip health status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns \"True\" for the RHI status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("16Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns \'True" +
-            "\' When MFI Chip Is Healthy")]
+        [NUnit.Framework.DescriptionAttribute("16Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Batte" +
+            "ry Level of the Connected Device")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _16TestCaseID1809221AvalonServiceVerifyMFIChipHealthAPIReturnsTrueWhenMFIChipIsHealthy()
+        public async global::System.Threading.Tasks.Task _16TestCaseID1809130AvalonServiceVerifyRHIBatteryLevelAPIReturnsBatteryLevelOfTheConnectedDevice()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("16Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns \'True" +
-                    "\' When MFI Chip Is Healthy", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("16Test Case ID 1809130: [Avalon Service] Verify RHIBatteryLevel API Returns Batte" +
+                    "ry Level of the Connected Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 101
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -603,27 +602,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 103
- await testRunner.WhenAsync("Send a request to the MFI Chip Health API with a connected device having healthy " +
-                        "MFI chip", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Connect a supported RHI device Send a request to the RHIBatteryLevel API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 104
- await testRunner.ThenAsync("API returns \"True\" for the MFI chip health status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns the battery level of the device values between 0 to 10", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("17Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Batter" +
-            "y Type from Device Successfully")]
+        [NUnit.Framework.DescriptionAttribute("17Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns \'Fals" +
+            "e\' When MFI Chip Is Unhealthy")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _17TestCaseID1809218AvalonServiceVerifyRHIBatteryTypeAPIReadsBatteryTypeFromDeviceSuccessfully()
+        public async global::System.Threading.Tasks.Task _17TestCaseID1809222AvalonServiceVerifyMFIChipHealthAPIReturnsFalseWhenMFIChipIsUnhealthy()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("17Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Batter" +
-                    "y Type from Device Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("17Test Case ID 1809222: [Avalon Service] Verify MFI Chip Health API Returns \'Fals" +
+                    "e\' When MFI Chip Is Unhealthy", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 107
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -635,10 +633,74 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 109
+ await testRunner.WhenAsync("Send a request to the MFI Chip Health API with a connected device having unhealth" +
+                        "y MFI chip", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 110
+ await testRunner.ThenAsync("API returns \"False\" for the MFI chip health status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("18Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns \'True" +
+            "\' When MFI Chip Is Healthy")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _18TestCaseID1809221AvalonServiceVerifyMFIChipHealthAPIReturnsTrueWhenMFIChipIsHealthy()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("18Test Case ID 1809221: [Avalon Service] Verify MFI Chip Health API Returns \'True" +
+                    "\' When MFI Chip Is Healthy", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 113
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 115
+ await testRunner.WhenAsync("Send a request to the MFI Chip Health API with a connected device having healthy " +
+                        "MFI chip", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 116
+ await testRunner.ThenAsync("API returns \"True\" for the MFI chip health status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("19Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Batter" +
+            "y Type from Device Successfully")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _19TestCaseID1809218AvalonServiceVerifyRHIBatteryTypeAPIReadsBatteryTypeFromDeviceSuccessfully()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("19Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API Reads Batter" +
+                    "y Type from Device Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 119
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 121
  await testRunner.WhenAsync("Send a request to the RHI Battery Type API to read the battery type from the conn" +
                         "ected RHI device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 110
+#line 122
  await testRunner.ThenAsync("API returns the correct battery type from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -646,17 +708,17 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("18Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Batte" +
+        [NUnit.Framework.DescriptionAttribute("20Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Batte" +
             "ry Type to Device Successfully")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _18TestCaseID1809217AvalonServiceVerifyRHIBatteryTypeAPIWritesBatteryTypeToDeviceSuccessfully()
+        public async global::System.Threading.Tasks.Task _20TestCaseID1809217AvalonServiceVerifyRHIBatteryTypeAPIWritesBatteryTypeToDeviceSuccessfully()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("18Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Batte" +
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("20Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Batte" +
                     "ry Type to Device Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 113
+#line 125
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -670,11 +732,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "BatteryType"});
                 table4.AddRow(new string[] {
                             "Mic-Power 9440"});
-#line 115
+#line 127
  await testRunner.WhenAsync("Send a request to the RHI Battery Type API with a valid battery type to write to " +
                         "the connected RHI device", ((string)(null)), table4, "When ");
 #line hidden
-#line 118
+#line 130
  await testRunner.ThenAsync("Battery type is successfully written to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -682,78 +744,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("19Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns ba" +
+        [NUnit.Framework.DescriptionAttribute("21Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns ba" +
             "ttery voltage values for a RHI device")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _19TestCaseID1810951AvalonServiceVerifyReadBatteryVoltageAPIReturnsBatteryVoltageValuesForARHIDevice()
+        public async global::System.Threading.Tasks.Task _21TestCaseID1810951AvalonServiceVerifyReadBatteryVoltageAPIReturnsBatteryVoltageValuesForARHIDevice()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("19Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns ba" +
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("21Test Case ID 1810951: [Avalon Service] Verify ReadBatteryVoltage API returns ba" +
                     "ttery voltage values for a RHI device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 121
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 123
- await testRunner.WhenAsync("Send a request to the ReadBatteryVoltage API on a RHI device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 124
- await testRunner.ThenAsync("API returns valid values for Voltage,MinimumVoltage,MaximumVoltage", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("20Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device" +
-            " Functional When \'Enable Functionality\' Is Set to True")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _20TestCaseID1809226AvalonServiceVerifyDeviceFunctionalAPIMakesDeviceFunctionalWhenEnableFunctionalityIsSetToTrue()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("20Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device" +
-                    " Functional When \'Enable Functionality\' Is Set to True", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 127
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 129
- await testRunner.WhenAsync("Send a request to the DeviceFunctional API with enable functionality is \"true\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 130
- await testRunner.ThenAsync("Verify the response when enable functionality input is set to true", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("21Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device" +
-            " Functional When \'Enable Functionality\' Is Set to False")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _21TestCaseID1809227AvalonServiceVerifyDeviceFunctionalAPIMakesDeviceFunctionalWhenEnableFunctionalityIsSetToFalse()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("21Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device" +
-                    " Functional When \'Enable Functionality\' Is Set to False", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 133
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -765,26 +765,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 135
- await testRunner.WhenAsync("Send a request to the DeviceFunctional API with enable functionality is \"false\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to the ReadBatteryVoltage API on a RHI device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 136
- await testRunner.ThenAsync("Verify the response when enable functionality input is set to false", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns valid values for Voltage,MinimumVoltage,MaximumVoltage", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("22Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the De" +
-            "vice When Requested")]
+        [NUnit.Framework.DescriptionAttribute("22Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device" +
+            " Functional When \'Enable Functionality\' Is Set to True")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _22TestCaseID1809231AvalonServiceVerifyRHIPowerOffAPIPowersOffTheDeviceWhenRequested()
+        public async global::System.Threading.Tasks.Task _22TestCaseID1809226AvalonServiceVerifyDeviceFunctionalAPIMakesDeviceFunctionalWhenEnableFunctionalityIsSetToTrue()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("22Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the De" +
-                    "vice When Requested", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("22Test Case ID 1809226: [Avalon Service] Verify DeviceFunctional API Makes Device" +
+                    " Functional When \'Enable Functionality\' Is Set to True", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 139
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -796,9 +796,71 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 141
- await testRunner.WhenAsync("Send a request to the RHIPowerOff API to power off the connected RHI device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to the DeviceFunctional API with enable functionality is \"true\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 142
+ await testRunner.ThenAsync("Verify the response when enable functionality input is set to true", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("23Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device" +
+            " Functional When \'Enable Functionality\' Is Set to False")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _23TestCaseID1809227AvalonServiceVerifyDeviceFunctionalAPIMakesDeviceFunctionalWhenEnableFunctionalityIsSetToFalse()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("23Test Case ID 1809227: [Avalon Service] Verify DeviceFunctional API Makes Device" +
+                    " Functional When \'Enable Functionality\' Is Set to False", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 145
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 147
+ await testRunner.WhenAsync("Send a request to the DeviceFunctional API with enable functionality is \"false\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 148
+ await testRunner.ThenAsync("Verify the response when enable functionality input is set to false", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("24Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the De" +
+            "vice When Requested")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _24TestCaseID1809231AvalonServiceVerifyRHIPowerOffAPIPowersOffTheDeviceWhenRequested()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("24Test Case ID 1809231: [Avalon Service] Verify RHIPowerOff API Powers Off the De" +
+                    "vice When Requested", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 151
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 153
+ await testRunner.WhenAsync("Send a request to the RHIPowerOff API to power off the connected RHI device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 154
  await testRunner.ThenAsync("Verify the response when RHIPowerOff API is called", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

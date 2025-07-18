@@ -452,7 +452,7 @@ namespace QuantumServicesAPI.StepDefinitions
         public async Task WhenSendARequestToTheFlashWriteProtectAPIWithStateAsAsync(string state)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
-            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             var stateMapping = new Dictionary<string, FlashWriteProtectState>(StringComparer.OrdinalIgnoreCase)
     {
@@ -467,22 +467,128 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw new ArgumentException($"Invalid FlashWriteProtectState: {state}");
             }
 
-            _setFlashWriteProtectStateResponse = await _hearingInstrumentPage.CallSetFlashWriteProtectStateAsync(flashWriteProtectStateToUse);
+            // Step 1: Check current Flash Write Protect status
+            var currentStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
+            if (currentStatusResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to read current Flash Write Protect status. Response is null.");
+                throw new Exception("FlashWriteProtectStatus read failed: response is null.");
+            }
 
+            var currentStatus = currentStatusResponse.FlashWriteProtectStatus;
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Current FlashWriteProtectStatus: {currentStatus}");
+
+            // Step 2: Ensure device is not in LockedPermanent state
+            if (currentStatus == FlashWriteProtectStatus.LockedPermanent)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Connected device is in LockedPermanent state. Cannot change FlashWriteProtect state.");
+                throw new InvalidOperationException("Device is LockedPermanent. FlashWriteProtect state change not allowed.");
+            }
+
+            // Step 3: Proceed to set new state
+            _setFlashWriteProtectStateResponse = await _hearingInstrumentPage.CallSetFlashWriteProtectStateAsync(flashWriteProtectStateToUse);
             if (_setFlashWriteProtectStateResponse == null)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GET request failed: Response is null");
-                throw new Exception("GET request failed: Response is null");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetFlashWriteProtectState API response is null.");
+                throw new Exception("SetFlashWriteProtectState response is null.");
             }
-            else
-            {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sent GET request Successfully");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtect API called successfully with state '{flashWriteProtectStateToUse}'.");
-            }
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtect API called successfully. New state: '{flashWriteProtectStateToUse}'.");
+            ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetFlashWriteProtectState Response", _setFlashWriteProtectStateResponse.ToString());
         }
 
         [Then("API returns status as {string}")]
         public void ThenAPIReturnsStatusAs(string expectedStatus)
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+
+            // Log the raw response for transparency
+            ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "SetFlashWriteProtectState Response", _setFlashWriteProtectStateResponse?.ToString() ?? "null");
+
+            if (_setFlashWriteProtectStateResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetFlashWriteProtectState API response is null. Cannot verify status.");
+                throw new Exception("SetFlashWriteProtectState API response is null.");
+            }
+
+            // Map input string to enum
+            var statusMapping = new Dictionary<string, FlashWriteProtectStatus>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "Lock", FlashWriteProtectStatus.Locked },
+        { "UnLock", FlashWriteProtectStatus.NotLocked },
+        { "LockPermanent", FlashWriteProtectStatus.LockedPermanent }
+    };
+
+            if (!statusMapping.TryGetValue(expectedStatus, out var expectedEnumStatus))
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Invalid expected status value: '{expectedStatus}'. Accepted values are: Lock, UnLock, LockPermanent.");
+                throw new ArgumentException($"Invalid expected status: {expectedStatus}");
+            }
+
+            var actualStatus = _setFlashWriteProtectStateResponse.FlashWriteProtectStatus;
+
+            if (actualStatus == expectedEnumStatus)
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,
+                    $"FlashWriteProtectStatus matched: Expected = '{expectedEnumStatus}', Actual = '{actualStatus}'.");
+            }
+            else
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail,
+                    $"FlashWriteProtectStatus mismatch. Expected = '{expectedEnumStatus}', Actual = '{actualStatus}'.");
+                throw new Exception($"FlashWriteProtectStatus mismatch. Expected: {expectedEnumStatus}, Actual: {actualStatus}");
+            }
+        }
+
+        [When("Send a request to FlashWriteProtect API with state {string}")]
+        public async Task WhenSendARequestToFlashWriteProtectAPIWithStateAsync(string state)
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+
+            var stateMapping = new Dictionary<string, FlashWriteProtectState>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "Lock", FlashWriteProtectState.Lock },
+        { "UnLock", FlashWriteProtectState.UnLock },
+        { "LockPermanent", FlashWriteProtectState.LockPermanent }
+    };
+
+            if (!stateMapping.TryGetValue(state, out var flashWriteProtectStateToUse))
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Invalid input '{state}' for FlashWriteProtectState. Expected values: Lock, UnLock, LockPermanent.");
+                throw new ArgumentException($"Invalid FlashWriteProtectState: {state}");
+            }
+
+            // Step 1: Check current Flash Write Protect status
+            var currentStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
+            if (currentStatusResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to read current Flash Write Protect status. Response is null.");
+                throw new Exception("FlashWriteProtectStatus read failed: response is null.");
+            }
+
+            var currentStatus = currentStatusResponse.FlashWriteProtectStatus;
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Current FlashWriteProtectStatus: {currentStatus}");
+
+            // Step 2: Proceed to call set API even if it's LockedPermanent (for this scenario)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Attempting to change FlashWriteProtect state to '{flashWriteProtectStateToUse}'.");
+
+            // Step 3: Proceed to set new state
+            _setFlashWriteProtectStateResponse = await _hearingInstrumentPage.CallSetFlashWriteProtectStateAsync(flashWriteProtectStateToUse);
+            if (_setFlashWriteProtectStateResponse == null)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetFlashWriteProtectState API response is null.");
+                throw new Exception("SetFlashWriteProtectState response is null.");
+            }
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtect API called successfully. New state: '{flashWriteProtectStateToUse}'.");
+            ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetFlashWriteProtectState Response", _setFlashWriteProtectStateResponse.ToString());
+        }
+
+        [Then("API returns status as {string} when state is set to Lock")]
+        [Then("API returns status as {string} when state is set to UnLock")]
+        public void ThenAPIReturnsStatusAsWhenStateIsSetToLock(string expectedStatus)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);

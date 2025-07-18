@@ -17,6 +17,20 @@ namespace QuantumServicesAPI.StepDefinitions
         private VoidResponse? _response; // Declare '_response' as nullable to fix CS8618
         private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
         private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
+        private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
+        private ChannelSide connectedSide; // Declare 'connectedSide' as global
+        private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
+        private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
+        private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
+        private ConnectResponse? _connectResponse;
+        private GetBootModeResponse? _getBootModeResponse;
+        private GetFlashWriteProtectStatusResponse? _getFlashWriteProtectStatusResponse; // Declare '_getFlashWriteProtectStatusResponse' as nullable to fix CS8618
+        private SetFlashWriteProtectStateResponse? _setFlashWriteProtectStateResponse; // Declare 'setFlashWriteProtectStateResponse' as global
+        private IsRechargeableResponse? _isRechargeableResponse; // Declare '_isRechargeableResponse' as nullable to fix CS8618
+        private GetBatteryLevelResponse? _getBatteryLevelResponse; // Declare '_getBatteryLevelResponse' as nullable to fix CS8618
+        private ShouldVerifyMfiChipResponse? _shouldVerifyMfiChipResponse;
+        private GetBatteryTypeResponse? _getBatteryTypeResponse;
+        private GetBatteryVoltageResponse? _getBatteryVoltageResponse;
         public HearingInstrumentFailStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -110,6 +124,23 @@ namespace QuantumServicesAPI.StepDefinitions
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API returned expected status '{expectedStatus}' and device node data.");
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Response : {_detectClosestResponse.AvalonStatus.ToString()}");
+        }
+
+        [When("Ensure that no device is connected Send a request to the DeviceNodeData API")]
+        public async Task WhenEnsureThatNoDeviceIsConnectedSendARequestToTheDeviceNodeDataAPIAsync()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
+            _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
+            _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting device node data from DeviceNodeData API...");
+            _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
+        }
+
+        [Then("API returns null for device node data")]
+        public void ThenAPIReturnsNullForDeviceNodeData()
+        {
+            //throw new PendingStepException();
         }
     }
 }

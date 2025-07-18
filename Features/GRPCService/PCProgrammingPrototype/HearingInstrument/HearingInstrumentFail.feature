@@ -15,3 +15,9 @@ Scenario: 02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Retu
 
 	When Send a request to the DetectClosest API when no devices are nearby
 	Then DetectClosest API returns null for device node data and status "DeviceNotFound"
+
+@HearingInstrument
+Scenario: 03Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns 'Null' When No Device Is Connected
+
+	When Ensure that no device is connected Send a request to the DeviceNodeData API 
+	Then API returns null for device node data
