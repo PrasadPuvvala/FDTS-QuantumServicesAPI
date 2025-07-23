@@ -123,12 +123,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table5.AddRow(new string[] {
-                            "2400801520"});
+                table8.AddRow(new string[] {
+                            "2400801519"});
 #line 8
- await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table5, "When ");
+ await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table8, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns the PCBA part number of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -220,12 +220,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table6.AddRow(new string[] {
-                            "2400801520"});
+                table9.AddRow(new string[] {
+                            "2400801519"});
 #line 28
- await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table6, "When ");
+ await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table9, "When ");
 #line hidden
 #line 31
  await testRunner.ThenAsync("API writes the serial number to the device and return status as \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

@@ -77,6 +77,7 @@ namespace QuantumServicesAPI.Pages
             return await _client.DetectOnSideAsync(request);
         }
 
+
         /// <summary>
         /// Enables or disables master connect mode.
         /// </summary>

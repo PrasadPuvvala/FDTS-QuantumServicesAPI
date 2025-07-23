@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1809234: [Avalon Service] Verify PCBAPartNumber API Ret
 
 	When Send a request to the PCBAPartNumber with connected device
 		| SerialNumber |
-		| 2400801520   |
+		| 2400801519   |
 	Then API returns the PCBA part number of the device
 
 @ProductIdentification
@@ -27,5 +27,5 @@ Scenario: 04Test Case ID 1809250: [Avalon Service] Verify SerialNumber API Succe
 
 	When Send a request to the SerialNumber API with a valid serial number
 		| SerialNumber |
-		| 2400801520   |
+		| 2400801519   |
 	Then API writes the serial number to the device and return status as "Success"

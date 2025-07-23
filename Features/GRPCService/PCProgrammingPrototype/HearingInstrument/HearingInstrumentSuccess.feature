@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber A
 	
 	When Send a request to the DetectBySerialNumber API with a valid serial number that matches an existing device
 		| SerialNumber |
-		| 2400801520   |
+		| 2400801519   |
 	Then API returns device node data and AvalonStatus "Success"
 
 @HearingInstrument
