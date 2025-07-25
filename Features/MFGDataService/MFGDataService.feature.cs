@@ -190,13 +190,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "MFGDataFile"});
-                table10.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "json_valid.json"});
 #line 29
  await testRunner.WhenAsync(string.Format("Send a request to MFG data service with an uncompressed JSON using baseUrl \"{0}\" " +
-                            "and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table10, "When ");
+                            "and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table17, "When ");
 #line hidden
 #line 32
  await testRunner.ThenAsync("Verify the response with the uncompressed data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -294,15 +294,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "MFGDataFile"});
-                table11.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "validxml.zip"});
-                table11.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "validtxt.zip"});
 #line 45
  await testRunner.WhenAsync(string.Format("Send a request to MFG data service with an unsupported format using baseUrl \"{0}\"" +
-                            " and apiKey \"{1}\" and verify the response with the unsupported format", baseUrl, apiKey), ((string)(null)), table11, "When ");
+                            " and apiKey \"{1}\" and verify the response with the unsupported format", baseUrl, apiKey), ((string)(null)), table18, "When ");
 #line hidden
 #line 49
  await testRunner.AndAsync(string.Format("Send a request to MFG data service with a compressed JSON below 256 kb using base" +
@@ -311,13 +311,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 50
  await testRunner.ThenAsync("Verify the response with the compressed JSON below 256 kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "MFGDataFile"});
-                table12.AddRow(new string[] {
+                table19.AddRow(new string[] {
                             "large_json_file.zip"});
 #line 51
  await testRunner.WhenAsync(string.Format("Send a request to MFG data service with a compressed JSON more 256 kb using baseU" +
-                            "rl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table12, "When ");
+                            "rl \"{0}\" and apiKey \"{1}\"", baseUrl, apiKey), ((string)(null)), table19, "When ");
 #line hidden
 #line 54
  await testRunner.ThenAsync("Verify the response with the compressed JSON more 256 kb", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

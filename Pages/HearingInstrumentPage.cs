@@ -254,5 +254,10 @@ namespace QuantumServicesAPI.Pages
             var request = new EmptyRequest();
             return await _client.SetPowerOffAsync(request);
         }
+
+        internal async Task<Avalon.Dooku3.gRPCService.Protos.ProductIdentification.GetSideResponse?> GetSideResponseAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -18,9 +18,7 @@ namespace QuantumServicesAPI.StepDefinitions
         private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
         private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
         private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private DetectOnSideResponse _oppositeSideResponse;
-        private DetectOnSideResponse _leftDetectOnSideResponse;
-        private DetectOnSideResponse _rightDetectOnSideResponse;
+        private DetectOnSideResponse? _oppositeSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
         private ChannelSide connectedSide; // Declare 'connectedSide' as global
         private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
         private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
@@ -182,7 +180,7 @@ namespace QuantumServicesAPI.StepDefinitions
             };
 
             _oppositeSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(oppositeSide);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info,$"Sent DetectOnSide request\n" +$"Connected Side: {connectedSide}\n" + $"Sent Side: {oppositeSide}\n" + $"Response: {_oppositeSideResponse.AvalonStatus}");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info,$"Sent DetectOnSide request\n" + $"Connected Side: {connectedSide}\n" + $"Sent Side: {oppositeSide}\n" + $"Response: {_oppositeSideResponse.AvalonStatus}");
         }
 
 
