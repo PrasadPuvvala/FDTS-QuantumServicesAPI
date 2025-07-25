@@ -1,11 +1,8 @@
-using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
+﻿using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using Avalon.Dooku3.gRPCService.Protos.ProductIdentification;
 using AventStack.ExtentReports;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
-using Reqnroll;
-using System;
-using System.Threading.Tasks;
 
 namespace QuantumServicesAPI.StepDefinitions
 {

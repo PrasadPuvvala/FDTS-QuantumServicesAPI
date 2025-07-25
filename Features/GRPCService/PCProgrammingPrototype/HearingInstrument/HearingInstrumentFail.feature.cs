@@ -170,17 +170,17 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
-            " When No Device Is Connected")]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809107: [Avalon Service] Verify DetectWired API Returns \'DeviceNo" +
+            "tFound\' When No Device Is Found for Monaural Side")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _03TestCaseID1809120AvalonServiceVerifyDeviceNodeDataAPIReturnsNullWhenNoDeviceIsConnected()
+        public async global::System.Threading.Tasks.Task _03TestCaseID1809107AvalonServiceVerifyDetectWiredAPIReturnsDeviceNotFoundWhenNoDeviceIsFoundForMonauralSide()
         {
             string[] tagsOfScenario = new string[] {
                     "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
-                    " When No Device Is Connected", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809107: [Avalon Service] Verify DetectWired API Returns \'DeviceNo" +
+                    "tFound\' When No Device Is Found for Monaural Side", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 21
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -190,11 +190,187 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 22
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber"});
+                table2.AddRow(new string[] {
+                            "2400801519"});
+#line 23
+ await testRunner.WhenAsync("Send a request to the DetectWired API with a valid monoaural side (e.g., \"Left/Ri" +
+                        "ght\") when no device is connected.", ((string)(null)), table2, "When ");
+#line hidden
+#line 26
+ await testRunner.ThenAsync("API returns null for device node data and status for DetectWired \"DeviceNotFound\"" +
+                        "", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
+            " When No Device Is Connected")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _04TestCaseID1809120AvalonServiceVerifyDeviceNodeDataAPIReturnsNullWhenNoDeviceIsConnected()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Returns \'Null\'" +
+                    " When No Device Is Connected", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 30
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 32
  await testRunner.WhenAsync("Ensure that no device is connected Send a request to the DeviceNodeData API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 23
+#line 33
  await testRunner.ThenAsync("API returns null for device node data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1809116: [Avalon Service] Verify ConnectToDevice API Returns \'Conn" +
+            "ectFailed\' When Device Connection Fails")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1809116AvalonServiceVerifyConnectToDeviceAPIReturnsConnectFailedWhenDeviceConnectionFails()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1809116: [Avalon Service] Verify ConnectToDevice API Returns \'Conn" +
+                    "ectFailed\' When Device Connection Fails", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 36
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 38
+    await testRunner.WhenAsync("Simulate where a valid device node is detected but the connection to the device a" +
+                        "nd Send a request to the ConnectToDevice API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 39
+ await testRunner.ThenAsync("API returns status \"ConnectFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("06Test Case ID 1809119: [Avalon Service] Verify ConnectToDevice API Returns \'Auth" +
+            "enticationFailed\' When Device Has Been Powered for More Than 3 Minutes")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _06TestCaseID1809119AvalonServiceVerifyConnectToDeviceAPIReturnsAuthenticationFailedWhenDeviceHasBeenPoweredForMoreThan3Minutes()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1809119: [Avalon Service] Verify ConnectToDevice API Returns \'Auth" +
+                    "enticationFailed\' When Device Has Been Powered for More Than 3 Minutes", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 42
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 44
+ await testRunner.WhenAsync("Select a device that has been powered on for more than 3 minutes, then attempt to" +
+                        " connect using the ConnectToDevice API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 45
+ await testRunner.ThenAsync("API returns a status \"AuthenticationFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("07Test Case ID 1809118: [Avalon Service] Verify ConnectToDevice API Returns \'Hear" +
+            "ingInstrumentCreationFailed\' When Device Model Is Not Found in Product Configura" +
+            "tion Database")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _07TestCaseID1809118AvalonServiceVerifyConnectToDeviceAPIReturnsHearingInstrumentCreationFailedWhenDeviceModelIsNotFoundInProductConfigurationDatabase()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1809118: [Avalon Service] Verify ConnectToDevice API Returns \'Hear" +
+                    "ingInstrumentCreationFailed\' When Device Model Is Not Found in Product Configura" +
+                    "tion Database", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 48
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber"});
+                table3.AddRow(new string[] {
+                            "1949192119"});
+#line 50
+ await testRunner.WhenAsync("Send a request to the ConnectToDevice API with a valid node data where the device" +
+                        " model not listed in the product configuration database", ((string)(null)), table3, "When ");
+#line hidden
+#line 53
+ await testRunner.ThenAsync("API returns the status \"HearingInstrumentCreationFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("08Test Case ID 1810796: [Avalon Service] Verify BootDevice API Boots Device with " +
+            "selected Boot mode without reconnecting when reconnect flag is False")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
+        public async global::System.Threading.Tasks.Task _08TestCaseID1810796AvalonServiceVerifyBootDeviceAPIBootsDeviceWithSelectedBootModeWithoutReconnectingWhenReconnectFlagIsFalse()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "HearingInstrument"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1810796: [Avalon Service] Verify BootDevice API Boots Device with " +
+                    "selected Boot mode without reconnecting when reconnect flag is False", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 56
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                            "BootType"});
+                table4.AddRow(new string[] {
+                            "ServiceMode"});
+                table4.AddRow(new string[] {
+                            "DfuMode"});
+                table4.AddRow(new string[] {
+                            "DspRunning"});
+#line 58
+ await testRunner.WhenAsync("Send a request to the BootDevice API with any boot type when reconnect flag is se" +
+                        "t to False and verify the response", ((string)(null)), table4, "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
