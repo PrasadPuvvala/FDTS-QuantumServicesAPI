@@ -1,18 +1,8 @@
 ﻿using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using Avalon.Dooku3.gRPCService.Protos.ProductIdentification;
 using AventStack.ExtentReports;
-using FluentAssertions;
-using Newtonsoft.Json;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
-using Reqnroll;
-using System;
-using System.Net;
-using System.Security.AccessControl;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static Avalon.Dooku3.gRPCService.Protos.ProductIdentification.ProductIdentification;
-using VoidResponse = Avalon.Dooku3.gRPCService.Protos.ProductIdentification.VoidResponse;
 
 namespace QuantumServicesAPI.StepDefinitions
 {
@@ -38,24 +28,12 @@ namespace QuantumServicesAPI.StepDefinitions
         private GetPlatformNameResponse? _getPlatformNameResponse;
         private GetSerialNumberResponse? _getSerialNumberResponse; // Declare 'getSerialNumberResponse' as nullable to fix CS8618
         private GetSideResponse? _getSideResponse; // Declare 'getSideResponse' as nullable to fix CS8618
-        private SetSideRequest? _setSideRequest; // Declare 'setSideRequest' as nullable to fix CS8618
-        private VoidResponse? _setSideResponse;
-        private GetNetworkAddressResponse? _getNetworkAddressResponse; // Declare 'getNetworkAddressResponse' as nullable to fix CS8618
-        private VoidResponse? _setNewNetworkAddressResponse;
-        private VerifyProductResponse? _verifyProductResponse;
-        private VerifyProductRequest? _verifyProductRequest;
-        private UpdateGattDatabaseRequest? _updateGattDatabaseRequest;
-        private VoidResponse _updateGattDatabaseResponse;
-        private ReadCloudRegistrationInputRequest? _readCloudRegistrationInputRequest;
+        private GetNetworkAddressResponse? _getNetworkAddressResponse;
+        private VerifyProductResponse? _verifyProductResponse; // Declare 'verifyProductResponse' as nullable to fix CS8618
         private ReadCloudRegistrationInputResponse? _readCloudRegistrationInputResponse;
-        private VoidResponse? _resetDateModifiedResponse;
-        private GetDateModifiedResponse _getDateModifiedResponse;
-        private GetOptionsForDeviceResponse _getOptionsForDeviceResponse;
-        private VoidResponse _setOptionsForDeviceResponse;
-        private GetPrivateLabelCodeResponse _getPrivateLabelCodeResponse;
-        private SetPrivateLabelCodeRequest _setPrivateLabelCodeRequest;
-        private VoidResponse _setPrivateLabelCodeResponse;
-
+        private GetDateModifiedResponse? _getDateModifiedResponse; // Declare 'getDateModifiedResponse' as nullable to fix CS8618
+        private GetOptionsForDeviceResponse? _getOptionsForDeviceResponse; // Declare 'getOptionsForDeviceResponse' as nullable to fix CS8618
+        private GetPrivateLabelCodeResponse? _getPrivateLabelCodeResponse; // Declare 'getPrivateLabelCodeResponse' as nullable to fix CS8618
 
         public ProductIdentificationSuccessStepDefinitions(ScenarioContext scenarioContext)
         {
@@ -169,14 +147,30 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_readPcbaPartNumberResponse != null && _readPcbaPartNumberResponse.PcbaPartNumber != 0)
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating ReadPcbaPartNumber API response...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"PCBA part number retrieved successfully: {_readPcbaPartNumberResponse.PcbaPartNumber}");
+                if (_readPcbaPartNumberResponse != null && _readPcbaPartNumberResponse.PcbaPartNumber != 0)
+                {
+                    string responseJson = System.Text.Json.JsonSerializer.Serialize(_readPcbaPartNumberResponse);
+                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "ReadPcbaPartNumber API Response", responseJson);
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"PCBA part number retrieved successfully: {_readPcbaPartNumberResponse.PcbaPartNumber}");
+                }
+                else
+                {
+                    string errorMsg = "ReadPcbaPartNumber API response is null or part number is 0.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "PCBA part number retrieval failed or returned empty.");
-                throw new Exception("PCBA part number retrieval failed or returned empty.");
+                string exceptionMsg = $"Exception during PCBA part number validation: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
         }
 
@@ -199,7 +193,6 @@ namespace QuantumServicesAPI.StepDefinitions
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPlatformName API response is null. Unable to retrieve platform name.");
                     throw new Exception("GetPlatformName API response is null.");
                 }
-
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GetPlatformName API call succeeded. Platform name received: {_getPlatformNameResponse.PlatformName}");
             }
             catch (Exception ex)
@@ -215,21 +208,37 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            if (_getPlatformNameResponse == null)
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPlatformName API response is null. Unable to retrieve platform name.");
-                throw new Exception("GetPlatformName API response is null.");
-            }
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating that the platform name starts with the expected prefix for a Coyote chip...");
 
-            string platformName = _getPlatformNameResponse.PlatformName ?? string.Empty;
-            if (platformName.StartsWith(c, StringComparison.OrdinalIgnoreCase))
+            try
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Platform name '{platformName}' starts with '{c}'.");
+                if (_getPlatformNameResponse == null)
+                {
+                    string errorMsg = "GetPlatformName API response is null. Unable to retrieve platform name.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                string platformName = _getPlatformNameResponse.PlatformName ?? string.Empty;
+
+                if (platformName.StartsWith(c, StringComparison.OrdinalIgnoreCase))
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Platform name '{platformName}' starts with expected prefix '{c}'.");
+                    string responseJson = System.Text.Json.JsonSerializer.Serialize(_getPlatformNameResponse);
+                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "GetPlatformName API Response", responseJson);
+                }
+                else
+                {
+                    string errorMsg = $"Platform name '{platformName}' does not start with expected prefix '{c}'.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Platform name '{platformName}' does not start with '{c}'.");
-                throw new Exception($"Platform name '{platformName}' does not start with '{c}'.");
+                string exceptionMsg = $"Exception during platform name validation: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
         }
 
@@ -267,21 +276,36 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GetSerialNumber API response for the connected device.");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GetSerialNumber API response for the connected device...");
 
-            if (_getSerialNumberResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetSerialNumber API response is null. Unable to validate serial number status.");
-                throw new Exception("GetSerialNumber API response is null.");
-            }
+                if (_getSerialNumberResponse == null)
+                {
+                    string errorMsg = "GetSerialNumber API response is null. Unable to validate serial number.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
 
-            if (string.IsNullOrWhiteSpace(_getSerialNumberResponse.SerialNumber))
+                if (string.IsNullOrWhiteSpace(_getSerialNumberResponse.SerialNumber))
+                {
+                    string errorMsg = "Serial number is empty or null in the GetSerialNumber API response.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Serial number received: {_getSerialNumberResponse.SerialNumber}");
+
+                // Log full response in JSON
+                string responseJson = System.Text.Json.JsonSerializer.Serialize(_getSerialNumberResponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "GetSerialNumber API Response", responseJson);
+            }
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is empty or null in the GetSerialNumber API response.");
-                throw new Exception("Serial number is empty or null in the GetSerialNumber API response.");
+                string exceptionMsg = $"Exception while validating GetSerialNumber API response: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GetSerialNumber API call succeeded. Serial number received: {_getSerialNumberResponse.SerialNumber}");
         }
 
         [When("Send a request to the SerialNumber API with a valid serial number")]
@@ -289,127 +313,209 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SerialNumber API set request for provided serial numbers.");
-            foreach (var row in dataTable.Rows)
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SerialNumber API set request for provided serial numbers...");
+
+            try
             {
-                string serialNumber = row["SerialNumber"];
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSerialNumber API with serial number: {serialNumber}...");
-                _productresponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
-                if (_productresponse == null)
+                foreach (var row in dataTable.Rows)
                 {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetSerialNumber API response is null. Unable to validate serial number status.");
-                    throw new Exception("SetSerialNumber API response is null.");
+                    string serialNumber = row["SerialNumber"];
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSerialNumber API with serial number: {serialNumber}...");
+
+                    _productresponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
+
+                    if (_productresponse == null)
+                    {
+                        string errorMsg = $"SetSerialNumber API response is null for serial number: {serialNumber}";
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                        throw new Exception(errorMsg);
+                    }
+                    else
+                    {
+                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSerialNumber API call succeeded for serial number: {serialNumber}");
+                    }
                 }
-                else
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSerialNumber API call succeeded for serial number: {serialNumber}.");
-                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SerialNumber API set requests for all provided serial numbers.");
             }
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SerialNumber API set requests for all provided serial numbers.");
+            catch (Exception ex)
+            {
+                string errorMsg = $"Exception during SerialNumber API request: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                throw;
+            }
         }
 
         [Then("API writes the serial number to the device and return status as {string}")]
-        public void ThenAPIWritesTheSerialNumberToTheDeviceAndReturnStatusAs(string success)
+        public void ThenAPIWritesTheSerialNumberToTheDeviceAndReturnStatusAs(string expectedStatus)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetSerialNumber API response status.");
-            if (_productresponse == null)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetSerialNumber API response status...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetSerialNumber API response is null. Unable to validate serial number status.");
-                throw new Exception("SetSerialNumber API response is null.");
+                if (_productresponse == null)
+                {
+                    string errorMsg = "SetSerialNumber API response is null. Unable to validate serial number status.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                // Log JSON response
+                string json = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "SetSerialNumber API Response:", json);
             }
-            else
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSerialNumber API response received: {_productresponse}.");
+                string errorMsg = $"Exception during SetSerialNumber API response validation: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                throw;
             }
         }
 
-        [When("Send a request to the FittingSide API to read the current fitting side from the device.")]
-        public async Task WhenSendARequestToTheFittingSideAPIToReadTheCurrentFittingSideFromTheDevice_Async()
+        [When("Send a request to the FittingSide API to read the current fitting side from the device")]
+        public async Task WhenSendARequestToTheFittingSideAPIToReadTheCurrentFittingSideFromTheDevice()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            _getSideResponse = await _productIdentificationPage.GetSideResponseAsync();
-            if (_getSideResponse == null)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to FittingSide API to read the current fitting side from the device.");
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Calling GetSide API to retrieve the fitting side of the connected device.Unable to get the FittingSide");
-                throw new Exception("FittingSide API to read the current fitting side from the device response is null.");
+                _getSideResponse = await _productIdentificationPage.CallGetSideAsync();
+                if (_getSideResponse != null)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FittingSide API call succeeded. Fitting side received: {_getSideResponse.Side}");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "FittingSide API response is null. Unable to retrieve fitting side.");
+                    throw new Exception("FittingSide API response is null.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling GetSide API to retrieve the fitting side of the connected device...");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"FittingSide API request failed: {ex.Message}");
+                throw;
             }
-
         }
 
-        [Then("API returns the fitting side of the connected device \\(Ex: Left or Right).")]
-        public void ThenAPIReturnsTheFittingSideOfTheConnectedDeviceExLeftOrRight_()
+        [Then("API returns the fitting side of the connected device \\(Ex: Left or Right)")]
+        public void ThenAPIReturnsTheFittingSideOfTheConnectedDeviceExLeftOrRight()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating FittingSide API response for the connected device.");
 
-            if (_getSideResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetSide response is null.");
-                throw new Exception("GetSide response is null.");
+                if (_getSideResponse == null)
+                {
+                    string errorMsg = "FittingSide API response is null. Unable to validate fitting side.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                // Serialize and log JSON response
+                string json = System.Text.Json.JsonSerializer.Serialize(_getSideResponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "FittingSide API Response:", json);
+
+                if (string.IsNullOrWhiteSpace(_getSideResponse.Side))
+                {
+                    string errorMsg = "Fitting side is empty or null in the FittingSide API response.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FittingSide API call succeeded. Fitting side received: {_getSideResponse.Side}");
             }
-
-            var fittingSide = _getSideResponse.Side;
-
-            if (string.IsNullOrWhiteSpace(fittingSide))
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Fitting side is empty or null.");
-                throw new Exception("Fitting side is empty or null.");
+                string exceptionMsg = $"Exception occurred while validating FittingSide API response: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-
-            // ✅ Dynamically create and pretty-print JSON
-            string formattedJson = JsonConvert.SerializeObject(new { side = fittingSide }, Formatting.Indented);
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, formattedJson);
         }
 
         [When("Send a request to the FittingSide API with a valid fitting side \\(Ex: Left or Right)")]
-        public async Task WhenSendARequestToTheFittingSideAPIWithAValidFittingSideExLeftOrRightAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheFittingSideAPIWithAValidFittingSideExLeftOrRight(DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting FittingSide API set request for provided fitting sides.");
 
-            foreach (var row in dataTable.Rows)
+            try
             {
-                var side = row["FittingSide"];
-                _setSideRequest = new SetSideRequest { Side = side };
-                // Send request and store response
-                _setSideResponse = await _productIdentificationPage.CallSetSideAsync(side);
-            }
+                foreach (var row in dataTable.Rows)
+                {
+                    string fittingSide = row["FittingSide"];
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSide API with fitting side: {fittingSide}...");
 
-            if (_setSideResponse == null)
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetSide API response is null. Unable to validate fitting side status.");
-                throw new Exception("SetSide API response is null.");
+                    _productresponse = await _productIdentificationPage.CallSetSideAsync(fittingSide);
+
+                    if (_productresponse == null)
+                    {
+                        string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                        throw new Exception(errorMsg);
+                    }
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSide API call succeeded for fitting side: {fittingSide}.");
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed FittingSide API set requests for all provided fitting sides.");
             }
-           ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling SetSide API to write the fitting side to the device...");
+            catch (Exception ex)
+            {
+                string exceptionMsg = $"Exception occurred during FittingSide API request: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
+            }
         }
 
         [Then("API writes the fitting side to the device and returns status as {string}")]
-        public void ThenAPIWritesTheFittingSideToTheDeviceAndReturnsStatusAs(string success)
+        public void ThenAPIWritesTheFittingSideToTheDeviceAndReturnsStatusAs(string expectedStatus)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetSide API response status.");
 
-            if (_setSideResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetSide API response is null. Unable to validate fitting side status.");
-                throw new Exception("SetSide API response is null.");
-            }
+                if (_productresponse == null)
+                {
+                    string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
 
-            if(!string.Equals(_setSideResponse.ToString(), success, StringComparison.OrdinalIgnoreCase))
+                // Log the full response object in JSON format
+                string json = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "SetSide API Response", json);
+
+                // Check for status or AvalonStatus property
+                var statusProperty = _productresponse.GetType().GetProperty("Status") ?? _productresponse.GetType().GetProperty("AvalonStatus");
+                string? actualStatus = statusProperty?.GetValue(_productresponse)?.ToString();
+
+                if (string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSide API call succeeded. Status: {actualStatus} (expected: {expectedStatus})");
+                }
+                else
+                {
+                    string failMsg = $"SetSide API call failed. Actual status: {actualStatus}, expected: {expectedStatus}.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, failMsg);
+                    throw new Exception(failMsg);
+                }
+            }
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"SetSide API response status does not match expected value '{success}'. Actual status: {_setSideResponse}");
-                throw new Exception($"SetSide API response status does not match expected value '{success}'. Actual status: {_setSideResponse}");
+                string exceptionMsg = $"Exception occurred during SetSide API response validation: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSide API call succeeded. Fitting side written to the device successfully with status: {_setSideResponse}.");
         }
 
         [When("Send a request to the ProximityNetworkAddress API to read the current network address from the device")]
@@ -417,13 +523,36 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            _getNetworkAddressResponse = await _productIdentificationPage.GetNetworkAddressResponseAsync();
-            if (_getNetworkAddressResponse == null)
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to ProximityNetworkAddress API to read the current network address from the device.");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Calling GetNetworkAddress API to retrieve the network address of the connected device. Unable to get the NetworkAddress");
-                throw new Exception("ProximityNetworkAddress API to read the current network address from the device response is null.");
+                _getNetworkAddressResponse = await _productIdentificationPage.CallGetNetworkAddressAsync();
+
+                if (_getNetworkAddressResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetNetworkAddress API response is null. Unable to retrieve network address.");
+                    throw new Exception("GetNetworkAddress API response is null.");
+                }
+
+                string networkAddressString = _getNetworkAddressResponse.NetworkAddress.ToString();
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"GetNetworkAddress API response received. Network address: {networkAddressString}");
+
+                if (string.IsNullOrWhiteSpace(networkAddressString) || _getNetworkAddressResponse.NetworkAddress == 0)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Network address is empty, null, or zero in the GetNetworkAddress API response.");
+                    throw new Exception("Network address is empty, null, or zero in the GetNetworkAddress API response.");
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GetNetworkAddress API call succeeded. Network address received: {networkAddressString}");
             }
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling GetNetworkAddress API to retrieve the network address of the connected device...");
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"ProximityNetworkAddress API request failed: {ex.Message}");
+                throw;
+            }
         }
 
         [Then("API returns the network address of the device")]
@@ -431,47 +560,78 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_getNetworkAddressResponse == null)
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GetNetworkAddress API response for the connected device.");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetNetworkAddress response is null.");
-                throw new Exception("GetNetworkAddress response is null.");
+                if (_getNetworkAddressResponse == null)
+                {
+                    string errorMsg = "GetNetworkAddress API response is null. Unable to validate network address.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                // Log response as JSON
+                string json = System.Text.Json.JsonSerializer.Serialize(_getNetworkAddressResponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "GetNetworkAddress API Response", json);
+
+                if (string.IsNullOrWhiteSpace(_getNetworkAddressResponse.NetworkAddress.ToString()))
+                {
+                    string errorMsg = "Network address is empty or null in the GetNetworkAddress API response.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GetNetworkAddress API call succeeded. Network address received: {_getNetworkAddressResponse.NetworkAddress}");
             }
-            var networkAddress = _getNetworkAddressResponse.NetworkAddress;
-            if (string.IsNullOrWhiteSpace(networkAddress.ToString()))
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Network address is empty or null.");
-                throw new Exception("Network address is empty or null.");
+                string exceptionMsg = $"Exception occurred during GetNetworkAddress API validation: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-            // ✅ Dynamically create and pretty-print JSON
-            string formattedJson = JsonConvert.SerializeObject(new { networkAddress = networkAddress }, Formatting.Indented);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, formattedJson);
         }
 
-        [When("Send a request with valid BleId, correct Brand, and private label code.")]
-        public async Task WhenSendARequestWithValidBleIdCorrectBrandAndPrivateLabelCode_Async(DataTable dataTable)
+        [When("Send a request with valid BleId, correct Brand, and private label code")]
+        public async Task WhenSendARequestWithValidBleIdCorrectBrandAndPrivateLabelCode(DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting VerifyProduct API requests with provided BleId, Brand, and PrivateLabelCode.");
 
-            // Loop through each row in the data table
-            foreach (var row in dataTable.Rows)
+            try
             {
-                // Parse values from DataTable
-                int bleId = int.Parse(row["bleId"].ToString());
-                string brand = row["brand"].ToString();
-                int privateLabel = int.Parse(row["privateLabelCode"].ToString());
-
-                // Construct the VerifyProductRequest using values from table
-                _verifyProductRequest = new VerifyProductRequest
+                foreach (var row in dataTable.Rows)
                 {
-                    BleId = bleId,
-                    Brand = brand,
-                    PrivateLabel = privateLabel
-                };
+                    string bleId = row["BleId"];
+                    string brand = row["Brand"];
+                    string privateLabelCode = row["PrivateLabelCode"];
 
-                // Call the API and store response
-                _verifyProductResponse = await _productIdentificationPage.VerifyProductAsync(_verifyProductRequest);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request with valid BleId, correct Brand, and private label code");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info,
+                        $"Calling VerifyProduct API with BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}...");
+
+                    _verifyProductResponse = await _productIdentificationPage.CallVerifyProductAsync(
+                        int.Parse(bleId), brand, int.Parse(privateLabelCode));
+
+                    if (_verifyProductResponse == null)
+                    {
+                        string errorMsg = $"VerifyProduct API returned null for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.";
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                        throw new Exception(errorMsg);
+                    }
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,
+                        $"VerifyProduct API call succeeded for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.");
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed VerifyProduct API requests for all provided rows.");
+            }
+            catch (Exception ex)
+            {
+                string errorMsg = $"Exception occurred during VerifyProduct API call: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                throw;
             }
         }
 
@@ -480,12 +640,36 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_verifyProductResponse == null)
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "❌ VerifyProduct API response is null.");
-                throw new Exception("VerifyProduct API response is null.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating VerifyProduct API response for input values match.");
+
+                if (_verifyProductResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "VerifyProduct API response is null. Unable to validate input values.");
+                    throw new Exception("VerifyProduct API response is null.");
+                }
+
+                if (_verifyProductResponse.IsSuccess == true)
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "VerifyProduct API call succeeded. Input values match the device.");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "VerifyProduct API call failed. Input values do not match the device.");
+                    throw new Exception("VerifyProduct API call failed. Input values do not match the device.");
+                }
+
+                // Log response object in JSON format
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_verifyProductResponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "VerifyProduct API Response", jsonResponse);
             }
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,$"{JsonConvert.SerializeObject(_verifyProductResponse, Formatting.Indented)}");
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred while verifying input values: {ex.Message}");
+                throw;
+            }
         }
 
         [When("Send a request with valid values for MFI brand, MFI family, MFI model, and GAP device name")]
@@ -493,28 +677,34 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            var dict = new Dictionary<string, string>();
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting UpdateGattDatabase API requests with provided MFI and GAP values.");
             foreach (var row in dataTable.Rows)
             {
-                dict["MFIBrand"] = row["MFIBrand"];
-                dict["MFIModel"] = row["MFIModel"];
-                dict["MFIFamily"] = row["MFIFamily"];
-                dict["GapDeviceName"] = row["GapDeviceName"];
+                string mfiBrand = row["MFIBrand"];
+                string mfiModel = row["MFIModel"];
+                string mfiFamily = row["MFIFamily"];
+                string gapDeviceName = row["GapDeviceName"];
+                try
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling UpdateGattDatabase API with MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}...");
+                    _productresponse = await _productIdentificationPage.CallUpdateGattDatabaseAsync(mfiBrand, mfiModel, mfiFamily, gapDeviceName);
+                    if (_productresponse == null)
+                    {
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"UpdateGattDatabase API returned null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
+                        throw new Exception($"UpdateGattDatabase API response is null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
+                    }
+                    else
+                    {
+                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"UpdateGattDatabase API call succeeded for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing row: {ex.Message}");
+                    throw;
+                }
             }
-
-            _updateGattDatabaseRequest = new UpdateGattDatabaseRequest
-            {
-                GattKeyValueDictionary = { dict }
-            };
-
-            _updateGattDatabaseResponse = await _productIdentificationPage.UpdateGattDatabaseAsync(_updateGattDatabaseRequest);
-
-            if (_updateGattDatabaseRequest == null)
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "UpdateGattDatabase API response is null. Unable to validate GATT database update.");
-                throw new Exception("UpdateGattDatabase API response is null.");
-            }
-            ExtentReportManager.GetInstance().LogToReport(_step,Status.Info,"");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed UpdateGattDatabase API requests for all provided rows.");
         }
 
         [Then("API writes the values to the GATT database successfully")]
@@ -522,21 +712,55 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,$"GATT database update was successful.{JsonConvert.SerializeObject(_updateGattDatabaseResponse, Formatting.Indented)}");
+
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating UpdateGattDatabase API response.");
+
+                if (_productresponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "UpdateGattDatabase API response is null. Unable to validate GATT database update.");
+                    throw new Exception("UpdateGattDatabase API response is null.");
+                }
+
+                // Log the full response object for traceability
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "UpdateGattDatabase API Response", jsonResponse);
+
+                // Optionally validate a specific success flag or status field here
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "UpdateGattDatabase API response is valid and non-null.");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred while validating UpdateGattDatabase response: {ex.Message}");
+                throw;
+            }
         }
 
-
         [When("Send a request to the GNOSRegistrationData API to retrieve GNOS registration data from the hearing instrument")]
-        public async Task WhenSendARequestToTheGNOSRegistrationDataAPIToRetrieveGNOSRegistrationDataFromTheHearingInstrumentAsync()
+        public async Task WhenSendARequestToTheGNOSRegistrationDataAPIToRetrieveGNOSRegistrationDataFromTheHearingInstrument()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-
-            _readCloudRegistrationInputRequest = new ReadCloudRegistrationInputRequest(); // No need to set fields
-
-            _readCloudRegistrationInputResponse = await _productIdentificationPage.ReadCloudRegistrationInputAsync(_readCloudRegistrationInputRequest);
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sent request to the GNOSRegistrationData API to retrieve GNOS registration data from the hearing instrument");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating ReadCloudRegistrationInput API call to retrieve GNOS registration data from the hearing instrument.");
+            try
+            {
+                _readCloudRegistrationInputResponse = await _productIdentificationPage.CallReadCloudRegistrationInputAsync();
+                if (_readCloudRegistrationInputResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "ReadCloudRegistrationInput API response is null. Unable to retrieve GNOS registration data.");
+                    throw new Exception("ReadCloudRegistrationInput API response is null.");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "ReadCloudRegistrationInput API call succeeded. GNOS registration data retrieved successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Initialization or configuration failed: {ex.Message}");
+                throw;
+            }
         }
 
         [Then("API returns the GNOS registration data in valid XML format")]
@@ -545,22 +769,49 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            if (_readCloudRegistrationInputResponse == null)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GNOS registration data returned by ReadCloudRegistrationInput API...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "ReadCloudRegistrationInput response is null.");
-                throw new Exception("ReadCloudRegistrationInput response is null.");
+                if (_readCloudRegistrationInputResponse == null)
+                {
+                    string errorMsg = "GNOS registration data is null. Cannot validate XML format.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+                string rawXml = _readCloudRegistrationInputResponse.CloudRegistrationInput;
+                try
+                {
+                    var xmlDoc = new System.Xml.XmlDocument();
+                    xmlDoc.LoadXml(rawXml);
+
+                    // Format the XML with indentation for better readability in report
+                    string formattedXml;
+                    using (var stringWriter = new System.IO.StringWriter())
+                    using (var xmlTextWriter = new System.Xml.XmlTextWriter(stringWriter) { Formatting = System.Xml.Formatting.Indented })
+                    {
+                        xmlDoc.Save(xmlTextWriter);
+                        formattedXml = stringWriter.ToString();
+                    }
+
+                    // Wrap XML in <pre> so it looks formatted in Extent Report
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GNOS registration response (formatted XML):<br><pre>{System.Net.WebUtility.HtmlEncode(formattedXml)}</pre>");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "GNOS registration data is valid XML and successfully parsed.");
+                }
+                catch (System.Xml.XmlException xmlEx)
+                {
+                    string invalidXmlMsg = $"GNOS registration data is not valid XML. Error: {xmlEx.Message}";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, invalidXmlMsg);
+                    throw;
+                }
             }
-
-            // ✅ Extract raw XML from response object
-            string rawXml = _readCloudRegistrationInputResponse.CloudRegistrationInput;
-
-            // ✅ HTML-escape and style the XML in light green inside <pre> for formatting
-            string formattedXml = $"<pre><span style='color:lightgreen;'>{System.Net.WebUtility.HtmlEncode(rawXml)}</span></pre>";
-
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GNOS registration data returned in valid XML format: {formattedXml}");
+            catch (Exception ex)
+            {
+                string exceptionMsg = $"Exception during XML validation of GNOS registration data: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
+            }
         }
-
 
         [When("Send a request to the DateModified API to read the modified date from the device")]
         public async Task WhenSendARequestToTheDateModifiedAPIToReadTheModifiedDateFromTheDeviceAsync()
@@ -568,14 +819,29 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            _getDateModifiedResponse = await _productIdentificationPage.GetDateModifiedResponseAsync();
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating GetDateModified API call to retrieve the modified date from the hearing instrument...");
 
-            if (_getDateModifiedResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetDateModified API response is null. Unable to retrieve modified date.");
-                throw new Exception("GetDateModified API response is null.");
+                _getDateModifiedResponse = await _productIdentificationPage.CallGetDateModifiedAsync();
+
+                if (_getDateModifiedResponse == null)
+                {
+                    string errorMsg = "GetDateModified API response is null. Unable to retrieve the modified date from the device.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"GetDateModified API call succeeded. Modified date retrieved: {_getDateModifiedResponse}");
+                }
             }
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling GetDateModified API to retrieve the modified date of the device...");
+            catch (Exception ex)
+            {
+                string exceptionMsg = $"Exception occurred during GetDateModified API call: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
+            }
         }
 
         [Then("API returns the modified date of the device")]
@@ -584,99 +850,94 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            if (_getDateModifiedResponse == null)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating the response of GetDateModified API...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetDateModified response is null.");
-                throw new Exception("GetDateModified response is null.");
+                if (_getDateModifiedResponse == null)
+                {
+                    string errorMsg = "GetDateModified API response is null. No modified date was retrieved.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                // Assume the response contains a DateTime or string field named 'ModifiedDate'
+                string modifiedDate = _getDateModifiedResponse.ToString(); // Replace if actual property exists
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Device modified date received: <b>{modifiedDate}</b>");
             }
-            var modifiedDate = _getDateModifiedResponse.DateModified;
-            if (string.IsNullOrWhiteSpace(modifiedDate.ToString()))
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Modified date is empty or null.");
-                throw new Exception("Modified date is empty or null.");
+                string exceptionMsg = $"Exception while validating modified date from device: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-            // ✅ Dynamically create and pretty-print JSON
-            string formattedJson = JsonConvert.SerializeObject(new { dateModified = modifiedDate }, Formatting.Indented);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, formattedJson);
         }
-
-
-        [When("Send a request to the ResetDateModified API to reset the date modified")]
-        public async Task WhenSendARequestToTheResetDateModifiedAPIToResetTheDateModifiedAsync()
-        {
-            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
-            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-
-            _resetDateModifiedResponse = await _productIdentificationPage.ResetDateModifiedAsync();
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sent request to the ResetDateModified API to reset the date modified of the device.");
-        }
-
-        [Then("API resets the date modified to {string}")]
-        public async Task ThenAPIResetsTheDateModifiedToAsync(string expectedDate)
-        {
-            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
-            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-
-            if (_resetDateModifiedResponse == null)
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "ResetDateModified response is null.");
-                throw new Exception("ResetDateModified response is null.");
-            }
-
-            if(!string.Equals(_resetDateModifiedResponse.ToString(), expectedDate, StringComparison.OrdinalIgnoreCase))
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Expected date modified '{expectedDate}' does not match actual '{_resetDateModifiedResponse}'.");
-                throw new Exception($"Expected date modified '{expectedDate}' does not match actual '{_resetDateModifiedResponse}'.");
-            }
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"ResetDateModified API executed successfully. Date modified reset to: {_resetDateModifiedResponse}.");
-        }
-
-
 
         [When("Send a request to the OptionsForDevice API to retrieve current device options")]
-        public async Task WhenSendARequestToTheOptionsForDeviceAPIToRetrieveCurrentDeviceOptionsAsync()
+        public async Task WhenSendARequestToTheOptionsForDeviceAPIToRetrieveCurrentDeviceOptions()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            _getOptionsForDeviceResponse = await _productIdentificationPage.GetOptionsForDeviceAsync();
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating GetOptionsForDevice API call to retrieve current device options...");
 
-            if (_getOptionsForDeviceResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetOptionsForDevice API response is null. Unable to retrieve device options.");
-                throw new Exception("GetOptionsForDevice API response is null.");
+                _getOptionsForDeviceResponse = await _productIdentificationPage.CallGetOptionsForDeviceAsync();
+
+                if (_getOptionsForDeviceResponse == null)
+                {
+                    string errorMsg = "GetOptionsForDevice API response is null. Unable to retrieve device options.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "GetOptionsForDevice API call succeeded. Device options retrieved successfully.");
             }
-            else
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling GetOptionsForDevice API to retrieve the device options...");
+                string exceptionMsg = $"Exception occurred during GetOptionsForDevice API call: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
         }
+
         [Then("API returns the device options of the device")]
         public void ThenAPIReturnsTheDeviceOptionsOfTheDevice()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_getOptionsForDeviceResponse == null)
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GetOptionsForDevice API response for device options...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetOptionsForDevice response is null.");
-                throw new Exception("GetOptionsForDevice response is null.");
+                if (_getOptionsForDeviceResponse == null)
+                {
+                    string errorMsg = "GetOptionsForDevice API response is null. Device options could not be retrieved.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                // Log successful response
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "GetOptionsForDevice API call succeeded. Device options retrieved successfully.");
+
+                // Pretty-print and log JSON response
+                var formattedJson = System.Text.Json.JsonSerializer.Serialize(
+                    _getOptionsForDeviceResponse,
+                    new System.Text.Json.JsonSerializerOptions { WriteIndented = true }
+                );
+
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "GetOptionsForDevice API Response (JSON)", formattedJson);
             }
-            var optionsForDevice = _getOptionsForDeviceResponse.OptionsForDevice;
-            if (optionsForDevice == null)
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Device options are empty or null.");
-                throw new Exception("Device options are empty or null.");
+                string exceptionMsg = $"Exception while validating GetOptionsForDevice API response: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
-            // ✅ Dynamically create and pretty-print JSON
-            string formattedJson = JsonConvert.SerializeObject(new { optionsForDevice = optionsForDevice }, Formatting.Indented);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, formattedJson);
         }
-
-
-
-
 
         [When("Send a request to the OptionForDevice API with a valid integer related to device options")]
         public async Task WhenSendARequestToTheOptionForDeviceAPIWithAValidIntegerRelatedToDeviceOptionsAsync(DataTable dataTable)
@@ -684,38 +945,65 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SetOptionsForDevice API requests with provided device option values.");
+
             foreach (var row in dataTable.Rows)
             {
-                // Parse the optionsForDevice value from the DataTable
-                if (int.TryParse(row["optionsForDevice"].ToString(), out int optionsValue))
+                string optionsForDevice = row["optionsForDevice"];
+
+                try
                 {
-                    var request = new SetOptionsForDeviceRequest
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetOptionsForDevice API with value: {optionsForDevice}...");
+
+                    _productresponse = await _productIdentificationPage.CallSetOptionsForDeviceAsync(int.Parse(optionsForDevice));
+
+                    if (_productresponse == null)
                     {
-                        OptionsForDevice = optionsValue
-                    };
-                    _setOptionsForDeviceResponse = await _productIdentificationPage.SetOptionsForDeviceAsync(request);
+                        string errorMsg = $"SetOptionsForDevice API returned null for value: {optionsForDevice}.";
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                        throw new Exception(errorMsg);
+                    }
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetOptionsForDevice API call succeeded for value: {optionsForDevice}.");
+                }
+                catch (Exception ex)
+                {
+                    string exceptionMsg = $"Exception during SetOptionsForDevice API call for value: {optionsForDevice}. Error: {ex.Message}";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                    throw;
                 }
             }
-            
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"SetOptionsForDevice API called successfully");
+
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SetOptionsForDevice API requests for all provided values.");
         }
 
         [Then("API writes the device options to the device successfully")]
-        public async Task ThenAPIWritesTheDeviceOptionsToTheDeviceSuccessfullyAsync()
+        public void ThenAPIWritesTheDeviceOptionsToTheDeviceSuccessfully()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            if(_setOptionsForDeviceResponse == null)
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetOptionsForDevice API write operation...");
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetOptionsForDevice API response is null. Unable to validate device options status.");
-                throw new Exception("SetOptionsForDevice API response is null.");
+                if (_productresponse == null)
+                {
+                    string errorMsg = "SetOptionsForDevice API response is null. Device options may not have been written successfully.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+                string responseJson = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetOptionsForDevice API Response", responseJson);
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "SetOptionsForDevice API call succeeded. Device options written successfully.");
             }
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetOptionsForDevice API executed successfully. Device options set to: {_setOptionsForDeviceResponse}.");
+            catch (Exception ex)
+            {
+                string exceptionMsg = $"Exception while validating SetOptionsForDevice API response: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
+            }
         }
-
-
 
         [When("Send a request to the PrivateLabelCode API to retrieve the private label code")]
         public async Task WhenSendARequestToThePrivateLabelCodeAPIToRetrieveThePrivateLabelCode()
@@ -723,13 +1011,25 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            _getPrivateLabelCodeResponse = await _productIdentificationPage.GetPrivateLabelCodeAsync();
-            if (_getPrivateLabelCodeResponse == null)
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPrivateLabelCode API response is null. Unable to retrieve private label code.");
-                throw new Exception("GetPrivateLabelCode API response is null.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to GetPrivateLabelCode API...");
+
+                _getPrivateLabelCodeResponse = await _productIdentificationPage.CallGetPrivateLabelCodeAsync();
+
+                if (_getPrivateLabelCodeResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPrivateLabelCode API response is null.");
+                    throw new Exception("GetPrivateLabelCode API response is null.");
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "GetPrivateLabelCode API call succeeded.");
             }
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling GetPrivateLabelCode API to retrieve the private label code of the device...");
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception while calling GetPrivateLabelCode API: {ex.Message}");
+                throw;
+            }
         }
 
         [Then("API returns the private label code of the device")]
@@ -737,40 +1037,60 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_getPrivateLabelCodeResponse == null)
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPrivateLabelCode response is null.");
-                throw new Exception("GetPrivateLabelCode response is null.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating GetPrivateLabelCode API response...");
+
+                if (_getPrivateLabelCodeResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "GetPrivateLabelCode API response is null.");
+                    throw new Exception("GetPrivateLabelCode API response is null.");
+                }
+
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_getPrivateLabelCodeResponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "GetPrivateLabelCode API Response", jsonResponse);
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "GetPrivateLabelCode API call succeeded and returned a valid response.");
             }
-            var privateLabelCode = _getPrivateLabelCodeResponse.PrivateLabelCode;
-            if (privateLabelCode == null)
+            catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Private label code is empty or invalid.");
-                throw new Exception("Private label code is empty or invalid.");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception during GetPrivateLabelCode response validation: {ex.Message}");
+                throw;
             }
-            // ✅ Dynamically create and pretty-print JSON
-            string formattedJson = JsonConvert.SerializeObject(new { privateLabelCode = privateLabelCode }, Formatting.Indented);
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, formattedJson);
         }
 
-
-        [When("Send a request to the PrivateLabelCode API with a valid private label code")]
-        public async Task WhenSendARequestToThePrivateLabelCodeAPIWithAValidPrivateLabelCodeAsync(DataTable dataTable)
+        [When("Send a request to the PrivateLabelCode API with a valid integer relayed to the private label code")]
+        public async Task WhenSendARequestToThePrivateLabelCodeAPIWithAValidIntegerRelayedToThePrivateLabelCode(DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            foreach(var row in dataTable.Rows)
+
+            try
             {
-                int privateLabelCode = int.Parse(row["privateLabelCode"].ToString());
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SetPrivateLabelCode API requests using provided data.");
 
-                _setPrivateLabelCodeRequest = new SetPrivateLabelCodeRequest
+                foreach (var row in dataTable.Rows)
                 {
-                    PrivateLabelCode = privateLabelCode
-                };
-                _setPrivateLabelCodeResponse = await _productIdentificationPage.SetPrivateLabelCodeAsync(_setPrivateLabelCodeRequest);
-            }
+                    string privateLabelCode = row["privateLabelCode"];
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetPrivateLabelCode API with PrivateLabelCode: {privateLabelCode}");
 
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sent request to the PrivateLabelCode API with a valid private label code.");
+                    _productresponse = await _productIdentificationPage.CallSetPrivateLabelCodeAsync(int.Parse(privateLabelCode));
+
+                    if (_productresponse == null)
+                    {
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"SetPrivateLabelCode API returned null for PrivateLabelCode: {privateLabelCode}");
+                        throw new Exception($"SetPrivateLabelCode API response is null for PrivateLabelCode: {privateLabelCode}");
+                    }
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SetPrivateLabelCode API requests for all rows.");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred during SetPrivateLabelCode API request: {ex.Message}");
+                throw;
+            }
         }
 
         [Then("API writes the private label code to the device successfully")]
@@ -778,16 +1098,26 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_setPrivateLabelCodeResponse == null)
+
+            try
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetPrivateLabelCode API response is null. Unable to validate private label code status.");
-                throw new Exception("SetPrivateLabelCode API response is null.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetPrivateLabelCode API response.");
+
+                if (_productresponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetPrivateLabelCode API response is null.");
+                    throw new Exception("SetPrivateLabelCode API response is null.");
+                }
+
+                // Serialize response for logging
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetPrivateLabelCode API Response", jsonResponse);
             }
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetPrivateLabelCode API executed successfully. Private label code set to: {_setPrivateLabelCodeResponse}.");
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred while validating SetPrivateLabelCode API response: {ex.Message}");
+                throw;
+            }
         }
-
-
-
     }
 }

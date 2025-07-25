@@ -45,37 +45,52 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initializing device and configuring product for detection by serial number...");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting full DetectBySerialNumber request workflow...");
 
             try
             {
+                // Initialize device
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initializing device...");
                 _response = await _hearingInstrumentPage.CallInitializeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Device initialized successfully.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
+                // Configure product
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Configuring product using FDTS file...");
                 _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully using FDTS file.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully.");
+
+                // Process each serial number
+                foreach (var row in dataTable.Rows)
+                {
+                    string serialNumber = row["SerialNumber"];
+
+                    try
+                    {
+                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {serialNumber}");
+
+                        _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
+
+                        if (_detectBySerialNumberResponse == null)
+                        {
+                            ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
+                            throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
+                        }
+
+                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
+                    }
+                    catch (Exception innerEx)
+                    {
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing serial number '{serialNumber}': {innerEx.Message}");
+                        throw;
+                    }
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed DetectBySerialNumber API requests for all serial numbers.");
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Initialization or configuration failed: {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Workflow failed: {ex.Message}");
                 throw;
-            }
-
-            foreach (var row in dataTable.Rows)
-            {
-                string serialNumber = row["SerialNumber"];
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {serialNumber}");
-
-                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                if (_detectBySerialNumberResponse == null)
-                {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                    throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
             }
         }
 
@@ -152,8 +167,8 @@ namespace QuantumServicesAPI.StepDefinitions
             ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectClosest Response", _detectClosestResponse.ToString());
         }
 
-        [When("Send a request to the FittingSide API to read the current fitting side from the device")]
-        public async Task WhenSendARequestToTheFittingSideAPIToReadTheCurrentFittingSideFromTheDeviceAsync()
+        [When("Send a request to the DetectWired API with a valid monoaural side \\(e.g., {string}) when a device is connected")]
+        public async Task WhenSendARequestToTheDetectWiredAPIWithAValidMonoauralSideE_G_WhenADeviceIsConnectedAsync(string p0)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -191,21 +206,31 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
-        [Then("API returns the fitting side of the connected device \\(Ex: Left or Right)")]
-        public void ThenAPIReturnsTheFittingSideOfTheConnectedDeviceExLeftOrRight()
+        [Then("API returns the device node data and status {string}")]
+        public void ThenAPIReturnsTheDeviceNodeDataAndStatus(string expectedStatus)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             if (_detectOnSideResponse == null)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Fitting side verification failed: DetectOnSide response is null.");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DetectOnSide response is null. Cannot validate fitting side or status.");
                 throw new Exception("DetectOnSide response is null.");
             }
 
+            var actualStatus = _detectOnSideResponse.AvalonStatus.ToString();
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Checking AvalonStatus: expected '{expectedStatus}', got '{actualStatus}'");
+
+            if (!string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"AvalonStatus mismatch: expected '{expectedStatus}', got '{actualStatus}'");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Fail, "DetectOnSide Response", _detectOnSideResponse.ToString());
+                throw new Exception($"AvalonStatus mismatch. Expected: '{expectedStatus}', Actual: '{actualStatus}'");
+            }
+
             var fittingSide = connectedSide.ToString();
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating fitting side returned by DetectOnSide API...");
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API correctly returned fitting side: {fittingSide}");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Validating fitting side: '{fittingSide}' returned by DetectOnSide API.");
+            ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectOnSide API returned correct fitting side: {fittingSide} and expected status.");
             ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectOnSide Response", _detectOnSideResponse.ToString());
         }
 
