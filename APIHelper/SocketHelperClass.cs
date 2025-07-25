@@ -70,7 +70,7 @@ namespace QuantumServicesAPI.APIHelper
             foreach (var cmd in commands)
             {
                 cmdProcess.StandardInput.WriteLine(cmd);
-                Thread.Sleep(TimeSpan.FromSeconds(2)); // Wait for 2 seconds between commands
+                Thread.Sleep(TimeSpan.FromSeconds(2.5)); // Wait for 2.5 seconds between commands
             }
         }
 

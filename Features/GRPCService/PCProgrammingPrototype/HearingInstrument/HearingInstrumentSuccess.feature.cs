@@ -170,16 +170,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Curre" +
-            "nt Fitting Side of the Device")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _03TestCaseID1809265AvalonServiceVerifyFittingSideAPIReturnsTheCurrentFittingSideOfTheDevice()
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns \'Success\'" +
+            " When Device Is Found for Monaural Side")]
+        [NUnit.Framework.CategoryAttribute("HearingUnstrument")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1809108AvalonServiceVerifyDetectWiredAPIReturnsSuccessWhenDeviceIsFoundForMonauralSide()
         {
             string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
+                    "HearingUnstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Curre" +
-                    "nt Fitting Side of the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns \'Success\'" +
+                    " When Device Is Found for Monaural Side", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 20
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -191,11 +191,11 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 22
- await testRunner.WhenAsync("Send a request to the FittingSide API to read the current fitting side from the d" +
-                        "evice", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("Send a request to the DetectWired API with a valid monoaural side (e.g., \"Left/Ri" +
+                        "ght\") when a device is connected", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 23
- await testRunner.ThenAsync("API returns the fitting side of the connected device (Ex: Left or Right)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns the device node data and status \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

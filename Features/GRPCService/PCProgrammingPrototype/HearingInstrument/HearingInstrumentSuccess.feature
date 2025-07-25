@@ -16,11 +16,11 @@ Scenario: 02Test Case ID 1807206: [Avalon Service] Verify DetectClosest API Retu
 	When Send a request to the DetectClosest API when one device is found
 	Then API returns the correct device node data and AvalonStatus "Success"
 
-@HearingInstrument
-Scenario: 03Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Current Fitting Side of the Device
+@HearingUnstrument
+Scenario: 03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns 'Success' When Device Is Found for Monaural Side
 
-	When Send a request to the FittingSide API to read the current fitting side from the device
-	Then API returns the fitting side of the connected device (Ex: Left or Right)
+	When Send a request to the DetectWired API with a valid monoaural side (e.g., "Left/Right") when a device is connected
+	Then API returns the device node data and status "Success"
 
 @HearingInstrument
 Scenario: 04Test Case ID 1809122: [Avalon Service] Verify DeviceNodeData API Returns Device Node Details When Device Is Connected
@@ -82,7 +82,7 @@ Scenario: 12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API d
 @HearingInstrument
 Scenario: 13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'UnLock'
 
-	When Send a request to FlashWriteProtect API with state "UnLock" 
+	When Send a request to FlashWriteProtect API with state "UnLock"
 	Then API returns status as "LockPermanent" when state is set to UnLock
 
 @HearingInstrument
