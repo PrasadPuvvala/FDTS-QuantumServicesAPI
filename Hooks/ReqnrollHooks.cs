@@ -75,6 +75,7 @@ namespace QuantumServicesAPI.Hooks
                 if (GRPCAPIHelperClass.GrpcProcess == null || GRPCAPIHelperClass.GrpcProcess.HasExited)
                 {
                     const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
+                    //const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku2.gRPCService_10.0.3.0_x86__ab7apr970t1ng\Avalon.Dooku2.gRPCService.exe";
                     GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
                 }
             }
@@ -149,10 +150,12 @@ namespace QuantumServicesAPI.Hooks
 
                 var hearingHelper = new HearingInstrumentPage(sharedChannel);
                 var productIdentificationHelper = new ProductIdentificationPage(sharedChannel);
+                var deviceImageHelper = new DeviceImagePage(sharedChannel);
 
                 scenarioContext["GrpcUrl"] = url;
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
                 scenarioContext["GrpcProductIdentification"] = productIdentificationHelper; 
+                scenarioContext["GrpcDeviceImage"] = deviceImageHelper;
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";

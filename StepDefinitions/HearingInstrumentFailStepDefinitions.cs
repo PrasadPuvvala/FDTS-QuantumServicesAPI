@@ -151,24 +151,26 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 _detectOnSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Both);
                 connectedSide = ChannelSide.Both;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Both sides detected successfully. Using 'Both' as fitting side.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Both sides detected successfully. Using 'Both' as fitting side.");
+                throw new InvalidOperationException("No connected side found.");
             }
             else if (left.AvalonStatus == AvalonStatus.Success)
             {
                 _detectOnSideResponse = left;
                 connectedSide = ChannelSide.Left;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Left side detected successfully.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Only Left side detected successfully.");
+                throw new InvalidOperationException("No connected side found.");
             }
             else if (right.AvalonStatus == AvalonStatus.Success)
             {
                 _detectOnSideResponse = right;
                 connectedSide = ChannelSide.Right;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Right side detected successfully.");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Only Right side detected successfully.");
+                throw new InvalidOperationException("No connected side found.");
             }
             else
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No connected side detected. Device may not be connected or powered.");
-                throw new InvalidOperationException("No connected side found.");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Pass, "No connected side detected. Device may not be connected or powered.");
             }
 
             // Dynamically call the OPPOSITE side
