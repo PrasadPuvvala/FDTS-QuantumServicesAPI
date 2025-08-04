@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide"});
-                table11.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "2400801519",
                             "1093078272",
                             "ReSound",
@@ -137,7 +137,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Right"});
 #line 7
  await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
-                        "1\')", ((string)(null)), table11, "Given ");
+                        "1\')", ((string)(null)), table12, "Given ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
