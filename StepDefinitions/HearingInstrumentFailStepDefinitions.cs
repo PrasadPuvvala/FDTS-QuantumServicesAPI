@@ -162,7 +162,7 @@ namespace QuantumServicesAPI.StepDefinitions
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting device initialization and product configuration for DetectWired API.");
-            
+
             SocketHelperClass.SuccessSocketCommands();
             try
             {
@@ -198,35 +198,37 @@ namespace QuantumServicesAPI.StepDefinitions
                 var left = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Left);
                 var right = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Right);
 
-            ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Left Side Response", left.ToString());
-            ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Right Side Response", right.ToString());
-
-            if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus == AvalonStatus.Success)
-            {
-                _detectOnSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Both);
-                connectedSide = ChannelSide.Both;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Both sides detected successfully. Using 'Both' as fitting side.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Left Side Response", left.ToString());
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Right Side Response", right.ToString());
+                if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus == AvalonStatus.Success)
+                {
+                    _detectOnSideResponse = left;
+                    connectedSide = ChannelSide.Both;
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Both sides detected successfully. Using 'Both' as fitting side.");
+                    throw new Exception("DetectWired API detected on Both Sides");
+                }
+                else if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus != AvalonStatus.Success)
+                {
+                    _detectOnSideResponse = left;
+                    connectedSide = ChannelSide.Left;
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Left side detected successfully. Using 'Left' as fitting side.");
+                    throw new Exception("DetectWired API detected on Left Side");
+                }
+                else if (right.AvalonStatus == AvalonStatus.Success && left.AvalonStatus != AvalonStatus.Success)
+                {
+                    _detectOnSideResponse = right;
+                    connectedSide = ChannelSide.Right;
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "Right side detected successfully. Using 'Right' as fitting side.");
+                    throw new Exception("DetectWired API detected on Right Side");
+                }
+                else
+                {
+                    _detectOnSideResponse = right;
+                    _detectOnSideResponse = left;
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "DetectWired API did not detect any side successfully.");
+                }
             }
-            else if (left.AvalonStatus == AvalonStatus.Success)
-            {
-                _detectOnSideResponse = left;
-                connectedSide = ChannelSide.Left;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Left side detected successfully.");
-            }
-            else if (right.AvalonStatus == AvalonStatus.Success)
-            {
-                _detectOnSideResponse = right;
-                connectedSide = ChannelSide.Right;
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Right side detected successfully.");
-            }
-            else
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No connected side detected. Device may not be connected or powered.");
-                throw new InvalidOperationException("No connected side found.");
-            }
-
-            // Dynamically call the OPPOSITE side
-            ChannelSide oppositeSide = connectedSide switch
+            catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogError(_step, Status.Info, $"An error occurred during device initialization or product configuration: {ex.Message}");
                 throw;
