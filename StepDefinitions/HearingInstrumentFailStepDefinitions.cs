@@ -155,8 +155,8 @@ namespace QuantumServicesAPI.StepDefinitions
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API returned expected status '{expectedStatus}' and device node data.");
         }
 
-        [When("Send a request to the DetectWired API with a valid monoaural side \\(e.g., {string}) when no device is connected")]
-        public async Task WhenSendARequestToTheDetectWiredAPIWithAValidMonoauralSideE_G_WhenNoDeviceIsConnectedAsync(string p0, DataTable dataTable)
+        [When("Send a request to the DetectWired API with a valid monoaural side \\(e.g., {string}) when no device is connected.")]
+        public async Task WhenSendARequestToTheDetectWiredAPIWithAValidMonoauralSideE_G_WhenNoDeviceIsConnected_Async(string p0, DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());

@@ -58,19 +58,19 @@ namespace QuantumServicesAPI.Hooks
             if (featureTitle.Contains("Success", StringComparison.OrdinalIgnoreCase) || featureTitle.Contains("Fail", StringComparison.OrdinalIgnoreCase))
             {
                 // Use switch for faster branching and avoid repeated string comparisons
-                switch (featureTitle)
-                {
-                    case string s when s.Contains("Success", StringComparison.OrdinalIgnoreCase):
-                        SocketHelperClass.SuccessSocketCommands();
-                        break;
-                    case string s when s.Contains("Fail", StringComparison.OrdinalIgnoreCase):
-                        SocketHelperClass.FailureSocketCommands();
-                        break;
-                    default:
-                        // For GRPCService, we assume success commands are needed.
-                        SocketHelperClass.SuccessSocketCommands();
-                        break;
-                }
+                //switch (featureTitle)
+                //{
+                //    case string s when s.Contains("Success", StringComparison.OrdinalIgnoreCase):
+                //        SocketHelperClass.SuccessSocketCommands();
+                //        break;
+                //    case string s when s.Contains("Fail", StringComparison.OrdinalIgnoreCase):
+                //        SocketHelperClass.FailureSocketCommands();
+                //        break;
+                //    default:
+                //        // For GRPCService, we assume success commands are needed.
+                //        SocketHelperClass.SuccessSocketCommands();
+                //        break;
+                //}
                 // Only launch the gRPC process if not already running
                 if (GRPCAPIHelperClass.GrpcProcess == null || GRPCAPIHelperClass.GrpcProcess.HasExited)
                 {
@@ -151,11 +151,13 @@ namespace QuantumServicesAPI.Hooks
                 var hearingHelper = new HearingInstrumentPage(sharedChannel);
                 var productIdentificationHelper = new ProductIdentificationPage(sharedChannel);
                 var deviceImageHelper = new DeviceImagePage(sharedChannel);
+                var productionTestDataHelper = new ProductionTestDataPage(sharedChannel);
 
                 scenarioContext["GrpcUrl"] = url;
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
                 scenarioContext["GrpcProductIdentification"] = productIdentificationHelper; 
                 scenarioContext["GrpcDeviceImage"] = deviceImageHelper;
+                scenarioContext["GrpcProductionTestData"] = productionTestDataHelper;
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";

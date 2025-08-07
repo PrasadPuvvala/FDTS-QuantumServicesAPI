@@ -170,6 +170,134 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1810711: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
+            " True When Image HDI Version Is Equal or Higher Than Device HDI Version")]
+        [NUnit.Framework.CategoryAttribute("DeviceImage")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1810711AvalonServiceVerifyCheckDFUCompatibilityAPIReturnsTrueWhenImageHDIVersionIsEqualOrHigherThanDeviceHDIVersion()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "DeviceImage"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1810711: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
+                    " True When Image HDI Version Is Equal or Higher Than Device HDI Version", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 22
+ await testRunner.WhenAsync("Load a DFU image with an equal or higher HDI version than the one on the device a" +
+                        "nd send a compatibility check request", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 23
+ await testRunner.ThenAsync("API returns \"True\" indicating the DFU image is compatible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1810710: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
+            " False When Image HDI Version Is Lower Than Device HDI Version")]
+        [NUnit.Framework.CategoryAttribute("DeviceImage")]
+        public async global::System.Threading.Tasks.Task _04TestCaseID1810710AvalonServiceVerifyCheckDFUCompatibilityAPIReturnsFalseWhenImageHDIVersionIsLowerThanDeviceHDIVersion()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "DeviceImage"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1810710: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
+                    " False When Image HDI Version Is Lower Than Device HDI Version", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 26
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 28
+ await testRunner.WhenAsync("Load a DFU image with a lower HDI version than the one on the device and send a c" +
+                        "ompatibility check request", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 29
+ await testRunner.ThenAsync("API returns \"False\" indicating the DFU image is not compatible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1810717: [Avalon Service] Verify WriteFDI API Successfully Writes " +
+            "Image to Device When Optimized Programming Is False")]
+        [NUnit.Framework.CategoryAttribute("DeviceImage")]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1810717AvalonServiceVerifyWriteFDIAPISuccessfullyWritesImageToDeviceWhenOptimizedProgrammingIsFalse()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "DeviceImage"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1810717: [Avalon Service] Verify WriteFDI API Successfully Writes " +
+                    "Image to Device When Optimized Programming Is False", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 34
+ await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to \"false\", and send a request" +
+                        " to WriteFDI API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 35
+ await testRunner.ThenAsync("API writes the image to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("06Test Case 1810718: [Avalon Service] Verify WriteFDI API does not Write Image Wh" +
+            "en Optimized Programming Is Set to True")]
+        [NUnit.Framework.CategoryAttribute("DeviceImage")]
+        public async global::System.Threading.Tasks.Task _06TestCase1810718AvalonServiceVerifyWriteFDIAPIDoesNotWriteImageWhenOptimizedProgrammingIsSetToTrue()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "DeviceImage"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case 1810718: [Avalon Service] Verify WriteFDI API does not Write Image Wh" +
+                    "en Optimized Programming Is Set to True", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 40
+ await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to \"true\", and send a request " +
+                        "to WriteFDI API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 41
+ await testRunner.ThenAsync("API does not write the image to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

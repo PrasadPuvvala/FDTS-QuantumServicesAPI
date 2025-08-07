@@ -210,5 +210,116 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw;
             }
         }
+
+        [When("Load a DFU image with an equal or higher HDI version than the one on the device and send a compatibility check request")]
+        public async Task WhenLoadADFUImageWithAnEqualOrHigherHDIVersionThanTheOneOnTheDeviceAndSendACompatibilityCheckRequestAsync()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking DFU compatibility with the device...");
+                _isDfuCompatibleResponse = await _deviceImagePage.CallIsDfuCompatibleAsync();
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DFU compatibility check completed. IsDfuCompatible: {_isDfuCompatibleResponse.IsDfuCompatible}");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Unexpected error during DFU compatibility check: {ex.Message}");
+                throw;
+            }
+        }
+
+        [Then("API returns {string} indicating the DFU image is compatible")]
+        [Then("API returns {string} indicating the DFU image is not compatible")]
+        public void ThenAPIReturnsIndicatingTheDFUImageIsCompatible(string isDfuCompatible)
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating DFU compatibility response...");
+                if (_isDfuCompatibleResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DFU compatibility response is null. Compatibility check failed.");
+                    throw new Exception("DFU compatibility response is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DFU compatibility response: {_isDfuCompatibleResponse.IsDfuCompatible}");
+                if (_isDfuCompatibleResponse.IsDfuCompatible == bool.Parse(isDfuCompatible))
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DFU image is compatible with the device.");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_isDfuCompatibleResponse.ToString()}");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DFU image is not compatible with the device.");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_isDfuCompatibleResponse.ToString()}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Unexpected error during DFU compatibility check: {ex.Message}");
+                throw;
+            }
+        }
+
+        [When("Load a DFU image with a lower HDI version than the one on the device and send a compatibility check request")]
+        public async Task WhenLoadADFUImageWithALowerHDIVersionThanTheOneOnTheDeviceAndSendACompatibilityCheckRequestAsync()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking DFU compatibility with the device...");
+                _isDfuCompatibleResponse = await _deviceImagePage.CallIsDfuCompatibleAsync();
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DFU compatibility check completed. IsDfuCompatible: {_isDfuCompatibleResponse.IsDfuCompatible}");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Unexpected error during DFU compatibility check: {ex.Message}");
+                throw;
+            }
+        }
+
+        [When("Load a valid DFU image, set isOptimizedProgramming to {string}, and send a request to WriteFDI API")]
+        public async Task WhenLoadAValidDFUImageSetIsOptimizedProgrammingToAndSendARequestToWriteFDIAPIAsync(string isOptimizedProgram)
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating WriteFDI API call with DFU image...");
+                bool isOptimizedProgramming = bool.Parse(isOptimizedProgram);
+                _deviceImageresponse = await _deviceImagePage.CallWriteAsync(isOptimizedProgramming);
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "WriteFDI API call completed successfully.");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Unexpected error during WriteFDI API call: {ex.Message}");
+                throw;
+            }
+        }
+
+        [Then("API writes the image to the device successfully")]
+        [Then("API does not write the image to the device")]
+        public void ThenAPIWritesTheImageToTheDeviceSuccessfully()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating WriteFDI API response for image write verification...");
+                if (_deviceImageresponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "WriteFDI API response is null. Image write verification failed.");
+                    throw new Exception("WriteFDI API response is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageresponse.ToString()}");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Unexpected error during image write verification: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
