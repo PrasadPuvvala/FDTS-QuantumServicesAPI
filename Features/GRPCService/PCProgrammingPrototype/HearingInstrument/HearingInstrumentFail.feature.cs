@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table1.AddRow(new string[] {
-                            "2400801519"});
+                table5.AddRow(new string[] {
+                            "2400801508"});
 #line 8
  await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that do" +
-                        "es not match any device.", ((string)(null)), table1, "When ");
+                        "es not match any device.", ((string)(null)), table5, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns null for device node data and status \"DeviceNotfound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -159,12 +159,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table2.AddRow(new string[] {
-                            "2400801519"});
+                table6.AddRow(new string[] {
+                            "2400801508"});
 #line 16
- await testRunner.WhenAsync("Send a request to the DetectClosest API when no devices are nearby.", ((string)(null)), table2, "When ");
+ await testRunner.WhenAsync("Send a request to the DetectClosest API when no devices are nearby.", ((string)(null)), table6, "When ");
 #line hidden
 #line 19
  await testRunner.ThenAsync("API returns null for device node data and status of DetectClosest as \"DeviceNotFo" +
@@ -195,13 +195,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table3.AddRow(new string[] {
-                            "2400801519"});
+                table7.AddRow(new string[] {
+                            "2400801508"});
 #line 24
  await testRunner.WhenAsync("Send a request to the DetectWired API with a valid monoaural side (e.g., \"Left/Ri" +
-                        "ght\") when no device is connected", ((string)(null)), table3, "When ");
+                        "ght\") when no device is connected", ((string)(null)), table7, "When ");
 #line hidden
 #line 27
  await testRunner.ThenAsync("API returns null for device node data and status for DetectWired \"DeviceNotFound\"" +
@@ -232,12 +232,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table4.AddRow(new string[] {
-                            "2400801519"});
+                table8.AddRow(new string[] {
+                            "2400801508"});
 #line 32
- await testRunner.WhenAsync("Ensure that no device is connected and Send a request to the DeviceNodeData API", ((string)(null)), table4, "When ");
+ await testRunner.WhenAsync("Ensure that no device is connected and Send a request to the DeviceNodeData API", ((string)(null)), table8, "When ");
 #line hidden
 #line 35
  await testRunner.ThenAsync("API returns null for device node data", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -267,13 +267,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table5.AddRow(new string[] {
-                            "2400801519"});
+                table9.AddRow(new string[] {
+                            "2400801508"});
 #line 40
  await testRunner.WhenAsync("Simulate where a valid device node is detected but the connection to the device a" +
-                        "nd Send a request to the ConnectToDevice API", ((string)(null)), table5, "When ");
+                        "nd Send a request to the ConnectToDevice API", ((string)(null)), table9, "When ");
 #line hidden
 #line 43
  await testRunner.ThenAsync("API returns status \"ConnectFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -305,13 +305,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table6.AddRow(new string[] {
-                            "2400801519"});
+                table10.AddRow(new string[] {
+                            "2400801508"});
 #line 48
  await testRunner.WhenAsync("Send a request to the ConnectToDevice API with a valid node data where the device" +
-                        " model not listed in the product configuration database", ((string)(null)), table6, "When ");
+                        " model not listed in the product configuration database", ((string)(null)), table10, "When ");
 #line hidden
 #line 51
   await testRunner.ThenAsync("API returns the status \"HearingInstrumentCreationFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -341,13 +341,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table7.AddRow(new string[] {
-                            "2400801519"});
+                table11.AddRow(new string[] {
+                            "2400801508"});
 #line 56
  await testRunner.WhenAsync("Select a device that has been powered on for more than 3 minutes, then attempt to" +
-                        " connect using the ConnectToDevice API", ((string)(null)), table7, "When ");
+                        " connect using the ConnectToDevice API", ((string)(null)), table11, "When ");
 #line hidden
 #line 59
  await testRunner.ThenAsync("API returns status for ConnectToDevice \"AuthenticationFailed\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

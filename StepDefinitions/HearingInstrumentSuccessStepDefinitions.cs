@@ -57,6 +57,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 // Configure product
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Configuring product using FDTS file...");
                 _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
+                
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully.");
 
                 // Process each serial number

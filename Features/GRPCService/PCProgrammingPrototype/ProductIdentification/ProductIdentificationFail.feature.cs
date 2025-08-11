@@ -123,24 +123,70 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide"});
-                table11.AddRow(new string[] {
-                            "2400801519",
+                table15.AddRow(new string[] {
+                            "2400801508",
                             "1093078272",
                             "ReSound",
                             "1",
                             "Right"});
 #line 7
  await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
-                        "1\')", ((string)(null)), table11, "Given ");
+                        "1\')", ((string)(null)), table15, "Given ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
+            "dation When IsGenericFaceplate Is True")]
+        [NUnit.Framework.CategoryAttribute("ProductIdentification")]
+        public async global::System.Threading.Tasks.Task _02TestCase1810699AvalonServiceVerifyProductIdentityAPISkipsBrandValidationWhenIsGenericFaceplateIsTrue()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "ProductIdentification"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
+                    "dation When IsGenericFaceplate Is True", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber",
+                            "BleId",
+                            "Brand",
+                            "PrivateLabelCode",
+                            "FittingSide",
+                            "IsGenericFaceplate"});
+                table16.AddRow(new string[] {
+                            "2400801508",
+                            "1093078272",
+                            "ReSound",
+                            "0",
+                            "Right",
+                            "true"});
+#line 15
+ await testRunner.WhenAsync("Send a request with valid BleId, Brand, private label code as \'0\', and isGenericF" +
+                        "aceplate as \'true\'", ((string)(null)), table16, "When ");
+#line hidden
+#line 18
+ await testRunner.ThenAsync("API skips the Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

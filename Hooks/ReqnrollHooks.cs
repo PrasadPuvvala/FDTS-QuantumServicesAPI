@@ -149,10 +149,12 @@ namespace QuantumServicesAPI.Hooks
 
                 var hearingHelper = new HearingInstrumentPage(sharedChannel);
                 var productIdentificationHelper = new ProductIdentificationPage(sharedChannel);
+                var deviceImageHelper = new DeviceImagePage(sharedChannel);
 
                 scenarioContext["GrpcUrl"] = url;
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
-                scenarioContext["GrpcProductIdentification"] = productIdentificationHelper; 
+                scenarioContext["GrpcProductIdentification"] = productIdentificationHelper;
+                scenarioContext["GrpcDeviceImage"] = deviceImageHelper;
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";
