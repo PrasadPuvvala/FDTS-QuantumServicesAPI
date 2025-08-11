@@ -28,6 +28,8 @@
 		<!-- 💡 Moved Protobuf include outside the PackageReference block -->
 		<Protobuf Include="Protos\HearingInstrument.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\ProductIdentification.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\DeviceImage.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\ProductionTestData.proto" GrpcServices="Client" />
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -123,21 +123,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide"});
-                table11.AddRow(new string[] {
-                            "2400801519",
+                table16.AddRow(new string[] {
+                            "2400801508",
                             "1093078272",
                             "ReSound",
                             "1",
                             "Right"});
 #line 7
  await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
-                        "1\')", ((string)(null)), table11, "Given ");
+                        "1\')", ((string)(null)), table16, "Given ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -167,14 +167,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide",
                             "IsGenericFaceplate"});
-                table16.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "2400801508",
                             "1093078272",
                             "ReSound",
@@ -183,7 +183,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "true"});
 #line 15
  await testRunner.WhenAsync("Send a request with valid BleId, Brand, private label code as \'0\', and isGenericF" +
-                        "aceplate as \'true\'", ((string)(null)), table16, "When ");
+                        "aceplate as \'true\'", ((string)(null)), table17, "When ");
 #line hidden
 #line 18
  await testRunner.ThenAsync("API skips the Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

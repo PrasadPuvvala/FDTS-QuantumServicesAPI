@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table1.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "2400809347"});
 #line 8
  await testRunner.WhenAsync("Load a DFU image with a higher HDI version than the device, ensure Flash Write Pr" +
-                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), table1, "When ");
+                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), table5, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API updates the HDI in the device before writing the image", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

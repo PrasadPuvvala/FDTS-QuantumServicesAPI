@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table20.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the ProductionTestData API to read test date, site, station, TP" +
-                        "I release code, and verification flags from the device", ((string)(null)), table20, "When ");
+                        "I release code, and verification flags from the device", ((string)(null)), table25, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns all stored production test metadata correctly from the hearing instru" +
@@ -160,7 +160,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
                             "TestSite",
                             "TestStation",
                             "TPIReleaseCode",
@@ -171,7 +171,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Minute",
                             "Second",
                             "ModelVerificationId"});
-                table21.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "98",
                             "GN-PF5FJ67N",
                             "1234-5678-9ABC",
@@ -184,7 +184,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "1"});
 #line 16
  await testRunner.WhenAsync("Send a request to the ProductionTestData API to write test date, site, station, T" +
-                        "PI release code, and verification flags to the device", ((string)(null)), table21, "When ");
+                        "PI release code, and verification flags to the device", ((string)(null)), table26, "When ");
 #line hidden
 #line 19
  await testRunner.ThenAsync("API writes all provided test metadata values successfully to the hearing instrume" +
