@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber A
 
 	When Send a request to the DetectBySerialNumber API with a valid serial number that does not match any device.
 		| SerialNumber |
-		| 2400801520   |
+		| 2400801519   |
 	Then API returns null for device node data and status "DeviceNotfound"
 
 @HearingInstrument
@@ -15,14 +15,14 @@ Scenario: 02Test Case ID 1807118: [Avalon Service] Verify DetectClosest API Retu
 
 	When Send a request to the DetectClosest API when no devices are nearby.
 		| SerialNumber |
-		| 2400801519   |
+		| 2400801508   |
 	Then API returns null for device node data and status of DetectClosest as "DeviceNotFound"
 
 @HearingInstrument
 Scenario: 03Test Case ID 1809107: [Avalon Service] Verify DetectWired API Returns 'DeviceNotFound' When No Device Is Found for Monaural Side
 
-	When Send a request to the DetectWired API with a valid monoaural side (e.g., "Left/Right") when no device is connected.
-	    | SerialNumber |
+	When Send a request to the DetectWired API with a valid monoaural side (e.g., "Left/Right") when no device is connected
+		| SerialNumber |
 		| 2400801519   |
 	Then API returns null for device node data and status for DetectWired "DeviceNotFound"
 
@@ -31,7 +31,7 @@ Scenario: 04Test Case ID 1809120: [Avalon Service] Verify DeviceNodeData API Ret
 
 	When Ensure that no device is connected and Send a request to the DeviceNodeData API
 	| SerialNumber |
-	| 2400801519   |
+	| 2400801508   |
 	Then API returns null for device node data
 
 @HearingInstrument
@@ -39,7 +39,7 @@ Scenario: 05Test Case ID 1809116: [Avalon Service] Verify ConnectToDevice API Re
 
 	When Simulate where a valid device node is detected but the connection to the device and Send a request to the ConnectToDevice API
 	| SerialNumber |
-	| 2400801519   |
+	| 2400801508   |
 	Then API returns status "ConnectFailed"
 
 @HearingInstrument
@@ -47,7 +47,7 @@ Scenario: 06Test Case ID 1809118: [Avalon Service] Verify ConnectToDevice API Re
 
 	When Send a request to the ConnectToDevice API with a valid node data where the device model not listed in the product configuration database
 	 | SerialNumber |
-	 | 2400801519   |
+	 | 2400801508   |
 	 Then API returns the status "HearingInstrumentCreationFailed"
 
 @HearingInstrument
@@ -55,7 +55,7 @@ Scenario: 07Test Case ID 1809119: [Avalon Service] Verify ConnectToDevice API Re
 
 	When Select a device that has been powered on for more than 3 minutes, then attempt to connect using the ConnectToDevice API
 	| SerialNumber |
-	| 2400801519   |
+	| 2400801508   |
 	Then API returns status for ConnectToDevice "AuthenticationFailed"
 
 #@HearingInstrument
