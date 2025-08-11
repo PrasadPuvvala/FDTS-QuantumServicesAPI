@@ -180,7 +180,7 @@ namespace QuantumServicesAPI.StepDefinitions
             }
             catch (Exception ex)
             {
-                string exceptionMsg = $"Exception during PCBA part number validation: {ex.Message}";
+                string exceptionMsg = $"{ex.Message}";
                 ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
                 throw;
             }
