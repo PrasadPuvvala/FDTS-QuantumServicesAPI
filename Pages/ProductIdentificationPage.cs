@@ -14,6 +14,10 @@ namespace QuantumServicesAPI.Pages
         {
             return await _productIdentificationClient.ReadPcbaPartNumberAsync(new EmptyRequest());
         }
+        public async Task<ReadInProductionCertInputResponse> CallReadInProductionCertInputAsync()
+        {
+            return await _productIdentificationClient.ReadInProductionCertInputAsync(new EmptyRequest());
+        }
         public async Task<VoidResponse> CallReadAsync()
         {
             return await _productIdentificationClient.ReadAsync(new EmptyRequest());

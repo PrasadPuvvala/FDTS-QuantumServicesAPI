@@ -25,6 +25,7 @@ namespace QuantumServicesAPI.StepDefinitions
         private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
         private ConnectResponse? _connectResponse;
         private ReadPcbaPartNumberResponse? _readPcbaPartNumberResponse; // Declare 'readPcbaPartNumberResponse' as nullable to fix CS8618
+        private ReadInProductionCertInputResponse? _readInProductionCertInputResponse; // Declare 'readInProductionCertInputResponse' as nullable to fix CS8618
         private GetPlatformNameResponse? _getPlatformNameResponse;
         private GetSerialNumberResponse? _getSerialNumberResponse; // Declare 'getSerialNumberResponse' as nullable to fix CS8618
         private GetSideResponse? _getSideResponse; // Declare 'getSideResponse' as nullable to fix CS8618
@@ -143,7 +144,7 @@ namespace QuantumServicesAPI.StepDefinitions
         }
 
         [Then("API returns the PCBA part number of the device")]
-        public void ThenAPIReturnsThePCBAPartNumberOfTheDevice()
+        public async Task ThenAPIReturnsThePCBAPartNumberOfTheDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -165,6 +166,17 @@ namespace QuantumServicesAPI.StepDefinitions
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
                     throw new Exception(errorMsg);
                 }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ReadInProductionCertInput API to retrieve ReadInProductionCertInputXml...");
+                _readInProductionCertInputResponse = await _productIdentificationPage.CallReadInProductionCertInputAsync();
+                if (_readInProductionCertInputResponse == null)
+                {
+                    string errorMsg = "ReadInProductionCertInput API response is null. Unable to retrieve ReadInProductionCertInputXml.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "ReadInProductionCertInput API call succeeded. ReadInProductionCertInputXml retrieved successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "ReadInProductionCertInput API Response", _readInProductionCertInputResponse.ToString());
             }
             catch (Exception ex)
             {
