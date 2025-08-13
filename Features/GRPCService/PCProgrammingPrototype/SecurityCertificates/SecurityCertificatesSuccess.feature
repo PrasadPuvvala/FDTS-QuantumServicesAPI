@@ -27,3 +27,9 @@ Scenario: 04Test Case ID 1810750: [Avalon Service] Verify PricePointCertificateV
 
 	When Send a request to the PricePointCertificateValidity API when the device has a valid Price Point Certificate
 	Then API returns "True" for PricePointCertificateValidity
+
+@SecurityCertificates
+Scenario: 05Test Case ID 1810734: [Avalon Service] Verify PricePointCertificate API Successfully Writes Certificate to Hearing Instrument
+
+	When Send a request to the PricePointCertificate API with a valid Price Point Certificate
+	Then API writes the PricePointCertificate successfully to the hearing instrument

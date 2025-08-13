@@ -233,6 +233,38 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1810734: [Avalon Service] Verify PricePointCertificate API Success" +
+            "fully Writes Certificate to Hearing Instrument")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1810734AvalonServiceVerifyPricePointCertificateAPISuccessfullyWritesCertificateToHearingInstrument()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1810734: [Avalon Service] Verify PricePointCertificate API Success" +
+                    "fully Writes Certificate to Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 34
+ await testRunner.WhenAsync("Send a request to the PricePointCertificate API with a valid Price Point Certific" +
+                        "ate", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 35
+ await testRunner.ThenAsync("API writes the PricePointCertificate successfully to the hearing instrument", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

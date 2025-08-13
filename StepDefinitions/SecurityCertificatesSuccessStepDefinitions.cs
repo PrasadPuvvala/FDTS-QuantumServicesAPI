@@ -368,5 +368,52 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw;
             }
         }
+
+        [When("Send a request to the PricePointCertificate API with a valid Price Point Certificate")]
+        public async Task WhenSendARequestToThePricePointCertificateAPIWithAValidPricePointCertificateAsync()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            string validPricePointCertificate = "asdfvghj"; // Replace with actual valid certificate content if needed
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to PricePointCertificate API with a valid Price Point Certificate...");
+                _scecurityCertificateResponse = await _securityCertificatesPage.CallWritePricePointCertificateAsync(validPricePointCertificate);
+                if (_scecurityCertificateResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "WritePricePointCertificate API returned null. Unable to proceed.");
+                    throw new Exception("WritePricePointCertificate response is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "PricePointCertificate API call succeeded and certificate written successfully.");
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Error, $"Exception occurred while sending request to PricePointCertificate API: {ex.Message}");
+                throw;
+            }
+        }
+
+        [Then("API writes the PricePointCertificate successfully to the hearing instrument")]
+        public void ThenAPIWritesThePricePointCertificateSuccessfullyToTheHearingInstrument()
+        {
+            _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating that the PricePointCertificate is written successfully to the hearing instrument...");
+                if (_scecurityCertificateResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to write PricePointCertificate to the hearing instrument. Response is null.");
+                    throw new Exception("PricePointCertificate writing failed - response is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "PricePointCertificate written successfully to the hearing instrument.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "PricePointCertificate Response", System.Text.Json.JsonSerializer.Serialize(_scecurityCertificateResponse));
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Error, $"Exception occurred while verifying PricePointCertificate writing: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
