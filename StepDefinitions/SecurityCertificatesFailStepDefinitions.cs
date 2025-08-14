@@ -131,8 +131,9 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw;
             }
         }
-        [Then("API returns {string}")]
-        public void ThenAPIReturns(string expectedStatus)
+
+        [Then("API returns status for ModelInPricePointCertificate {string}")]
+        public void ThenAPIReturnsStatusForModelInPricePointCertificate(string expectedStatus)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -152,7 +153,6 @@ namespace QuantumServicesAPI.StepDefinitions
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API returned expected status: {actualStatus}");
         }
-
 
         [When("Send a request to the DeviceFamilyCertificateValidity API when the device contains an invalid Device Family Certificate.")]
         public async Task WhenSendARequestToTheDeviceFamilyCertificateValidityAPIWhenTheDeviceContainsAnInvalidDeviceFamilyCertificate_Async(DataTable dataTable)

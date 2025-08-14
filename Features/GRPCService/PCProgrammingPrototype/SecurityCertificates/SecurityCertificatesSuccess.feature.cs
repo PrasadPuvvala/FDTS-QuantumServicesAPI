@@ -18,6 +18,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
+    [NUnit.Framework.DescriptionAttribute("Security Certificates Success")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
     public partial class SecurityCertificatesSuccessFeature
     {
@@ -26,6 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
         
         private static string[] featureTags = ((string[])(null));
         
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/SecurityCertificates", "Security Certificates Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "SecurityCertificatesSuccess.feature"
 #line hidden
@@ -101,9 +103,16 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1810730: [Avalon Service] Verify InProductionCertificate API Succe" +
+            "ssfully Writes Certificate to Hearing Instrument")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _01TestCaseID1810730AvalonServiceVerifyInProductionCertificateAPISuccessfullyWritesCertificateToHearingInstrument()
         {
             string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1810730: [Avalon Service] Verify InProductionCertificate API Succe" +
+                    "ssfully Writes Certificate to Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -114,8 +123,144 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+                global::Reqnroll.Table table30 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber"});
+                table30.AddRow(new string[] {
+                            "2400801504"});
 #line 8
+ await testRunner.WhenAsync("Send a request to the InProductionCertificate API with a valid certificate to be " +
+                        "written to the device", ((string)(null)), table30, "When ");
 #line hidden
+#line 11
+ await testRunner.ThenAsync("API writes the certificate successfully to the hearing instrument", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1810746: [Avalon Service] Verify ModelInPricePointCertificate API " +
+            "Returns ValidCertModelMatch When BleId Matches Between Image and Device")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _02TestCaseID1810746AvalonServiceVerifyModelInPricePointCertificateAPIReturnsValidCertModelMatchWhenBleIdMatchesBetweenImageAndDevice()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1810746: [Avalon Service] Verify ModelInPricePointCertificate API " +
+                    "Returns ValidCertModelMatch When BleId Matches Between Image and Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 14
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 16
+ await testRunner.WhenAsync("Load a valid image and ensure the BleId in the image matches the device’s BleId, " +
+                        "and send request to the ModelInPricePointCertificate API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 17
+ await testRunner.ThenAsync("API returns \"ValidCertModelMatch\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 1810754: [Avalon Service] Verify DeviceFamilyCertificateValidity A" +
+            "PI Returns True When Certificate in Device Is Valid")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID1810754AvalonServiceVerifyDeviceFamilyCertificateValidityAPIReturnsTrueWhenCertificateInDeviceIsValid()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1810754: [Avalon Service] Verify DeviceFamilyCertificateValidity A" +
+                    "PI Returns True When Certificate in Device Is Valid", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 22
+ await testRunner.WhenAsync("Send a request to the DeviceFamilyCertificateValidity API when the device contain" +
+                        "s a valid Device Family Certificate", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 23
+ await testRunner.ThenAsync("API returns \"True\" for DeviceFamilyCertificateValidity", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("04Test Case ID 1810750: [Avalon Service] Verify PricePointCertificateValidity API" +
+            " Returns True When Certificate in Device Is Valid")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _04TestCaseID1810750AvalonServiceVerifyPricePointCertificateValidityAPIReturnsTrueWhenCertificateInDeviceIsValid()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1810750: [Avalon Service] Verify PricePointCertificateValidity API" +
+                    " Returns True When Certificate in Device Is Valid", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 26
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 28
+ await testRunner.WhenAsync("Send a request to the PricePointCertificateValidity API when the device has a val" +
+                        "id Price Point Certificate", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 29
+ await testRunner.ThenAsync("API returns \"True\" for PricePointCertificateValidity", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("05Test Case ID 1810734: [Avalon Service] Verify PricePointCertificate API Success" +
+            "fully Writes Certificate to Hearing Instrument")]
+        [NUnit.Framework.CategoryAttribute("SecurityCertificates")]
+        public async global::System.Threading.Tasks.Task _05TestCaseID1810734AvalonServiceVerifyPricePointCertificateAPISuccessfullyWritesCertificateToHearingInstrument()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "SecurityCertificates"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1810734: [Avalon Service] Verify PricePointCertificate API Success" +
+                    "fully Writes Certificate to Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 34
+ await testRunner.WhenAsync("Send a request to the PricePointCertificate API with a valid Price Point Certific" +
+                        "ate", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 35
+ await testRunner.ThenAsync("API writes the PricePointCertificate successfully to the hearing instrument", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

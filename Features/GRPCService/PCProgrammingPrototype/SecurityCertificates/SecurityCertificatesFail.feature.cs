@@ -132,7 +132,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "e request to the ModelInPricePointCertificate API", ((string)(null)), table27, "When ");
 #line hidden
 #line 10
- await testRunner.ThenAsync("API returns \'ValidCertModelMismatch\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("API returns status for ModelInPricePointCertificate \'ValidCertModelMismatch\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

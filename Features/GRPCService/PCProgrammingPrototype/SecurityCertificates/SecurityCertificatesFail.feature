@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1810747: [Avalon Service] Verify ModelInPricePointCerti
 	When Load a valid image with a BleId that differs from the device’s BleId, and send the request to the ModelInPricePointCertificate API
        | SerialNumber |
 	   | 2400801508   |
-	Then API returns 'ValidCertModelMismatch'
+	Then API returns status for ModelInPricePointCertificate 'ValidCertModelMismatch'
 
 @SecurityCertificates
 Scenario: 02Test Case 1810755: [Avalon Service] Verify DeviceFamilyCertificateValidity API Returns False When Certificate in Device Is Invalid
