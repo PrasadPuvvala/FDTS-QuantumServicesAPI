@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.HearingInstrument
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._01HearingInstrument
 {
     
     
@@ -27,7 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Hearing
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/HearingInstrument", "HearingInstrument Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/01HearingInstrument", "HearingInstrument Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "HearingInstrumentSuccess.feature"
 #line hidden
@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table13.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "2400801520"});
 #line 8
  await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that ma" +
-                        "tches an existing device", ((string)(null)), table13, "When ");
+                        "tches an existing device", ((string)(null)), table8, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns device node data and AvalonStatus \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -316,17 +316,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "BootType"});
-                table14.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "ServiceMode"});
-                table14.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "DfuMode"});
-                table14.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "DspRunning"});
 #line 46
  await testRunner.WhenAsync("Send a request to the BootDevice API with any boot type when reconnect flag is se" +
-                        "t to True and verify the response", ((string)(null)), table14, "When ");
+                        "t to True and verify the response", ((string)(null)), table9, "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -728,13 +728,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "BatteryType"});
-                table15.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Mic-Power 9440"});
 #line 127
  await testRunner.WhenAsync("Send a request to the RHI Battery Type API with a valid battery type to write to " +
-                        "the connected RHI device", ((string)(null)), table15, "When ");
+                        "the connected RHI device", ((string)(null)), table10, "When ");
 #line hidden
 #line 130
  await testRunner.ThenAsync("Battery type is successfully written to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

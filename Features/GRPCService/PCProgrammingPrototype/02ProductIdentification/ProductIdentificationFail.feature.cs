@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.ProductIdentification
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._02ProductIdentification
 {
     
     
@@ -27,7 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Product
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/ProductIdentification", "ProductIdentification Fail", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/02ProductIdentification", "ProductIdentification Fail", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "ProductIdentificationFail.feature"
 #line hidden
@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide"});
-                table16.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "2400801508",
                             "1093078272",
                             "ReSound",
@@ -137,7 +137,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Right"});
 #line 7
  await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
-                        "1\')", ((string)(null)), table16, "Given ");
+                        "1\')", ((string)(null)), table11, "Given ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -167,14 +167,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber",
                             "BleId",
                             "Brand",
                             "PrivateLabelCode",
                             "FittingSide",
                             "IsGenericFaceplate"});
-                table17.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "2400801508",
                             "1093078272",
                             "ReSound",
@@ -183,7 +183,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "true"});
 #line 15
  await testRunner.WhenAsync("Send a request with valid BleId, Brand, private label code as \'0\', and isGenericF" +
-                        "aceplate as \'true\'", ((string)(null)), table17, "When ");
+                        "aceplate as \'true\'", ((string)(null)), table12, "When ");
 #line hidden
 #line 18
  await testRunner.ThenAsync("API skips the Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

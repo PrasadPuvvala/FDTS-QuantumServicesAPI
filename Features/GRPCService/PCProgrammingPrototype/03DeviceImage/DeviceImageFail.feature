@@ -4,10 +4,10 @@ A short summary of the feature
 
 @DeviceImage
 Scenario: 01Test Case ID 1810723: [Avalon Service] Verify UpdateHDI API Skips HDI Update When Flash Write Protect Is LockedPermanent
-	When Load a DFU image with a higher HDI version than the device, and set device Flash Write Protect status to "LockedPermanent", and send a request to the UpdateHDI API 
+	When Load a DFU image with  higher HDI version than the device, and set device Flash Write Protect status to "LockedPermanent", and send a request to the UpdateHDI API 
 	|     SerialNumber       |
 	|     2400801508         |
-	Then API does not update the HDI in the device 
+	Then API does not update  HDI in the device 
 
 @DeviceImage
 Scenario: 02Test Case ID 1810718: [Avalon Service] Verify WriteFDI API does not Write Image When Optimized Programming Is Set to True
@@ -15,7 +15,7 @@ Scenario: 02Test Case ID 1810718: [Avalon Service] Verify WriteFDI API does not 
 	When Load a valid DFU image, set isOptimizedProgramming to true, and send a request to WriteFDI API
 		| SerialNumber |
 		| 2400801508   |
-	Then API does not write the image to the device 
+	Then API does not write  image to the device 
 
 @DeviceImage
 Scenario: 03Test Case ID 1810715: [Avalon Service] Verify WriteFDI API Returns Failed Precondition When DFU Compatibility has not been Checked

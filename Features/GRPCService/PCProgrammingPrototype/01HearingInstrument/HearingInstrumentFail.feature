@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1809102: [Avalon Service] Verify DetectBySerialNumber A
 
 	When Send a request to the DetectBySerialNumber API with a valid serial number that does not match any device.
 		| SerialNumber |
-		| 2400801519   |
+		| 2400801508   |
 	Then API returns null for device node data and status "DeviceNotfound"
 
 @HearingInstrument
@@ -23,7 +23,7 @@ Scenario: 03Test Case ID 1809107: [Avalon Service] Verify DetectWired API Return
 
 	When Send a request to the DetectWired API with a valid monoaural side (e.g., "Left/Right") when no device is connected
 		| SerialNumber |
-		| 2400801519   |
+		| 2400801508   |
 	Then API returns null for device node data and status for DetectWired "DeviceNotFound"
 
 @HearingInstrument

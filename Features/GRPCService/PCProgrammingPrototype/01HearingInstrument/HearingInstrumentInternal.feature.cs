@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.HearingInstrument
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._01HearingInstrument
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("HearingInstrument Unavailable")]
+    [NUnit.Framework.DescriptionAttribute("HearingInstrument Internal")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class HearingInstrumentUnavailableFeature
+    public partial class HearingInstrumentInternalFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/HearingInstrument", "HearingInstrument Unavailable", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/01HearingInstrument", "HearingInstrument Internal", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "HearingInstrumentUnavailable.feature"
+#line 1 "HearingInstrumentInternal.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]

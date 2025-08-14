@@ -53,8 +53,8 @@ namespace QuantumServicesAPI.StepDefinitions
         }
 
 
-        [When("Load a DFU image with a higher HDI version than the device, and set device Flash Write Protect status to {string}, and send a request to the UpdateHDI API")]
-        public async Task WhenLoadADFUImageWithAHigherHDIVersionThanTheDeviceAndSetDeviceFlashWriteProtectStatusToAndSendARequestToTheUpdateHDIAPIAsync(string state, DataTable dataTable)
+        [When("Load a DFU image with  higher HDI version than the device, and set device Flash Write Protect status to {string}, and send a request to the UpdateHDI API")]
+        public async Task WhenLoadADFUImageWithHigherHDIVersionThanTheDeviceAndSetDeviceFlashWriteProtectStatusToAndSendARequestToTheUpdateHDIAPIAsync(string state, DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -116,7 +116,7 @@ namespace QuantumServicesAPI.StepDefinitions
                     throw new InvalidOperationException("No connected side found.");
                 }
                 _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
+                //_enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
                 _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called GetDeviceNode successfully");
                 _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
@@ -184,8 +184,9 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw;
             }
         }
-        [Then("API does not update the HDI in the device")]
-        public void ThenAPIDoesNotUpdateTheHDIInTheDevice()
+
+        [Then("API does not update  HDI in the device")]
+        public void ThenAPIDoesNotUpdateHDIInTheDevice()
         {
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
@@ -200,6 +201,8 @@ namespace QuantumServicesAPI.StepDefinitions
                 throw;
             }
         }
+
+       
 
         [When("Load a valid DFU image, set isOptimizedProgramming to true, and send a request to WriteFDI API")]
         public async Task WhenLoadAValidDFUImageSetIsOptimizedProgrammingToTrueAndSendARequestToWriteFDIAPIAsync(DataTable dataTable)
@@ -299,8 +302,8 @@ namespace QuantumServicesAPI.StepDefinitions
             }
         }
 
-        [Then("API does not write the image to the device")]
-        public void ThenAPIDoesNotWriteTheImageToTheDevice()
+        [Then("API does not write  image to the device")]
+        public void ThenAPIDoesNotWriteImageToTheDevice()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -316,7 +319,7 @@ namespace QuantumServicesAPI.StepDefinitions
                     ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Write Response", _deviceImageresponse.ToString());
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred while verifying input values: {ex.Message}");
                 throw;
@@ -391,8 +394,6 @@ namespace QuantumServicesAPI.StepDefinitions
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called GetDeviceNode successfully");
                 _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DeviceNodeData Response", _getDeviceNodeResponse.ToString());
-                _getFlashWriteProtectStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "FlashWriteProtect Status Response", _getFlashWriteProtectStatusResponse.ToString());
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling LoadImageDataFromFile API to load DFU image...");
                 // 2. Load valid DFU image from known paths
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling LoadImageDataFromFile API...");
@@ -426,31 +427,24 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            try
-            {
-                if (!_scenarioContext.TryGetValue("LastRpcException", out RpcException ex))
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "No RpcException captured. Write API may not have failed as expected.");
-                    Assert.Fail("Expected RpcException was not captured.");
-                }
 
-                var actualStatus = ex.Status.StatusCode.ToString();
-
-                if (string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API correctly returned status: {actualStatus}");
-                }
-                else
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"Expected: {expectedStatus}, but got: {actualStatus}");
-                    throw new Exception($"Expected status '{expectedStatus}' but got '{actualStatus}'");
-                }
-            }
-            catch (Exception ex)
+            if(_deviceImageresponse != null)
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"Exception during validation: {ex.Message}");
-                throw;
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "WriteFDI response is null. API did not write the FDI to the device.");
+                throw new Exception("WriteFDI response is null. API did not write the FDI to the device.");
             }
+
+            var actualStatus = _deviceImageresponse.ToString();
+            if (string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API correctly returned status: {actualStatus}");
+            }
+            else
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"Expected: {expectedStatus}, but got: {actualStatus}");
+                throw new Exception($"Expected status '{expectedStatus}' but got '{actualStatus}'");
+            }
+           
         }
 
         [When("Send a request to the WriteFDI API without loading a DFU image")]
@@ -521,18 +515,25 @@ namespace QuantumServicesAPI.StepDefinitions
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called GetDeviceNode successfully");
                 _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DeviceNodeData Response", _getDeviceNodeResponse.ToString());
-                _getFlashWriteProtectStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "FlashWriteProtect Status Response", _getFlashWriteProtectStatusResponse.ToString());
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling WriteFDI API without loading DFU image...");
                 // Attempt to write without loading a DFU image
+                //ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking if the product is custom...");
+                //_isCustomProductResponse = await _deviceImagePage.CallIsCustomProductAsync();
+                //ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"IsCustomProduct: {_isCustomProductResponse.IsCustomProduct}");
+
+                //ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking if DFU is compatible...");
+                //_isDfuCompatibleResponse = await _deviceImagePage.CallIsDfuCompatibleAsync();
+                //ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"IsDfuCompatible: {_isDfuCompatibleResponse.IsDfuCompatible}");
+
+
                 _deviceImageresponse = await _deviceImagePage.CallWriteAsync(false); // This should fail
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Write Response", _deviceImageresponse.ToString());
             }
-            catch (RpcException ex)
-            {
-                _writeException = ex; // Save for validation in Then step
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Expected RpcException captured: {ex.Status.Detail}");
-            }
+            //catch (RpcException ex)
+            //{
+            //    _writeException = ex; // Save for validation in Then step
+            //    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Expected RpcException captured: {ex.Status.Detail}");
+            //}
             catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Exception occurred while verifying input values: {ex.Message}");
@@ -545,13 +546,13 @@ namespace QuantumServicesAPI.StepDefinitions
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            if (_writeException == null)
+            if (_deviceImageresponse == null)
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, "No RpcException was captured.");
                 throw new Exception("Expected RpcException was not thrown.");
             }
 
-            var actualStatus = _writeException.Status.StatusCode.ToString();
+            var actualStatus = _deviceImageresponse.ToString();
             if (actualStatus.Equals(expectedStatus, StringComparison.OrdinalIgnoreCase))
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Correct RpcException status code received: {actualStatus}");

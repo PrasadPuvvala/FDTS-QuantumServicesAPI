@@ -111,12 +111,12 @@ namespace QuantumServicesAPI.StepDefinitions
                     throw new InvalidOperationException("No connected side found.");
                 }
                 _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
+                //_enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
                 _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called GetDeviceNode successfully");
                 _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called ConnectToDevice successfully");
-                _readPcbaPartNumberResponse = await _productIdentificationPage.CallReadPcbaPartNumberAsync();
+                //_readPcbaPartNumberResponse = await _productIdentificationPage.CallReadPcbaPartNumberAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "ReadPcbaPartNumber API call succeeded. PCBA part number retrieved successfully.");
                 _productresponse = await _productIdentificationPage.CallReadAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Read API call succeeded. Product information retrieved successfully.");

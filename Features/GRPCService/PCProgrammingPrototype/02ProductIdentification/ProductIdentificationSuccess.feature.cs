@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.ProductIdentification
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._02ProductIdentification
 {
     
     
@@ -27,7 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Product
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/ProductIdentification", "ProductIdentification Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/02ProductIdentification", "ProductIdentification Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "ProductIdentificationSuccess.feature"
 #line hidden
@@ -123,12 +123,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table18.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "2400801520"});
 #line 8
- await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table18, "When ");
+ await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table13, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API returns the PCBA part number of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -220,12 +220,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table19.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "2400801520"});
 #line 28
- await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table19, "When ");
+ await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table14, "When ");
 #line hidden
 #line 31
  await testRunner.ThenAsync("API writes the serial number to the device and return status as \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -287,13 +287,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "FittingSide"});
-                table20.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Left"});
 #line 42
  await testRunner.WhenAsync("Send a request to the FittingSide API with a valid fitting side (Ex: Left or Righ" +
-                        "t)", ((string)(null)), table20, "When ");
+                        "t)", ((string)(null)), table15, "When ");
 #line hidden
 #line 45
  await testRunner.ThenAsync("API writes the fitting side to the device and returns status as \"success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -355,16 +355,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "BleId",
                             "Brand",
                             "PrivateLabelCode"});
-                table21.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "1093078272",
                             "ReSound",
                             "0"});
 #line 56
- await testRunner.WhenAsync("Send a request with valid BleId, correct Brand, and private label code", ((string)(null)), table21, "When ");
+ await testRunner.WhenAsync("Send a request with valid BleId, correct Brand, and private label code", ((string)(null)), table16, "When ");
 #line hidden
 #line 59
  await testRunner.ThenAsync("API verifies that the input values match those in the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -394,19 +394,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "MFIBrand",
                             "MFIModel",
                             "MFIFamily",
                             "GapDeviceName"});
-                table22.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "DevInfoManufacturerName",
                             "DevInfoModelNumber",
                             "GNDevInfoFamilyName",
                             "Users Hearing Aid"});
 #line 64
  await testRunner.WhenAsync("Send a request with valid values for MFI brand, MFI family, MFI model, and GAP de" +
-                        "vice name", ((string)(null)), table22, "When ");
+                        "vice name", ((string)(null)), table17, "When ");
 #line hidden
 #line 67
  await testRunner.ThenAsync("API writes the values to the GATT database successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -530,13 +530,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "optionsForDevice"});
-                table23.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "1293"});
 #line 90
  await testRunner.WhenAsync("Send a request to the OptionForDevice API with a valid integer related to device " +
-                        "options", ((string)(null)), table23, "When ");
+                        "options", ((string)(null)), table18, "When ");
 #line hidden
 #line 93
  await testRunner.ThenAsync("API writes the device options to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -597,13 +597,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "privateLabelCode"});
-                table24.AddRow(new string[] {
+                table19.AddRow(new string[] {
                             "0"});
 #line 104
  await testRunner.WhenAsync("Send a request to the PrivateLabelCode API with a valid integer relayed to the pr" +
-                        "ivate label code", ((string)(null)), table24, "When ");
+                        "ivate label code", ((string)(null)), table19, "When ");
 #line hidden
 #line 107
  await testRunner.ThenAsync("API writes the private label code to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

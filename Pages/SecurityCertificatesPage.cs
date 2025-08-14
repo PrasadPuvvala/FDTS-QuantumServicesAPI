@@ -43,5 +43,6 @@ namespace QuantumServicesAPI.Pages
             };
             return await _securityCertificatesClient.WritePricePointCertificateAsync(request);
         }
+
     }
 }

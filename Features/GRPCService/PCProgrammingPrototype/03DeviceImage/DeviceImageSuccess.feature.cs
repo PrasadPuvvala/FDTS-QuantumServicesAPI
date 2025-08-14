@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.DeviceImage
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._03DeviceImage
 {
     
     
@@ -27,7 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.DeviceI
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/DeviceImage", "DeviceImage Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/03DeviceImage", "DeviceImage Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "DeviceImageSuccess.feature"
 #line hidden
@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table5.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "2400809347"});
 #line 8
  await testRunner.WhenAsync("Load a DFU image with a higher HDI version than the device, ensure Flash Write Pr" +
-                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), table5, "When ");
+                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), table24, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API updates the HDI in the device before writing the image", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
