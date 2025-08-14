@@ -18,7 +18,6 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("SecurityCertificatesSuccess")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
     public partial class SecurityCertificatesSuccessFeature
     {
@@ -27,7 +26,6 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/SecurityCertificates", "SecurityCertificatesSuccess", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "SecurityCertificatesSuccess.feature"
 #line hidden
@@ -103,14 +101,9 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("[scenario name]")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        public async global::System.Threading.Tasks.Task ScenarioName()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("[scenario name]", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -121,14 +114,8 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
- await testRunner.GivenAsync("[context]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
 #line 8
- await testRunner.WhenAsync("[action]", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 9
- await testRunner.ThenAsync("[outcome]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
