@@ -10,33 +10,11 @@ using System.Threading.Tasks;
 namespace QuantumServicesAPI.StepDefinitions
 {
     [Binding]
-    public class ProductionTestDataSuccessStepDefinitions
+    public class ProductionTestDataSuccessStepDefinitions : BaseResponsePage
     {
-        private readonly HearingInstrumentPage _hearingInstrumentPage;
-        private readonly ProductionTestDataPage _productionTestDataPage;
-        private readonly ScenarioContext _scenarioContext;
-        private ExtentTest? _test; // Declare 'test' as global
-        private ExtentTest? _step; // Declare 'step' as global
-        private Avalon.Dooku3.gRPCService.Protos.HearingInstrument.VoidResponse? _response;
-        private Avalon.Dooku3.gRPCService.Protos.ProductionTestData.VoidResponse? _productionTestDataResponse;
-        private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
-        private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
-        private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private ChannelSide connectedSide; // Declare 'connectedSide' as global
-        private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
-        private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
-        private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
-        private ConnectResponse? _connectResponse;
-        private GetTestSiteResponse? _getTestSiteResponse;
-        private GetTestStationResponse? _getTestStationResponse;
-        private GetTpiReleaseCodeResponse? _getTpiReleaseCodeResponse;
-        private GetTestDateResponse? _getTestDateResponse;
-        private GetModelVerificationIdResponse? _getModelVerificationIdResponse;
-        public ProductionTestDataSuccessStepDefinitions(ScenarioContext scenarioContext)
+        public ProductionTestDataSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
-            _scenarioContext = scenarioContext;
-            _hearingInstrumentPage = (HearingInstrumentPage)_scenarioContext["GrpcHearingInstrument"];
-            _productionTestDataPage = (ProductionTestDataPage)_scenarioContext["GrpcProductionTestData"];
+
         }
 
         [When("Send a request to the ProductionTestData API to read test date, site, station, TPI release code, and verification flags from the device")]
@@ -45,83 +23,9 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting device initialization and product configuration for serial number detection.");
             try
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling Initialize API to initialize the device...");
-                _response = await _hearingInstrumentPage.CallInitializeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
-                _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Product configured successfully using FDTS file.");
-
-                foreach (var row in dataTable.Rows)
-                {
-                    string serialNumber = row["SerialNumber"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
-                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                    if (_detectBySerialNumberResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectClosest API to find the nearest RHI device...");
-                _detectClosestResponse = await _hearingInstrumentPage.CallDetectClosestAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DetectClosest API call succeeded.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectOnSide API for Left and Right channels...");
-                var left = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Left);
-                var right = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Right);
-
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Left Response", left.ToString());
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Right Response", right.ToString());
-
-                if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus == AvalonStatus.Success)
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Both Left and Right sides detected. Calling DetectOnSide API for Both sides...");
-                    _detectOnSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Both);
-                    connectedSide = ChannelSide.Both;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Both sides detected successfully. Using 'Both' as fitting side.");
-                }
-                else if (left.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = left;
-                    connectedSide = ChannelSide.Left;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Left side detected successfully. Using 'Left' as fitting side.");
-                }
-                else if (right.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = right;
-                    connectedSide = ChannelSide.Right;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Right side detected successfully. Using 'Right' as fitting side.");
-                }
-                else
-                {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No connected side detected. Device may not be connected or powered.");
-                    throw new InvalidOperationException("No connected side found.");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Master Connect mode...");
-                _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Master Connect mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Fitting Mode...");
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Fitting Mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting device node data from GetDeviceNode API...");
-                _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device node data received.");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_getDeviceNodeResponse.ToString()}");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Attempting to connect to device using Connect API...");
-                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Connected to device successfully.");
+                await SetupGrpcPreconditionsAsync(dataTable, _step);
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Reading production test data to the device...");
                 _productionTestDataResponse = await _productionTestDataPage.CallReadAsync();
@@ -221,7 +125,7 @@ namespace QuantumServicesAPI.StepDefinitions
                     string modelVerificationId = row["ModelVerificationId"];
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test site = {testSite}");
                     _productionTestDataResponse = await _productionTestDataPage.CallSetTestSiteAsync(testSite);
-                    if(_productionTestDataResponse == null)
+                    if (_productionTestDataResponse == null)
                     {
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestSiteResponse is null.");
                         throw new Exception("SetTestSiteResponse is null.");
@@ -281,7 +185,7 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Verifying written test metadata values...");
-                _productionTestDataResponse =await _productionTestDataPage.CallWriteAsync();
+                _productionTestDataResponse = await _productionTestDataPage.CallWriteAsync();
                 if (_productionTestDataResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Write response is null.");

@@ -126,7 +126,7 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table8.AddRow(new string[] {
-                            "2400801520"});
+                            "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the DetectBySerialNumber API with a valid serial number that ma" +
                         "tches an existing device", ((string)(null)), table8, "When ");
@@ -172,11 +172,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns \'Success\'" +
             " When Device Is Found for Monaural Side")]
-        [NUnit.Framework.CategoryAttribute("HearingUnstrument")]
+        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
         public async global::System.Threading.Tasks.Task _03TestCaseID1809108AvalonServiceVerifyDetectWiredAPIReturnsSuccessWhenDeviceIsFoundForMonauralSide()
         {
             string[] tagsOfScenario = new string[] {
-                    "HearingUnstrument"};
+                    "HearingInstrument"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns \'Success\'" +
                     " When Device Is Found for Monaural Side", null, tagsOfScenario, argumentsOfScenario, featureTags);
@@ -364,37 +364,6 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("09Test Case ID 1810812: [Avalon Service] Verify FlashWriteProtect API sets Flash " +
-            "Write Protect state to \'Lock\' and returns updated status")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _09TestCaseID1810812AvalonServiceVerifyFlashWriteProtectAPISetsFlashWriteProtectStateToLockAndReturnsUpdatedStatus()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1810812: [Avalon Service] Verify FlashWriteProtect API sets Flash " +
-                    "Write Protect state to \'Lock\' and returns updated status", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 59
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 61
- await testRunner.WhenAsync("Send a request to the FlashWriteProtect API with state as \"Lock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 62
- await testRunner.ThenAsync("API returns status as \"Lock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("10Test Case ID 1810813: [Avalon Service] Verify FlashWriteProtect API sets Flash " +
             "Write Protect state to \'UnLock\' and returns updated status")]
         [NUnit.Framework.CategoryAttribute("HearingInstrument")]
@@ -420,99 +389,6 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 68
  await testRunner.ThenAsync("API returns status as \"UnLock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("11Test Case ID 1810815: [Avalon Service] Verify FlashWriteProtect API sets Flash " +
-            "Write Protect state to \'LockedPermanent\' and returns updated status")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _11TestCaseID1810815AvalonServiceVerifyFlashWriteProtectAPISetsFlashWriteProtectStateToLockedPermanentAndReturnsUpdatedStatus()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("11Test Case ID 1810815: [Avalon Service] Verify FlashWriteProtect API sets Flash " +
-                    "Write Protect state to \'LockedPermanent\' and returns updated status", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 71
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 73
- await testRunner.WhenAsync("Send a request to the FlashWriteProtect API with state set as \"LockPermanent\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 74
- await testRunner.ThenAsync("API returns status as \"LockPermanent\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not all" +
-            "ow changing state from \'LockedPermanent\' to \'Lock\'")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _12TestIDCase1840256HIAutomationVerifyFlashWriteProtectAPIDoesNotAllowChangingStateFromLockedPermanentToLock()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not all" +
-                    "ow changing state from \'LockedPermanent\' to \'Lock\'", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 77
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 79
- await testRunner.WhenAsync("Send a request to FlashWriteProtect API with state \"Lock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 80
- await testRunner.ThenAsync("API returns status as \"LockPermanent\" when state is set to Lock", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not all" +
-            "ow changing state from \'LockedPermanent\' to \'UnLock\'")]
-        [NUnit.Framework.CategoryAttribute("HearingInstrument")]
-        public async global::System.Threading.Tasks.Task _13TestCaseID1810947HIAutomationVerifyFlashWriteProtectAPIDoesNotAllowChangingStateFromLockedPermanentToUnLock()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "HearingInstrument"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not all" +
-                    "ow changing state from \'LockedPermanent\' to \'UnLock\'", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 83
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 85
- await testRunner.WhenAsync("Send a request to FlashWriteProtect API with state \"UnLock\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 86
- await testRunner.ThenAsync("API returns status as \"LockPermanent\" when state is set to UnLock", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

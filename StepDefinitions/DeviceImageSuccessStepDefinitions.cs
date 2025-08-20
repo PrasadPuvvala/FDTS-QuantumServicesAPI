@@ -9,55 +9,29 @@ using System;
 namespace QuantumServicesAPI.StepDefinitions
 {
     [Binding]
-    public class DeviceImageSuccessStepDefinitions
+    public class DeviceImageSuccessStepDefinitions : BaseResponsePage
     {
-        private readonly HearingInstrumentPage _hearingInstrumentPage;
-        private readonly ProductIdentificationPage _productIdentificationPage;
-        private readonly DeviceImagePage _deviceImagePage;
-        private readonly ScenarioContext _scenarioContext;
-        private ExtentTest? _test; // Declare 'test' as global
-        private ExtentTest? _step; // Declare 'step' as global
-        private Avalon.Dooku3.gRPCService.Protos.HearingInstrument.VoidResponse? _response; // Fully qualify 'VoidResponse' to resolve ambiguity
-        private Avalon.Dooku3.gRPCService.Protos.DeviceImage.VoidResponse? _deviceImageresponse; // Declare '_response' as nullable to fix CS8618
-        private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
-        private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
-        private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private ChannelSide connectedSide; // Declare 'connectedSide' as global
-        private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
-        private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
-        private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
-        private ConnectResponse? _connectResponse;
-        private GetFlashWriteProtectStatusResponse? _getFlashWriteProtectStatusResponse; // Declare '_getFlashWriteProtectStatusResponse' as nullable to fix CS8618
-        private IsCustomProductResponse? _isCustomProductResponse; // Declare '_isCustomProductResponse' as nullable to fix CS8618
-        private IsOptimizedProgrammingResponse? _isOptimizedProgrammingResponse; // Declare '_isOptimizedProgrammingResponse' as nullable to fix CS8618
-        private IsDfuCompatibleResponse? _isDfuCompatibleResponse; // Declare '_isDfuCompatibleResponse' as nullable to fix CS8618  
-
-        const string fdiPath = @"C:\ProgramData\ReSound\Camelot\Test Programs\ReSound Vivia 7\VI760S-DRWC [10]\Final\VI760S-DRWC.10.43.1.1.fdidfu";
-        const string hdiPath = @"C:\Program Files (x86)\GN Hearing\Avalon\Device.Dooku3\Dooku3.C6.HDI.1.4.xml";
-        public DeviceImageSuccessStepDefinitions(ScenarioContext scenarioContext)
+        public DeviceImageSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
-            _scenarioContext = scenarioContext;
-            _hearingInstrumentPage = (HearingInstrumentPage)_scenarioContext["GrpcHearingInstrument"];
-            _productIdentificationPage = (ProductIdentificationPage)_scenarioContext["GrpcProductIdentification"];
-            _deviceImagePage = (DeviceImagePage)_scenarioContext["GrpcDeviceImage"];
+
         }
 
         [When("Load a DFU image with a higher HDI version than the device, ensure Flash Write Protect is not set to {string}, and send a request to the UpdateHDI API")]
         public async Task WhenLoadADFUImageWithAHigherHDIVersionThanTheDeviceEnsureFlashWriteProtectIsNotSetToAndSendARequestToTheUpdateHDIAPIAsync(string status, DataTable dataTable)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
-            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);       
+            _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting device initialization and product configuration for serial number detection.");
 
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling Initialize API to initialize the device...");
-                _response = await _hearingInstrumentPage.CallInitializeAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
-                _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Product configured successfully using FDTS file.");
 
                 foreach (var row in dataTable.Rows)
@@ -140,8 +114,8 @@ namespace QuantumServicesAPI.StepDefinitions
                 //    _deviceImageresponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
                 //}
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to CallLoadImageDataFromFileAsync...");
-                _deviceImageresponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageresponse.ToString()}");
+                _deviceImageVoidResponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");
 
                 //ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking if the product is custom...");
                 //_isCustomProductResponse = await _deviceImagePage.CallIsCustomProductAsync();
@@ -179,12 +153,12 @@ namespace QuantumServicesAPI.StepDefinitions
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating DeviceImage API response for HDI update...");
             try
             {
-                if (_deviceImageresponse == null)
+                if (_deviceImageVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DeviceImage API response is null. HDI update failed.");
                     throw new Exception("DeviceImage API response is null.");
                 }
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageresponse.ToString()}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");
             }
             catch (Exception ex)
             {
@@ -202,7 +176,7 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to CallLoadImageDataFromFileAsync...");
-                _deviceImageresponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
+                _deviceImageVoidResponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
             }
             catch (Exception ex)
             {
@@ -289,7 +263,7 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating WriteFDI API call with DFU image...");
                 bool isOptimizedProgramming = bool.Parse(isOptimizedProgram);
-                _deviceImageresponse = await _deviceImagePage.CallWriteAsync(isOptimizedProgramming);
+                _deviceImageVoidResponse = await _deviceImagePage.CallWriteAsync(isOptimizedProgramming);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "WriteFDI API call completed successfully.");
             }
             catch (Exception ex)
@@ -308,12 +282,12 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating WriteFDI API response for image write verification...");
-                if (_deviceImageresponse == null)
+                if (_deviceImageVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "WriteFDI API response is null. Image write verification failed.");
                     throw new Exception("WriteFDI API response is null.");
                 }
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageresponse.ToString()}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");
             }
             catch (Exception ex)
             {

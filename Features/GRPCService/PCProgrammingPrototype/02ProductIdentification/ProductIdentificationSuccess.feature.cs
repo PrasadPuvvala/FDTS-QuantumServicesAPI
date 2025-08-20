@@ -126,7 +126,7 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table13.AddRow(new string[] {
-                            "2400801520"});
+                            "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table13, "When ");
 #line hidden
@@ -223,7 +223,7 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table14.AddRow(new string[] {
-                            "2400801520"});
+                            "2400801504"});
 #line 28
  await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table14, "When ");
 #line hidden

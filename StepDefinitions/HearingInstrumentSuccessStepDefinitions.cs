@@ -1,42 +1,16 @@
 ﻿using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using AventStack.ExtentReports;
-using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
-using Reqnroll;
-using System;
-using System.Buffers.Text;
 
 namespace QuantumServicesAPI.StepDefinitions
 {
     [Binding]
-    public class HearingInstrumentSuccessStepDefinitions
+    public class HearingInstrumentSuccessStepDefinitions : BaseResponsePage
     {
-        private readonly HearingInstrumentPage _hearingInstrumentPage;
-        private readonly ScenarioContext _scenarioContext;
-        private ExtentTest? _test; // Declare 'test' as global
-        private ExtentTest? _step; // Declare 'step' as global
-        private VoidResponse? _response; // Declare '_response' as nullable to fix CS8618
-        private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
-        private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
-        private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private ChannelSide connectedSide; // Declare 'connectedSide' as global
-        private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
-        private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
-        private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
-        private ConnectResponse? _connectResponse;
-        private GetBootModeResponse? _getBootModeResponse;
-        private GetFlashWriteProtectStatusResponse? _getFlashWriteProtectStatusResponse; // Declare '_getFlashWriteProtectStatusResponse' as nullable to fix CS8618
-        private SetFlashWriteProtectStateResponse? _setFlashWriteProtectStateResponse; // Declare 'setFlashWriteProtectStateResponse' as global
-        private IsRechargeableResponse? _isRechargeableResponse; // Declare '_isRechargeableResponse' as nullable to fix CS8618
-        private GetBatteryLevelResponse? _getBatteryLevelResponse; // Declare '_getBatteryLevelResponse' as nullable to fix CS8618
-        private ShouldVerifyMfiChipResponse? _shouldVerifyMfiChipResponse;
-        private GetBatteryTypeResponse? _getBatteryTypeResponse;
-        private GetBatteryVoltageResponse? _getBatteryVoltageResponse;
-        public HearingInstrumentSuccessStepDefinitions(ScenarioContext scenarioContext)
+        public HearingInstrumentSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
-            _scenarioContext = scenarioContext;
-            _hearingInstrumentPage = (HearingInstrumentPage)_scenarioContext["GrpcHearingInstrument"];
+
         }
 
         [When("Send a request to the DetectBySerialNumber API with a valid serial number that matches an existing device")]
@@ -51,13 +25,13 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 // Initialize device
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initializing device...");
-                _response = await _hearingInstrumentPage.CallInitializeAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
                 // Configure product
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Configuring product using FDTS file...");
-                _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
+
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully.");
 
                 // Process each serial number
@@ -478,16 +452,16 @@ namespace QuantumServicesAPI.StepDefinitions
                         _ => BootType.DspStopped
                     };
 
-                    _response = await _hearingInstrumentPage.CallBootAsync(bootTypeToUse, true);
+                    _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallBootAsync(bootTypeToUse, true);
 
-                    if (_response == null)
+                    if (_hearingInstrumentVoidResponse == null)
                     {
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"BootDevice API returned null response for boot type '{type}'.");
                         throw new Exception($"BootDevice API response is null for boot type: '{type}'");
                     }
 
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Device booted successfully in '{type}' mode and reconnected.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, $"BootDevice API Response - {type}", _response.ToString());
+                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, $"BootDevice API Response - {type}", _hearingInstrumentVoidResponse.ToString());
                 }
             }
             catch (Exception ex)
@@ -928,16 +902,16 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to MFI Chip Health API to check chip status...");
 
-                _response = await _hearingInstrumentPage.CallVerifyMfiChipIsHealthyAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallVerifyMfiChipIsHealthyAsync();
 
-                if (_response == null)
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "MFI Chip Health API response is null. The chip status could not be determined.");
                     throw new Exception("MFI Chip Health API response is null.");
                 }
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "MFI Chip Health API responded successfully.");
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "MFI Chip Health Response", _response.ToString());
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "MFI Chip Health Response", _hearingInstrumentVoidResponse.ToString());
             }
             catch (Exception ex)
             {
@@ -955,13 +929,13 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating MFI Chip Health API response...");
-                if (_response == null)
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Validation failed: MFI chip health response is null.");
                     throw new Exception("MFI chip health response is null.");
                 }
 
-                string actualStatus = _response!.ToString();
+                string actualStatus = _hearingInstrumentVoidResponse!.ToString();
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Comparing MFI chip health status. Expected: '{expectedStatus}', Actual: '{actualStatus}'");
 
@@ -1055,8 +1029,8 @@ namespace QuantumServicesAPI.StepDefinitions
                 {
                     string type = batteryType["BatteryType"];
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending request to set battery type: {type}");
-                    _response = await _hearingInstrumentPage.CallSetBatteryTypeAsync(type);
-                    if (_response == null)
+                    _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallSetBatteryTypeAsync(type);
+                    if (_hearingInstrumentVoidResponse == null)
                     {
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Failed to set battery type '{type}': Response is null.");
                         throw new Exception($"SetBatteryType API response is null for battery type: {type}");
@@ -1082,13 +1056,13 @@ namespace QuantumServicesAPI.StepDefinitions
 
             try
             {
-                if (_response == null)
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Battery type write verification failed: Response is null.");
                     throw new Exception("Battery type write verification failed: Response is null.");
                 }
 
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Battery type write confirmed with response: {_response}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Battery type write confirmed with response: {_hearingInstrumentVoidResponse}");
             }
             catch (Exception ex)
             {
@@ -1163,8 +1137,8 @@ namespace QuantumServicesAPI.StepDefinitions
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Invalid input '{enableFunctionality}' for enable functionality. Expected 'true' or 'false'.");
                     throw new ArgumentException($"Invalid enable functionality value: {enableFunctionality}");
                 }
-                _response = await _hearingInstrumentPage.CallMakeDeviceFunctionalAsync(isEnabled);
-                if (_response == null)
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallMakeDeviceFunctionalAsync(isEnabled);
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DeviceFunctional API call failed: Response is null.");
                     throw new Exception("DeviceFunctional API response is null.");
@@ -1188,14 +1162,14 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating DeviceFunctional API response...");
-                if (_response == null)
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DeviceFunctional API call failed: Response is null.");
                     throw new Exception("DeviceFunctional API response is null.");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DeviceFunctional API call succeeded with response: " + _response.ToString());
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DeviceFunctional API call succeeded with response: " + _hearingInstrumentVoidResponse.ToString());
                 }
             }
             catch (Exception ex)
@@ -1213,8 +1187,8 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to RHIPowerOff API to power off the connected RHI device...");
-                _response = await _hearingInstrumentPage.CallSetPowerOffAsync();
-                if (_response == null)
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallSetPowerOffAsync();
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"RHIPowerOff API call failed: Response is null.");
                     throw new Exception($"RHIPowerOff API response is null.");
@@ -1239,14 +1213,14 @@ namespace QuantumServicesAPI.StepDefinitions
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating RHIPowerOff API response...");
-                if (_response == null)
+                if (_hearingInstrumentVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Verification failed: RHIPowerOff API response is null.");
                     throw new Exception("Verification failed: RHIPowerOff API response is null.");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"RHIPowerOff API responded successfully. Response: {_response}");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"RHIPowerOff API responded successfully. Response: {_hearingInstrumentVoidResponse}");
                 }
             }
             catch (Exception ex)

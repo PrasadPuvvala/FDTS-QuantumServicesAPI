@@ -127,12 +127,12 @@ this.ScenarioInitialize(scenarioInfo);
                             "SerialNumber"});
                 table20.AddRow(new string[] {
                             "2400801508"});
-#line 7
+#line 8
  await testRunner.WhenAsync("Load a DFU image with  higher HDI version than the device, and set device Flash W" +
                         "rite Protect status to \"LockedPermanent\", and send a request to the UpdateHDI AP" +
                         "I", ((string)(null)), table20, "When ");
 #line hidden
-#line 10
+#line 11
  await testRunner.ThenAsync("API does not update  HDI in the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -150,7 +150,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1810718: [Avalon Service] Verify WriteFDI API does not Write Image" +
                     " When Optimized Programming Is Set to True", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -164,11 +164,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "SerialNumber"});
                 table21.AddRow(new string[] {
                             "2400801508"});
-#line 15
+#line 16
  await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to true, and send a request to" +
                         " WriteFDI API", ((string)(null)), table21, "When ");
 #line hidden
-#line 18
+#line 19
  await testRunner.ThenAsync("API does not write  image to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -186,7 +186,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1810715: [Avalon Service] Verify WriteFDI API Returns Failed Preco" +
                     "ndition When DFU Compatibility has not been Checked", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 21
+#line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -200,10 +200,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "SerialNumber"});
                 table22.AddRow(new string[] {
                             "2400801508"});
-#line 23
+#line 24
  await testRunner.WhenAsync("Send a request to the WriteFDI API without performing DFU compatibility check", ((string)(null)), table22, "When ");
 #line hidden
-#line 26
+#line 27
  await testRunner.ThenAsync("API throws an exception with status \"Failed Precondition\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -221,7 +221,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1810716: [Avalon Service] Verify WriteFDI API Returns Failed Preco" +
                     "ndition When DFU Image Is Not Loaded", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 29
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -235,10 +235,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "SerialNumber"});
                 table23.AddRow(new string[] {
                             "2400801508"});
-#line 31
+#line 32
  await testRunner.WhenAsync("Send a request to the WriteFDI API without loading a DFU image", ((string)(null)), table23, "When ");
 #line hidden
-#line 34
+#line 35
  await testRunner.ThenAsync("API throws an exception with status the \"Failed Precondition\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

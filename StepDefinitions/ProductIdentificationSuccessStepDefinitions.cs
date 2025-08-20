@@ -7,40 +7,11 @@ using QuantumServicesAPI.Pages;
 namespace QuantumServicesAPI.StepDefinitions
 {
     [Binding]
-    public class ProductIdentificationSuccessStepDefinitions
+    public class ProductIdentificationSuccessStepDefinitions : BaseResponsePage
     {
-        private readonly HearingInstrumentPage _hearingInstrumentPage;
-        private readonly ProductIdentificationPage _productIdentificationPage;
-        private readonly ScenarioContext _scenarioContext;
-        private ExtentTest? _test; // Declare 'test' as global
-        private ExtentTest? _step; // Declare 'step' as global
-        private Avalon.Dooku3.gRPCService.Protos.HearingInstrument.VoidResponse? _response; // Fully qualify 'VoidResponse' to resolve ambiguity
-        private Avalon.Dooku3.gRPCService.Protos.ProductIdentification.VoidResponse? _productresponse; // Declare '_response' as nullable to fix CS8618
-        private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
-        private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
-        private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private ChannelSide connectedSide; // Declare 'connectedSide' as global
-        private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
-        private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
-        private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
-        private ConnectResponse? _connectResponse;
-        private ReadPcbaPartNumberResponse? _readPcbaPartNumberResponse; // Declare 'readPcbaPartNumberResponse' as nullable to fix CS8618
-        private ReadInProductionCertInputResponse? _readInProductionCertInputResponse; // Declare 'readInProductionCertInputResponse' as nullable to fix CS8618
-        private GetPlatformNameResponse? _getPlatformNameResponse;
-        private GetSerialNumberResponse? _getSerialNumberResponse; // Declare 'getSerialNumberResponse' as nullable to fix CS8618
-        private GetSideResponse? _getSideResponse; // Declare 'getSideResponse' as nullable to fix CS8618
-        private GetNetworkAddressResponse? _getNetworkAddressResponse;
-        private VerifyProductResponse? _verifyProductResponse; // Declare 'verifyProductResponse' as nullable to fix CS8618
-        private ReadCloudRegistrationInputResponse? _readCloudRegistrationInputResponse;
-        private GetDateModifiedResponse? _getDateModifiedResponse; // Declare 'getDateModifiedResponse' as nullable to fix CS8618
-        private GetOptionsForDeviceResponse? _getOptionsForDeviceResponse; // Declare 'getOptionsForDeviceResponse' as nullable to fix CS8618
-        private GetPrivateLabelCodeResponse? _getPrivateLabelCodeResponse; // Declare 'getPrivateLabelCodeResponse' as nullable to fix CS8618
-
-        public ProductIdentificationSuccessStepDefinitions(ScenarioContext scenarioContext)
+        public ProductIdentificationSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
-            _scenarioContext = scenarioContext;
-            _hearingInstrumentPage = (HearingInstrumentPage)_scenarioContext["GrpcHearingInstrument"];
-            _productIdentificationPage = (ProductIdentificationPage)_scenarioContext["GrpcProductIdentification"];
+
         }
 
         [When("Send a request to the PCBAPartNumber with connected device")]
@@ -49,84 +20,9 @@ namespace QuantumServicesAPI.StepDefinitions
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting device initialization and product configuration for serial number detection.");
-
             try
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling Initialize API to initialize the device...");
-                _response = await _hearingInstrumentPage.CallInitializeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
-                _response = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Product configured successfully using FDTS file.");
-
-                foreach (var row in dataTable.Rows)
-                {
-                    string serialNumber = row["SerialNumber"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
-                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                    if (_detectBySerialNumberResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectClosest API to find the nearest RHI device...");
-                _detectClosestResponse = await _hearingInstrumentPage.CallDetectClosestAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DetectClosest API call succeeded.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectOnSide API for Left and Right channels...");
-                var left = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Left);
-                var right = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Right);
-
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Left Response", left.ToString());
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Right Response", right.ToString());
-
-                if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus == AvalonStatus.Success)
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Both Left and Right sides detected. Calling DetectOnSide API for Both sides...");
-                    _detectOnSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Both);
-                    connectedSide = ChannelSide.Both;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Both sides detected successfully. Using 'Both' as fitting side.");
-                }
-                else if (left.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = left;
-                    connectedSide = ChannelSide.Left;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Left side detected successfully. Using 'Left' as fitting side.");
-                }
-                else if (right.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = right;
-                    connectedSide = ChannelSide.Right;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Right side detected successfully. Using 'Right' as fitting side.");
-                }
-                else
-                {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No connected side detected. Device may not be connected or powered.");
-                    throw new InvalidOperationException("No connected side found.");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Master Connect mode...");
-                _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Master Connect mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Fitting Mode...");
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Fitting Mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting device node data from GetDeviceNode API...");
-                _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device node data received.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Attempting to connect to device using Connect API...");
-                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Connected to device successfully.");
-
+                await SetupGrpcPreconditionsAsync(dataTable, _step);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ReadPcbaPartNumber API to retrieve PCBA part number...");
                 _readPcbaPartNumberResponse = await _productIdentificationPage.CallReadPcbaPartNumberAsync();
                 if (_readPcbaPartNumberResponse == null)
@@ -138,7 +34,7 @@ namespace QuantumServicesAPI.StepDefinitions
             }
             catch (Exception ex)
             {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Initialization or configuration failed: {ex.Message}");
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"{ex.Message}");
                 throw;
             }
         }
@@ -193,7 +89,7 @@ namespace QuantumServicesAPI.StepDefinitions
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting PlatformName API request with a connected device.");
-            _productresponse = await _productIdentificationPage.CallReadAsync();
+            _productIdentificationVoidResponse = await _productIdentificationPage.CallReadAsync();
 
             try
             {
@@ -336,9 +232,9 @@ namespace QuantumServicesAPI.StepDefinitions
 
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSerialNumber API with serial number: {serialNumber}...");
 
-                    _productresponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
+                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
 
-                    if (_productresponse == null)
+                    if (_productIdentificationVoidResponse == null)
                     {
                         string errorMsg = $"SetSerialNumber API response is null for serial number: {serialNumber}";
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
@@ -369,7 +265,7 @@ namespace QuantumServicesAPI.StepDefinitions
 
             try
             {
-                if (_productresponse == null)
+                if (_productIdentificationVoidResponse == null)
                 {
                     string errorMsg = "SetSerialNumber API response is null. Unable to validate serial number status.";
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
@@ -377,7 +273,7 @@ namespace QuantumServicesAPI.StepDefinitions
                 }
 
                 // Log JSON response
-                string json = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                string json = System.Text.Json.JsonSerializer.Serialize(_productIdentificationVoidResponse);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "SetSerialNumber API Response:", json);
             }
             catch (Exception ex)
@@ -465,9 +361,9 @@ namespace QuantumServicesAPI.StepDefinitions
                     string fittingSide = row["FittingSide"];
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSide API with fitting side: {fittingSide}...");
 
-                    _productresponse = await _productIdentificationPage.CallSetSideAsync(fittingSide);
+                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSideAsync(fittingSide);
 
-                    if (_productresponse == null)
+                    if (_productIdentificationVoidResponse == null)
                     {
                         string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
@@ -496,7 +392,7 @@ namespace QuantumServicesAPI.StepDefinitions
 
             try
             {
-                if (_productresponse == null)
+                if (_productIdentificationVoidResponse == null)
                 {
                     string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
@@ -504,12 +400,12 @@ namespace QuantumServicesAPI.StepDefinitions
                 }
 
                 // Log the full response object in JSON format
-                string json = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                string json = System.Text.Json.JsonSerializer.Serialize(_productIdentificationVoidResponse);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "SetSide API Response", json);
 
                 // Check for status or AvalonStatus property
-                var statusProperty = _productresponse.GetType().GetProperty("Status") ?? _productresponse.GetType().GetProperty("AvalonStatus");
-                string? actualStatus = statusProperty?.GetValue(_productresponse)?.ToString();
+                var statusProperty = _productIdentificationVoidResponse.GetType().GetProperty("Status") ?? _productIdentificationVoidResponse.GetType().GetProperty("AvalonStatus");
+                string? actualStatus = statusProperty?.GetValue(_productIdentificationVoidResponse)?.ToString();
 
                 if (string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
                 {
@@ -699,8 +595,8 @@ namespace QuantumServicesAPI.StepDefinitions
                 try
                 {
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling UpdateGattDatabase API with MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}...");
-                    _productresponse = await _productIdentificationPage.CallUpdateGattDatabaseAsync(mfiBrand, mfiModel, mfiFamily, gapDeviceName);
-                    if (_productresponse == null)
+                    _productIdentificationVoidResponse = await _productIdentificationPage.CallUpdateGattDatabaseAsync(mfiBrand, mfiModel, mfiFamily, gapDeviceName);
+                    if (_productIdentificationVoidResponse == null)
                     {
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"UpdateGattDatabase API returned null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
                         throw new Exception($"UpdateGattDatabase API response is null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
@@ -729,14 +625,14 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating UpdateGattDatabase API response.");
 
-                if (_productresponse == null)
+                if (_productIdentificationVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "UpdateGattDatabase API response is null. Unable to validate GATT database update.");
                     throw new Exception("UpdateGattDatabase API response is null.");
                 }
 
                 // Log the full response object for traceability
-                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productIdentificationVoidResponse);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "UpdateGattDatabase API Response", jsonResponse);
 
                 // Optionally validate a specific success flag or status field here
@@ -967,9 +863,9 @@ namespace QuantumServicesAPI.StepDefinitions
                 {
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetOptionsForDevice API with value: {optionsForDevice}...");
 
-                    _productresponse = await _productIdentificationPage.CallSetOptionsForDeviceAsync(int.Parse(optionsForDevice));
+                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetOptionsForDeviceAsync(int.Parse(optionsForDevice));
 
-                    if (_productresponse == null)
+                    if (_productIdentificationVoidResponse == null)
                     {
                         string errorMsg = $"SetOptionsForDevice API returned null for value: {optionsForDevice}.";
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
@@ -999,13 +895,13 @@ namespace QuantumServicesAPI.StepDefinitions
 
             try
             {
-                if (_productresponse == null)
+                if (_productIdentificationVoidResponse == null)
                 {
                     string errorMsg = "SetOptionsForDevice API response is null. Device options may not have been written successfully.";
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
                     throw new Exception(errorMsg);
                 }
-                string responseJson = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                string responseJson = System.Text.Json.JsonSerializer.Serialize(_productIdentificationVoidResponse);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetOptionsForDevice API Response", responseJson);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "SetOptionsForDevice API call succeeded. Device options written successfully.");
             }
@@ -1087,9 +983,9 @@ namespace QuantumServicesAPI.StepDefinitions
                     string privateLabelCode = row["privateLabelCode"];
                     ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetPrivateLabelCode API with PrivateLabelCode: {privateLabelCode}");
 
-                    _productresponse = await _productIdentificationPage.CallSetPrivateLabelCodeAsync(int.Parse(privateLabelCode));
+                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetPrivateLabelCodeAsync(int.Parse(privateLabelCode));
 
-                    if (_productresponse == null)
+                    if (_productIdentificationVoidResponse == null)
                     {
                         ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"SetPrivateLabelCode API returned null for PrivateLabelCode: {privateLabelCode}");
                         throw new Exception($"SetPrivateLabelCode API response is null for PrivateLabelCode: {privateLabelCode}");
@@ -1115,14 +1011,14 @@ namespace QuantumServicesAPI.StepDefinitions
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Validating SetPrivateLabelCode API response.");
 
-                if (_productresponse == null)
+                if (_productIdentificationVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetPrivateLabelCode API response is null.");
                     throw new Exception("SetPrivateLabelCode API response is null.");
                 }
 
                 // Serialize response for logging
-                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productresponse);
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(_productIdentificationVoidResponse);
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "SetPrivateLabelCode API Response", jsonResponse);
             }
             catch (Exception ex)

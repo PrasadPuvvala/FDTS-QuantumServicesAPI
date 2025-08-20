@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.SecurityCertificates
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._05SecurityCertificates
 {
     
     
@@ -27,7 +27,7 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype.Securit
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/SecurityCertificates", "Security Certificates Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/05SecurityCertificates", "Security Certificates Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "SecurityCertificatesSuccess.feature"
 #line hidden
@@ -126,7 +126,7 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table30 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table30.AddRow(new string[] {
-                            "2400801504"});
+                            "2400801543"});
 #line 8
  await testRunner.WhenAsync("Send a request to the InProductionCertificate API with a valid certificate to be " +
                         "written to the device", ((string)(null)), table30, "When ");

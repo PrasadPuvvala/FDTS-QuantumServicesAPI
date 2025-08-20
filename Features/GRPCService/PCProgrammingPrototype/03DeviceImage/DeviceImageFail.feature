@@ -4,6 +4,7 @@ A short summary of the feature
 
 @DeviceImage
 Scenario: 01Test Case ID 1810723: [Avalon Service] Verify UpdateHDI API Skips HDI Update When Flash Write Protect Is LockedPermanent
+
 	When Load a DFU image with  higher HDI version than the device, and set device Flash Write Protect status to "LockedPermanent", and send a request to the UpdateHDI API 
 	|     SerialNumber       |
 	|     2400801508         |

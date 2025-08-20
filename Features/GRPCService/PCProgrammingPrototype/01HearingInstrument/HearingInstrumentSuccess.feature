@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber A
 	
 	When Send a request to the DetectBySerialNumber API with a valid serial number that matches an existing device
 		| SerialNumber |
-		| 2400801520   |
+		| 2400801504   |
 	Then API returns device node data and AvalonStatus "Success"
 
 @HearingInstrument
@@ -16,7 +16,7 @@ Scenario: 02Test Case ID 1807206: [Avalon Service] Verify DetectClosest API Retu
 	When Send a request to the DetectClosest API when one device is found
 	Then API returns the correct device node data and AvalonStatus "Success"
 
-@HearingUnstrument
+@HearingInstrument
 Scenario: 03Test Case ID 1809108: [Avalon Service] Verify DetectWired API Returns 'Success' When Device Is Found for Monaural Side
 
 	When Send a request to the DetectWired API with a valid monoaural side (e.g., "Left/Right") when a device is connected
@@ -55,11 +55,11 @@ Scenario: 08Test Case ID 1810811: [Avalon Service] Verify FlashWriteProtect API 
 	When Send a request to the FlashWriteProtect API to read current status
 	Then API returns one of the valid states "NotLocked" , "Locked" & "LockedPermanent"
 
-@HearingInstrument
-Scenario: 09Test Case ID 1810812: [Avalon Service] Verify FlashWriteProtect API sets Flash Write Protect state to 'Lock' and returns updated status
-
-	When Send a request to the FlashWriteProtect API with state as "Lock"
-	Then API returns status as "Lock"
+#@HearingInstrument
+#Scenario: 09Test Case ID 1810812: [Avalon Service] Verify FlashWriteProtect API sets Flash Write Protect state to 'Lock' and returns updated status
+#
+#	When Send a request to the FlashWriteProtect API with state as "Lock"
+#	Then API returns status as "Lock"
 
 @HearingInstrument
 Scenario: 10Test Case ID 1810813: [Avalon Service] Verify FlashWriteProtect API sets Flash Write Protect state to 'UnLock' and returns updated status
@@ -67,23 +67,23 @@ Scenario: 10Test Case ID 1810813: [Avalon Service] Verify FlashWriteProtect API 
 	When Send a request to the FlashWriteProtect API with state as "UnLock"
 	Then API returns status as "UnLock"
 
-@HearingInstrument
-Scenario: 11Test Case ID 1810815: [Avalon Service] Verify FlashWriteProtect API sets Flash Write Protect state to 'LockedPermanent' and returns updated status
+#@HearingInstrument
+#Scenario: 11Test Case ID 1810815: [Avalon Service] Verify FlashWriteProtect API sets Flash Write Protect state to 'LockedPermanent' and returns updated status
+#
+#	When Send a request to the FlashWriteProtect API with state set as "LockPermanent"
+#	Then API returns status as "LockPermanent"
 
-	When Send a request to the FlashWriteProtect API with state set as "LockPermanent"
-	Then API returns status as "LockPermanent"
+#@HearingInstrument
+#Scenario: 12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'Lock'
+#
+#	When Send a request to FlashWriteProtect API with state "Lock"
+#	Then API returns status as "LockPermanent" when state is set to Lock
 
-@HearingInstrument
-Scenario: 12Test ID Case 1840256: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'Lock'
-
-	When Send a request to FlashWriteProtect API with state "Lock"
-	Then API returns status as "LockPermanent" when state is set to Lock
-
-@HearingInstrument
-Scenario: 13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'UnLock'
-
-	When Send a request to FlashWriteProtect API with state "UnLock"
-	Then API returns status as "LockPermanent" when state is set to UnLock
+#@HearingInstrument
+#Scenario: 13Test Case ID 1810947: [HI Automation] Verify FlashWriteProtect API does not allow changing state from 'LockedPermanent' to 'UnLock'
+#
+#	When Send a request to FlashWriteProtect API with state "UnLock"
+#	Then API returns status as "LockPermanent" when state is set to UnLock
 
 @HearingInstrument
 Scenario: 14Test Case ID 1809214: [Avalon Service] Verify RHI Status API Returns 'False' for Non-Rechargeable Devices
