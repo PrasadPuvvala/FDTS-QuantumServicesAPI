@@ -6,7 +6,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using System;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.DeviceImage
 {
     [Binding]
     public class DeviceImageSuccessStepDefinitions : BaseResponsePage

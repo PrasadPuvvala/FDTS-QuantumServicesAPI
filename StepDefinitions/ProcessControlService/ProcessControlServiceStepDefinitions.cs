@@ -8,7 +8,7 @@ using RestSharp;
 using System;
 using System.Net;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.ProcessControlService
 {
      /// <summary>
     /// Step definitions for Process Control Service API BDD scenarios.

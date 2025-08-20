@@ -3,7 +3,7 @@ using AventStack.ExtentReports;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 {
     [Binding]
     public class HearingInstrumentSuccessStepDefinitions : BaseResponsePage

@@ -8,7 +8,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using RestSharp;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.MFGDataService
 {
     /// <summary>
     /// Step definitions for MFG Data Service API BDD scenarios.

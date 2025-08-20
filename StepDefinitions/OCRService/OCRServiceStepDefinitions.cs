@@ -14,7 +14,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using RestSharp;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.OCRService
 {
     /// <summary>
     /// Step definitions for OCR service API tests.

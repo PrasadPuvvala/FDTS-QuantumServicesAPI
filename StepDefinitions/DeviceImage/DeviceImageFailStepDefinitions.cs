@@ -10,7 +10,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using Status = AventStack.ExtentReports.Status;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.DeviceImage
 {
     [Binding]
     public class DeviceImageFailStepDefinitions

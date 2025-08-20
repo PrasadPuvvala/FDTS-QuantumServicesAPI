@@ -7,7 +7,7 @@ using Reqnroll;
 using System;
 using System.Threading.Tasks;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.ProductionTestData
 {
     [Binding]
     public class ProductionTestDataSuccessStepDefinitions : BaseResponsePage

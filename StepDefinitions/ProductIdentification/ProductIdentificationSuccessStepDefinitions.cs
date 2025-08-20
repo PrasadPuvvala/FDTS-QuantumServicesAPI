@@ -4,7 +4,7 @@ using AventStack.ExtentReports;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
 {
     [Binding]
     public class ProductIdentificationSuccessStepDefinitions : BaseResponsePage
@@ -695,7 +695,7 @@ namespace QuantumServicesAPI.StepDefinitions
 
                     // Format the XML with indentation for better readability in report
                     string formattedXml;
-                    using (var stringWriter = new System.IO.StringWriter())
+                    using (var stringWriter = new StringWriter())
                     using (var xmlTextWriter = new System.Xml.XmlTextWriter(stringWriter) { Formatting = System.Xml.Formatting.Indented })
                     {
                         xmlDoc.Save(xmlTextWriter);

@@ -9,7 +9,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using VoidResponse = Avalon.Dooku3.gRPCService.Protos.HearingInstrument.VoidResponse;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.SecurityCertificates
 {
     [Binding]
     public class SecurityCertificatesFailStepDefinitions

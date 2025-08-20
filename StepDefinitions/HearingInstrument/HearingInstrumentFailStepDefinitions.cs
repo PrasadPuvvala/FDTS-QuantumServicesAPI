@@ -7,7 +7,7 @@ using QuantumServicesAPI.Pages;
 using Reqnroll;
 using System;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 {
     [Binding]
     public class HearingInstrumentFailStepDefinitions

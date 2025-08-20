@@ -9,7 +9,7 @@ using Reqnroll;
 using System;
 using System.Threading.Tasks;
 
-namespace QuantumServicesAPI.StepDefinitions
+namespace QuantumServicesAPI.StepDefinitions.SecurityCertificates
 {
     /// <summary>
     /// Step definitions for Security Certificates success scenarios.
