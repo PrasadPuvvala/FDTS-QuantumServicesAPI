@@ -279,11 +279,12 @@ namespace QuantumServicesAPI.StepDefinitions.SecurityCertificates
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-            string validPricePointCertificate = "asdfvghj"; // Replace with actual valid certificate content if needed
+            //string validPricePointCertificate = "asdfvghj"; // Replace with actual valid certificate content if needed
+            _readPricePointCertInputResponse = await _securityCertificatesPage.CallReadPricePointCertInputAsync();
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to PricePointCertificate API with a valid Price Point Certificate...");
-                _securityCertificateVoidResponse = await _securityCertificatesPage.CallWritePricePointCertificateAsync(validPricePointCertificate);
+                _securityCertificateVoidResponse = await _securityCertificatesPage.CallWritePricePointCertificateAsync(_readPricePointCertInputResponse.PricePointCertInput.ToString());
                 if (_securityCertificateVoidResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "WritePricePointCertificate API returned null. Unable to proceed.");

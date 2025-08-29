@@ -8,12 +8,31 @@ using System.Threading.Tasks;
 
 namespace QuantumServicesAPI.APIHelper
 {
+    /// <summary>
+    /// Helper class for managing a local gRPC server process and retrieving its listening port.
+    /// </summary>
     public class GRPCAPIHelperClass
     {
+        /// <summary>
+        /// Gets the port number on which the gRPC server is listening.
+        /// </summary>
         public static string? Port { get; private set; }
+
+        /// <summary>
+        /// Gets the URL of the local gRPC server.
+        /// </summary>
         public static string Url => $"http://localhost:{Port}";
+
+        /// <summary>
+        /// Gets the process instance of the running gRPC server.
+        /// </summary>
         public static Process? GrpcProcess { get; private set; }
 
+        /// <summary>
+        /// Launches the gRPC server executable and reads its output to determine the listening port.
+        /// </summary>
+        /// <param name="exePath">The file path to the gRPC server executable.</param>
+        /// <exception cref="Exception">Thrown if the port cannot be detected from the server output.</exception>
         public static void LaunchGrpcLocalPort(string exePath)
         {
             if (GrpcProcess != null && !GrpcProcess.HasExited)
@@ -52,6 +71,10 @@ namespace QuantumServicesAPI.APIHelper
             if (string.IsNullOrEmpty(Port))
                 throw new Exception("Failed to detect port.");
         }
+
+        /// <summary>
+        /// Stops the running gRPC server process if it is active.
+        /// </summary>
         public static void StopGrpcLocalPort()
         {
             if (GrpcProcess != null && !GrpcProcess.HasExited)

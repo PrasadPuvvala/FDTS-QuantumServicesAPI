@@ -15,7 +15,7 @@ namespace QuantumServicesAPI.Pages
         protected ExtentTest? _step;
         protected readonly HearingInstrumentPage _hearingInstrumentPage;
         protected readonly ProductIdentificationPage _productIdentificationPage;
-        protected readonly DeviceImagePage _deviceImagePage;
+        protected readonly DeviceImagePage _deviceImagePage; 
         protected readonly ProductionTestDataPage _productionTestDataPage;
         protected readonly SecurityCertificatesPage _securityCertificatesPage;
 
