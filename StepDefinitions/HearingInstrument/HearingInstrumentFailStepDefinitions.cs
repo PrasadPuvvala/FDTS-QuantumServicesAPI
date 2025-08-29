@@ -20,8 +20,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
         private DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
         private DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
         private DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private DetectOnSideResponse? _oppositeSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
-        private ChannelSide connectedSide; // Declare 'connectedSide' as global
+        private ChannelSide? connectedSide; // Declare 'connectedSide' as global
         private EnableMasterConnectResponse? _enableMasterConnectResponse; // Declare '_enableMasterConnectResponse' as nullable to fix CS8618
         private EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
         private GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618 
@@ -643,7 +642,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Called GetDeviceNode successfully");
                 SocketHelperClass.HandleProcessExit();
                 SocketHelperClass.FailureSocketCommands();
-                Thread.Sleep(240000);
+                //Thread.Sleep(240000);
                 // Simulate a device that has been powered on for more than the specified minutes
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConnectToDevice API to connect to the device...");
                 _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
