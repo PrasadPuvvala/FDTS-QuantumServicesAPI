@@ -1,3 +1,35 @@
 {
-
+  "DeviceSerialNumber": {
+    "SerialNumber": "2400801504"
+  },
+  "HearingInstrumentInformation": {
+    "BatteryType": "Mic-Power 9440"
+  },
+  "ProductIdentificationInformation": {
+    "FittingSide": "Right",
+    "BleId": "1093078272",
+    "Brand": "ReSound",
+    "PrivateLabelCode": "0",
+    "MFIBrand": "DevInfoManufacturerName",
+    "MFIModel": "DevInfoModelNumber",
+    "MFIFamily": "GNDevInfoFamilyName",
+    "GapDeviceName": "Users Hearing Aid",
+    "optionsForDevice": "1293"
+  },
+  "DeviceImageInformation": {
+    "fdiPath": "C:\\ProgramData\\ReSound\\Camelot\\Test Programs\\ReSound Nexia 9\\NX962-DRW [10]\\Final\\NX962-DRW.10.43.1.1.fdidfu",
+    "hdiPath": "C:\\Program Files (x86)\\GN Hearing\\Avalon\\Device.Dooku3\\Dooku3.C6.HDI.1.4.xml"
+  },
+  "ProductionTestDataInformation": {
+    "TestSite": "98",
+    "TestStation": "GN-PF5FJ67N",
+    "TPIReleaseCode": "1234-5678-9ABC",
+    "Year": "2025",
+    "Month": "08",
+    "Day": "15",
+    "Hour": "14",
+    "Minute": "30",
+    "Second": "45",
+    "ModelVerificationId": "1"
+  }
 }
