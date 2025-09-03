@@ -363,7 +363,7 @@ namespace QuantumServicesAPI.StepDefinitions.MFGDataService
             var test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             var step = ExtentReportManager.GetInstance().CreateTestStep(test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 
-            if (apiEndpoint?.apiEndpoint == null || string.IsNullOrEmpty(apiEndpoint.apiEndpoint.storeTestDataRoute))
+            if (apiEndpoint.apiEndpoint == null || string.IsNullOrEmpty(apiEndpoint.apiEndpoint.storeTestDataRoute))
                 FailStep(step, "API endpoint or storeTestDataRoute is null or empty.");
 
             if (mfgDataServiceAPIkeyConfig?.mfgDataServiceapiKeys == null)
@@ -410,7 +410,7 @@ namespace QuantumServicesAPI.StepDefinitions.MFGDataService
                 {
                     Assert.NotNull(_response, "Response should not be null");
                     Assert.AreEqual(HttpStatusCode.Unauthorized, _response?.StatusCode, "Expected 401 Unauthorized status code");
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Status Code: {_response.StatusCode}");
+                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Status Code: {_response?.StatusCode}");
                 }
                 catch (Exception ex)
                 {

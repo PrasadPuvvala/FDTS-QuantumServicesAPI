@@ -44,7 +44,7 @@ namespace QuantumServicesAPI.ExtentReport
             _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
             _extent.AddSystemInfo("User Name", Environment.UserName);
             _extent.AddSystemInfo("Machine Name", Environment.MachineName);
-            _extent.AddSystemInfo("Assembly Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            _extent.AddSystemInfo("Assembly Version", Assembly.GetExecutingAssembly().GetName().Version?.ToString());
         }
 
         /// <summary>
