@@ -7,7 +7,7 @@ Scenario: 01Test Case ID 1810722: [Avalon Service] Verify UpdateHDI API Updates 
 
 	When Load a DFU image with a higher HDI version than the device, ensure Flash Write Protect is not set to "LockedPermanent", and send a request to the UpdateHDI API
 		| SerialNumber |
-		| 2400801510   |
+		| 2400809347   |
 	Then API updates the HDI in the device before writing the image
 
 @DeviceImage
