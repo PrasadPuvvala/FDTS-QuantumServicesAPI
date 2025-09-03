@@ -123,10 +123,6 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber"});
-                table25.AddRow(new string[] {
-                            "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the ProductionTestData API to read test date, site, station, TP" +
                         "I release code, and verification flags from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");

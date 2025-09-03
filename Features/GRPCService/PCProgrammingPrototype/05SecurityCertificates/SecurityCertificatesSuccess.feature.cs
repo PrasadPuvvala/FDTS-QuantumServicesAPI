@@ -123,10 +123,6 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table30 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber"});
-                table30.AddRow(new string[] {
-                            "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the InProductionCertificate API with a valid certificate to be " +
                         "written to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
