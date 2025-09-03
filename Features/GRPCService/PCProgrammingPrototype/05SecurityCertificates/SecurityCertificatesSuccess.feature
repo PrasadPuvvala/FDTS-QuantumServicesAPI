@@ -6,8 +6,6 @@ A short summary of the feature
 Scenario: 01Test Case ID 1810730: [Avalon Service] Verify InProductionCertificate API Successfully Writes Certificate to Hearing Instrument
 
 	When Send a request to the InProductionCertificate API with a valid certificate to be written to the device
-		| SerialNumber |
-		| 2400801504   |
 	Then API writes the certificate successfully to the hearing instrument
 
 @SecurityCertificates

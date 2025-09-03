@@ -6,8 +6,6 @@ A short summary of the feature
 Scenario: 01Test Case ID 1810727: [Avalon Service] Verify ProductionTestData API Successfully Reads Test Metadata From Hearing Instrument
 
 	When Send a request to the ProductionTestData API to read test date, site, station, TPI release code, and verification flags from the device
-		| SerialNumber |
-		| 2400801504   |
 	Then API returns all stored production test metadata correctly from the hearing instrument
 
 @ProductionTestData
