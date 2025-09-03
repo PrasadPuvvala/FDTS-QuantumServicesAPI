@@ -3,6 +3,7 @@ using Avalon.Dooku3.gRPCService.Protos.ProductionTestData;
 using Avalon.Dooku3.gRPCService.Protos.SecurityCertificates;
 using AventStack.ExtentReports;
 using Newtonsoft.Json.Linq;
+using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 using Reqnroll;
@@ -18,13 +19,16 @@ namespace QuantumServicesAPI.StepDefinitions.SecurityCertificates
     [Binding]
     public class SecurityCertificatesSuccessStepDefinitions : BaseResponsePage
     {
-        public SecurityCertificatesSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        private readonly FeatureContext _featureContext;
+        private gRPCDeviceInfo _gRPCDeviceInfo;
+        public SecurityCertificatesSuccessStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext) : base(scenarioContext)
         {
-
+            _featureContext = featureContext;
+            _gRPCDeviceInfo = _featureContext.Get<gRPCDeviceInfo>("gRPCDeviceInfo");
         }
 
         [When("Send a request to the InProductionCertificate API with a valid certificate to be written to the device")]
-        public async Task WhenSendARequestToTheInProductionCertificateAPIWithAValidCertificateToBeWrittenToTheDeviceAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheInProductionCertificateAPIWithAValidCertificateToBeWrittenToTheDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -32,8 +36,14 @@ namespace QuantumServicesAPI.StepDefinitions.SecurityCertificates
 
             try
             {
-                await SetupGrpcPreconditionsAsync(dataTable, _step);
-               
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
+                }
+                await SetupGrpcPreconditionsAsync(serialNumber, _step);
+
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to CallLoadImageDataFromFileAsync...");
                 _deviceImageVoidResponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");

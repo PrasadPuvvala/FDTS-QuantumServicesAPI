@@ -123,13 +123,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table27 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table27.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "2400801508"});
 #line 7
  await testRunner.WhenAsync("Load a valid image with a BleId that differs from the device’s BleId, and send th" +
-                        "e request to the ModelInPricePointCertificate API", ((string)(null)), table27, "When ");
+                        "e request to the ModelInPricePointCertificate API", ((string)(null)), table16, "When ");
 #line hidden
 #line 10
  await testRunner.ThenAsync("API returns status for ModelInPricePointCertificate \'ValidCertModelMismatch\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -159,13 +159,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table28 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table28.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "2400801508"});
 #line 14
  await testRunner.WhenAsync("Send a request to the DeviceFamilyCertificateValidity API when the device contain" +
-                        "s an invalid Device Family Certificate.", ((string)(null)), table28, "When ");
+                        "s an invalid Device Family Certificate.", ((string)(null)), table17, "When ");
 #line hidden
 #line 17
  await testRunner.ThenAsync("API returns status for DeviceFamilyCertificateValidity \'False\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -195,13 +195,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table29 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table29.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "2400801508"});
 #line 23
  await testRunner.WhenAsync("Send a request to the PricePointCertificateValidity API when the device has an in" +
-                        "valid Price Point Certificate", ((string)(null)), table29, "When ");
+                        "valid Price Point Certificate", ((string)(null)), table18, "When ");
 #line hidden
 #line 26
  await testRunner.ThenAsync("API returns status for PricePointCertificateValidity \'False\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

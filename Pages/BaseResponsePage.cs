@@ -15,7 +15,7 @@ namespace QuantumServicesAPI.Pages
         protected ExtentTest? _step;
         protected readonly HearingInstrumentPage _hearingInstrumentPage;
         protected readonly ProductIdentificationPage _productIdentificationPage;
-        protected readonly DeviceImagePage _deviceImagePage; 
+        protected readonly DeviceImagePage _deviceImagePage;
         protected readonly ProductionTestDataPage _productionTestDataPage;
         protected readonly SecurityCertificatesPage _securityCertificatesPage;
 
@@ -84,7 +84,7 @@ namespace QuantumServicesAPI.Pages
             _productionTestDataPage = (ProductionTestDataPage)_scenarioContext["GrpcProductionTestData"];
             _securityCertificatesPage = (SecurityCertificatesPage)_scenarioContext["GrpcSecurityCertificates"];
         }
-        protected async Task SetupGrpcPreconditionsAsync(DataTable dataTable, ExtentTest step)
+        protected async Task SetupGrpcPreconditionsAsync(string serialNumber, ExtentTest step)
         {
             ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Starting device initialization and product configuration for serial number detection.");
 
@@ -98,19 +98,15 @@ namespace QuantumServicesAPI.Pages
                 _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Product configured successfully using FDTS file.");
 
-                foreach (var row in dataTable.Rows)
-                {
-                    string serialNumber = row["SerialNumber"];
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
-                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
+                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
 
-                    if (_detectBySerialNumberResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
+                if (_detectBySerialNumberResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
+                    throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
                 }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
 
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling DetectClosest API to find the nearest RHI device...");
                 _detectClosestResponse = await _hearingInstrumentPage.CallDetectClosestAsync();

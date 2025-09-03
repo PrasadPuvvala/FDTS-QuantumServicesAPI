@@ -8,6 +8,11 @@ namespace QuantumServicesAPI.DTO
 {
     public class gRPCDeviceInfo
     {
+        public DeviceSerialNumber? deviceSerialNumber { get; set; }
+        public HearingInstrumentInformation? hearingInstrumentInformation { get; set; }
+        public ProductIdentificationInformation? productIdentificationInformation { get; set; }
+        public DeviceImageInformation? deviceImageInformation { get; set; }
+        public ProductionTestDataInformation? productionTestDataInformation { get; set; }
         public class DeviceSerialNumber
         {
             public string SerialNumber { get; set; } = string.Empty;

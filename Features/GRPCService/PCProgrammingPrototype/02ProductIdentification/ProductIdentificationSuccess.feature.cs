@@ -123,14 +123,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber"});
-                table13.AddRow(new string[] {
-                            "2400801504"});
 #line 8
- await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), table13, "When ");
+ await testRunner.WhenAsync("Send a request to the PCBAPartNumber with connected device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 9
  await testRunner.ThenAsync("API returns the PCBA part number of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -148,7 +144,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1809245: [Avalon Service] Verify PlatformName API Returns Platform" +
                     " Name Starting with \'C\' for Coyote Chip", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -158,10 +154,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 16
+#line 14
  await testRunner.WhenAsync("Send a request to the PlatformName API with a connected device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 17
+#line 15
  await testRunner.ThenAsync("API returns the hardware platform name, which starts with \"C\" for a Coyote chip", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -179,7 +175,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1809252: [Avalon Service] Verify SerialNumber API Returns the Devi" +
                     "ce Serial Number on Valid Request", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -189,10 +185,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 22
+#line 20
  await testRunner.WhenAsync("Send a request to the SerialNumber API to read the current serial number", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 23
+#line 21
  await testRunner.ThenAsync("API returns the serial number of the connected device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -210,7 +206,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1809250: [Avalon Service] Verify SerialNumber API Successfully Wri" +
                     "tes Serial Number to the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -220,14 +216,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber"});
-                table14.AddRow(new string[] {
-                            "2400801504"});
-#line 28
- await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), table14, "When ");
+#line 26
+ await testRunner.WhenAsync("Send a request to the SerialNumber API with a valid serial number", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 27
  await testRunner.ThenAsync("API writes the serial number to the device and return status as \"Success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -245,7 +237,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1809265: [Avalon Service] Verify FittingSide API Returns the Curre" +
                     "nt Fitting Side of the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 34
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -255,11 +247,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 36
+#line 32
  await testRunner.WhenAsync("Send a request to the FittingSide API to read the current fitting side from the d" +
                         "evice", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 37
+#line 33
  await testRunner.ThenAsync("API returns the fitting side of the connected device (Ex: Left or Right)", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -277,7 +269,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case ID 1809262: [Avalon Service] Verify FittingSide API Successfully Writ" +
                     "es the Fitting Side to the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 40
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -287,15 +279,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
-                            "FittingSide"});
-                table15.AddRow(new string[] {
-                            "Left"});
-#line 42
+#line 38
  await testRunner.WhenAsync("Send a request to the FittingSide API with a valid fitting side (Ex: Left or Righ" +
-                        "t)", ((string)(null)), table15, "When ");
+                        "t)", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 45
+#line 39
  await testRunner.ThenAsync("API writes the fitting side to the device and returns status as \"success\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -313,7 +301,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("07Test Case ID 1809275: [Avalon Service] Verify ProximityNetworkAddress API Succe" +
                     "ssfully Returns the Network Address from the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 48
+#line 42
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -323,11 +311,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 50
+#line 44
  await testRunner.WhenAsync("Send a request to the ProximityNetworkAddress API to read the current network add" +
                         "ress from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 51
+#line 45
  await testRunner.ThenAsync("API returns the network address of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -345,7 +333,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("08Test Case ID 1810697: [Avalon Service] Verify ProductIdentity API Successfully " +
                     "Verifies Product Identity With Valid Inputs", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 54
+#line 48
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -355,18 +343,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
-                            "BleId",
-                            "Brand",
-                            "PrivateLabelCode"});
-                table16.AddRow(new string[] {
-                            "1093078272",
-                            "ReSound",
-                            "0"});
-#line 56
- await testRunner.WhenAsync("Send a request with valid BleId, correct Brand, and private label code", ((string)(null)), table16, "When ");
+#line 50
+ await testRunner.WhenAsync("Send a request with valid BleId, correct Brand, and private label code", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 59
+#line 51
  await testRunner.ThenAsync("API verifies that the input values match those in the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -384,7 +364,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("09Test Case ID 1810702: [Avalon Service] Verify API Successfully Writes MFI Brand" +
                     ", Family, Model, and GAP Device Name to GATT Database", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 62
+#line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -394,21 +374,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
-                            "MFIBrand",
-                            "MFIModel",
-                            "MFIFamily",
-                            "GapDeviceName"});
-                table17.AddRow(new string[] {
-                            "DevInfoManufacturerName",
-                            "DevInfoModelNumber",
-                            "GNDevInfoFamilyName",
-                            "Users Hearing Aid"});
-#line 64
+#line 56
  await testRunner.WhenAsync("Send a request with valid values for MFI brand, MFI family, MFI model, and GAP de" +
-                        "vice name", ((string)(null)), table17, "When ");
+                        "vice name", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 67
+#line 57
  await testRunner.ThenAsync("API writes the values to the GATT database successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -426,7 +396,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("10Test Case ID 1810706: [Avalon Service] [HI Automation] Verify GNOSRegistrationD" +
                     "ata API Returns Data in XML Format Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 70
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -436,11 +406,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 72
+#line 62
  await testRunner.WhenAsync("Send a request to the GNOSRegistrationData API to retrieve GNOS registration data" +
                         " from the hearing instrument", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 73
+#line 63
  await testRunner.ThenAsync("API returns the GNOS registration data in valid XML format", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -458,7 +428,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("11Test Case ID 1809277: [Avalon Service] Verify DateModified API Successfully Ret" +
                     "urns the Modified Date from the Device", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 76
+#line 66
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -468,10 +438,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 78
+#line 68
  await testRunner.WhenAsync("Send a request to the DateModified API to read the modified date from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 79
+#line 69
  await testRunner.ThenAsync("API returns the modified date of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -489,7 +459,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("12Test Case ID 1809280: [Avalon Service] Verify OptionsForDevice API Returns Curr" +
                     "ent Device Options Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 82
+#line 72
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -499,10 +469,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 84
+#line 74
  await testRunner.WhenAsync("Send a request to the OptionsForDevice API to retrieve current device options", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 85
+#line 75
  await testRunner.ThenAsync("API returns the device options of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -520,7 +490,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("13Test Case ID 1809279: [Avalon Service] Verify OptionsForDevice API Writes Devic" +
                     "e Options Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 88
+#line 78
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -530,15 +500,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
-                            "optionsForDevice"});
-                table18.AddRow(new string[] {
-                            "1293"});
-#line 90
+#line 80
  await testRunner.WhenAsync("Send a request to the OptionForDevice API with a valid integer related to device " +
-                        "options", ((string)(null)), table18, "When ");
+                        "options", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 93
+#line 81
  await testRunner.ThenAsync("API writes the device options to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -556,7 +522,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("14Test Case ID 1809282: [Avalon Service] Verify PrivateLabelCode API Returns Curr" +
                     "ent Private Label Code Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 96
+#line 84
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -566,10 +532,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 98
+#line 86
  await testRunner.WhenAsync("Send a request to the PrivateLabelCode API to retrieve the private label code", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 99
+#line 87
  await testRunner.ThenAsync("API returns the private label code of the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -587,7 +553,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("15Test ID Case 1809281: [Avalon Service] Verify PrivateLabelCode API Writes Priva" +
                     "te Label Code Successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 102
+#line 90
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -597,15 +563,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
-                            "privateLabelCode"});
-                table19.AddRow(new string[] {
-                            "0"});
-#line 104
+#line 92
  await testRunner.WhenAsync("Send a request to the PrivateLabelCode API with a valid integer relayed to the pr" +
-                        "ivate label code", ((string)(null)), table19, "When ");
+                        "ivate label code", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 107
+#line 93
  await testRunner.ThenAsync("API writes the private label code to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

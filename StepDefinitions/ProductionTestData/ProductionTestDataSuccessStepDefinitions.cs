@@ -1,6 +1,7 @@
 using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using Avalon.Dooku3.gRPCService.Protos.ProductionTestData;
 using AventStack.ExtentReports;
+using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 using Reqnroll;
@@ -12,20 +13,29 @@ namespace QuantumServicesAPI.StepDefinitions.ProductionTestData
     [Binding]
     public class ProductionTestDataSuccessStepDefinitions : BaseResponsePage
     {
-        public ProductionTestDataSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        private readonly FeatureContext _featureContext;
+        private gRPCDeviceInfo _gRPCDeviceInfo;
+        public ProductionTestDataSuccessStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext) : base(scenarioContext)
         {
-
+            _featureContext = featureContext;
+            _gRPCDeviceInfo = _featureContext.Get<gRPCDeviceInfo>("gRPCDeviceInfo");
         }
 
         [When("Send a request to the ProductionTestData API to read test date, site, station, TPI release code, and verification flags from the device")]
-        public async Task WhenSendARequestToTheProductionTestDataAPIToReadTestDateSiteStationTPIReleaseCodeAndVerificationFlagsFromTheDeviceAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheProductionTestDataAPIToReadTestDateSiteStationTPIReleaseCodeAndVerificationFlagsFromTheDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             try
             {
-                await SetupGrpcPreconditionsAsync(dataTable, _step);
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
+                }
+                await SetupGrpcPreconditionsAsync(serialNumber, _step);
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Reading production test data to the device...");
                 _productionTestDataResponse = await _productionTestDataPage.CallReadAsync();
@@ -105,70 +115,90 @@ namespace QuantumServicesAPI.StepDefinitions.ProductionTestData
         }
 
         [When("Send a request to the ProductionTestData API to write test date, site, station, TPI release code, and verification flags to the device")]
-        public async Task WhenSendARequestToTheProductionTestDataAPIToWriteTestDateSiteStationTPIReleaseCodeAndVerificationFlagsToTheDevice(DataTable dataTable)
+        public async Task WhenSendARequestToTheProductionTestDataAPIToWriteTestDateSiteStationTPIReleaseCodeAndVerificationFlagsToTheDevice()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
             try
             {
-                foreach (var row in dataTable.Rows)
+                var testSite = _gRPCDeviceInfo?.productionTestDataInformation?.TestSite;
+                var testStation = _gRPCDeviceInfo?.productionTestDataInformation?.TestStation;
+                var tpiReleaseCode = _gRPCDeviceInfo?.productionTestDataInformation?.TPIReleaseCode;
+                var year = _gRPCDeviceInfo?.productionTestDataInformation?.Year;
+                var month = _gRPCDeviceInfo?.productionTestDataInformation?.Month;
+                var day = _gRPCDeviceInfo?.productionTestDataInformation?.Day;
+                var hour = _gRPCDeviceInfo?.productionTestDataInformation?.Hour;
+                var minute = _gRPCDeviceInfo?.productionTestDataInformation?.Minute;
+                var second = _gRPCDeviceInfo?.productionTestDataInformation?.Second;
+                var modelVerificationId = _gRPCDeviceInfo?.productionTestDataInformation?.ModelVerificationId;
+
+                if (string.IsNullOrEmpty(testSite) || string.IsNullOrEmpty(testStation) || string.IsNullOrEmpty(tpiReleaseCode) ||
+                    string.IsNullOrEmpty(year) || string.IsNullOrEmpty(month) || string.IsNullOrEmpty(day) ||
+                    string.IsNullOrEmpty(hour) || string.IsNullOrEmpty(minute) || string.IsNullOrEmpty(second) ||
+                    string.IsNullOrEmpty(modelVerificationId))
                 {
-                    string testSite = row["TestSite"];
-                    string testStation = row["TestStation"];
-                    string tpiReleaseCode = row["TPIReleaseCode"];
-                    string year = row["Year"];
-                    string month = row["Month"];
-                    string day = row["Day"];
-                    string hour = row["Hour"];
-                    string minute = row["Minute"];
-                    string second = row["Second"];
-                    string modelVerificationId = row["ModelVerificationId"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test site = {testSite}");
-                    _productionTestDataResponse = await _productionTestDataPage.CallSetTestSiteAsync(testSite);
-                    if (_productionTestDataResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestSiteResponse is null.");
-                        throw new Exception("SetTestSiteResponse is null.");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test site set successfully.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test station = {testStation}");
-                    _productionTestDataResponse = await _productionTestDataPage.CallSetTestStationAsync(testStation);
-                    if (_productionTestDataResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestStationResponse is null.");
-                        throw new Exception("SetTestStationResponse is null.");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test station set successfully.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting TPI release code = {tpiReleaseCode}");
-                    _productionTestDataResponse = await _productionTestDataPage.CallSetTpiReleaseCodeAsync(tpiReleaseCode);
-                    if (_productionTestDataResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTpiReleaseCodeResponse is null.");
-                        throw new Exception("SetTestStationResponse is null.");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "TPI release code set successfully.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test date = {year}-{month}-{day} {hour}:{minute}:{second}");
-                    _productionTestDataResponse = await _productionTestDataPage.CallSetTestDataAsync(year, month, day, hour, minute, second);
-                    if (_productionTestDataResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestDataResponse is null.");
-                        throw new Exception("SetTestDataResponse is null.");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test date set successfully.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting Model Verification ID = {modelVerificationId}");
-                    _productionTestDataResponse = await _productionTestDataPage.CallSetModelVerificationIdAsync(modelVerificationId);
-                    if (_productionTestDataResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetModelVerificationIdResponse is null.");
-                        throw new Exception("SetModelVerificationIdResponse is null.");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Model Verification ID set successfully.");
-                    ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
+                    var missingFields = new System.Collections.Generic.List<string>();
+                    if (string.IsNullOrEmpty(testSite)) missingFields.Add(nameof(testSite));
+                    if (string.IsNullOrEmpty(testStation)) missingFields.Add(nameof(testStation));
+                    if (string.IsNullOrEmpty(tpiReleaseCode)) missingFields.Add(nameof(tpiReleaseCode));
+                    if (string.IsNullOrEmpty(year)) missingFields.Add(nameof(year));
+                    if (string.IsNullOrEmpty(month)) missingFields.Add(nameof(month));
+                    if (string.IsNullOrEmpty(day)) missingFields.Add(nameof(day));
+                    if (string.IsNullOrEmpty(hour)) missingFields.Add(nameof(hour));
+                    if (string.IsNullOrEmpty(minute)) missingFields.Add(nameof(minute));
+                    if (string.IsNullOrEmpty(second)) missingFields.Add(nameof(second));
+                    if (string.IsNullOrEmpty(modelVerificationId)) missingFields.Add(nameof(modelVerificationId));
+
+                    var errorMessage = $"The following required production test data fields are missing or empty: {string.Join(", ", missingFields)}.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMessage);
+                    throw new ArgumentException(errorMessage);
                 }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test site = {testSite}");
+                _productionTestDataResponse = await _productionTestDataPage.CallSetTestSiteAsync(testSite);
+                if (_productionTestDataResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestSiteResponse is null.");
+                    throw new Exception("SetTestSiteResponse is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test site set successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test station = {testStation}");
+                _productionTestDataResponse = await _productionTestDataPage.CallSetTestStationAsync(testStation);
+                if (_productionTestDataResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestStationResponse is null.");
+                    throw new Exception("SetTestStationResponse is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test station set successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting TPI release code = {tpiReleaseCode}");
+                _productionTestDataResponse = await _productionTestDataPage.CallSetTpiReleaseCodeAsync(tpiReleaseCode);
+                if (_productionTestDataResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTpiReleaseCodeResponse is null.");
+                    throw new Exception("SetTestStationResponse is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "TPI release code set successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting test date = {year}-{month}-{day} {hour}:{minute}:{second}");
+                _productionTestDataResponse = await _productionTestDataPage.CallSetTestDataAsync(year, month, day, hour, minute, second);
+                if (_productionTestDataResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetTestDataResponse is null.");
+                    throw new Exception("SetTestDataResponse is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Test date set successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Setting Model Verification ID = {modelVerificationId}");
+                _productionTestDataResponse = await _productionTestDataPage.CallSetModelVerificationIdAsync(modelVerificationId);
+                if (_productionTestDataResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "SetModelVerificationIdResponse is null.");
+                    throw new Exception("SetModelVerificationIdResponse is null.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Model Verification ID set successfully.");
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "Response", $"{System.Text.Json.JsonSerializer.Serialize(_productionTestDataResponse)}");
             }
             catch (Exception ex)
             {

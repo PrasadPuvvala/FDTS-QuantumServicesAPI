@@ -1,28 +1,39 @@
 ﻿using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using Avalon.Dooku3.gRPCService.Protos.ProductIdentification;
 using AventStack.ExtentReports;
+using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
+using Reqnroll;
 
 namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
 {
     [Binding]
     public class ProductIdentificationSuccessStepDefinitions : BaseResponsePage
     {
-        public ProductIdentificationSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        private readonly FeatureContext _featureContext;
+        private gRPCDeviceInfo _gRPCDeviceInfo;
+        public ProductIdentificationSuccessStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext) : base(scenarioContext)
         {
-
+            _featureContext = featureContext;
+            _gRPCDeviceInfo = _featureContext.Get<gRPCDeviceInfo>("gRPCDeviceInfo");
         }
 
         [When("Send a request to the PCBAPartNumber with connected device")]
-        public async Task WhenSendARequestToThePCBAPartNumberWithConnectedDeviceAsync(DataTable dataTable)
+        public async Task WhenSendARequestToThePCBAPartNumberWithConnectedDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             try
             {
-                await SetupGrpcPreconditionsAsync(dataTable, _step);
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
+                }
+                await SetupGrpcPreconditionsAsync(serialNumber, _step);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ReadPcbaPartNumber API to retrieve PCBA part number...");
                 _readPcbaPartNumberResponse = await _productIdentificationPage.CallReadPcbaPartNumberAsync();
                 if (_readPcbaPartNumberResponse == null)
@@ -217,7 +228,7 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request to the SerialNumber API with a valid serial number")]
-        public async Task WhenSendARequestToTheSerialNumberAPIWithAValidSerialNumberAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheSerialNumberAPIWithAValidSerialNumberAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -226,24 +237,25 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
 
             try
             {
-                foreach (var row in dataTable.Rows)
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
                 {
-                    string serialNumber = row["SerialNumber"];
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSerialNumber API with serial number: {serialNumber}...");
 
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSerialNumber API with serial number: {serialNumber}...");
+                _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
 
-                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSerialNumberAsync(serialNumber);
-
-                    if (_productIdentificationVoidResponse == null)
-                    {
-                        string errorMsg = $"SetSerialNumber API response is null for serial number: {serialNumber}";
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
-                        throw new Exception(errorMsg);
-                    }
-                    else
-                    {
-                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSerialNumber API call succeeded for serial number: {serialNumber}");
-                    }
+                if (_productIdentificationVoidResponse == null)
+                {
+                    string errorMsg = $"SetSerialNumber API response is null for serial number: {serialNumber}";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSerialNumber API call succeeded for serial number: {serialNumber}");
                 }
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SerialNumber API set requests for all provided serial numbers.");
@@ -348,7 +360,7 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request to the FittingSide API with a valid fitting side \\(Ex: Left or Right)")]
-        public async Task WhenSendARequestToTheFittingSideAPIWithAValidFittingSideExLeftOrRight(DataTable dataTable)
+        public async Task WhenSendARequestToTheFittingSideAPIWithAValidFittingSideExLeftOrRight()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -356,22 +368,24 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
 
             try
             {
-                foreach (var row in dataTable.Rows)
+                var fittingSide = _gRPCDeviceInfo?.productIdentificationInformation?.FittingSide;
+                if (string.IsNullOrEmpty(fittingSide))
                 {
-                    string fittingSide = row["FittingSide"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSide API with fitting side: {fittingSide}...");
-
-                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSideAsync(fittingSide);
-
-                    if (_productIdentificationVoidResponse == null)
-                    {
-                        string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
-                        throw new Exception(errorMsg);
-                    }
-
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSide API call succeeded for fitting side: {fittingSide}.");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Fitting side is null or empty. Cannot call SetSide API.");
+                    throw new ArgumentNullException(nameof(fittingSide), "Fitting side must not be null or empty.");
                 }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetSide API with fitting side: {fittingSide}...");
+
+                _productIdentificationVoidResponse = await _productIdentificationPage.CallSetSideAsync(fittingSide);
+
+                if (_productIdentificationVoidResponse == null)
+                {
+                    string errorMsg = "SetSide API response is null. Unable to validate fitting side status.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetSide API call succeeded for fitting side: {fittingSide}.");
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed FittingSide API set requests for all provided fitting sides.");
             }
@@ -502,7 +516,7 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request with valid BleId, correct Brand, and private label code")]
-        public async Task WhenSendARequestWithValidBleIdCorrectBrandAndPrivateLabelCode(DataTable dataTable)
+        public async Task WhenSendARequestWithValidBleIdCorrectBrandAndPrivateLabelCode()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -510,28 +524,32 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
 
             try
             {
-                foreach (var row in dataTable.Rows)
+                var bleId = _gRPCDeviceInfo?.productIdentificationInformation?.BleId;
+                var brand = _gRPCDeviceInfo?.productIdentificationInformation?.Brand;
+                var privateLabelCode = _gRPCDeviceInfo?.productIdentificationInformation?.PrivateLabelCode;
+
+                if (string.IsNullOrEmpty(bleId) || string.IsNullOrEmpty(brand) || string.IsNullOrEmpty(privateLabelCode))
                 {
-                    string bleId = row["BleId"];
-                    string brand = row["Brand"];
-                    string privateLabelCode = row["PrivateLabelCode"];
-
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info,
-                        $"Calling VerifyProduct API with BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}...");
-
-                    _verifyProductResponse = await _productIdentificationPage.CallVerifyProductAsync(
-                        int.Parse(bleId), brand, int.Parse(privateLabelCode));
-
-                    if (_verifyProductResponse == null)
-                    {
-                        string errorMsg = $"VerifyProduct API returned null for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.";
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
-                        throw new Exception(errorMsg);
-                    }
-
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,
-                        $"VerifyProduct API call succeeded for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.");
+                    string errorMsg = "One or more required parameters (BleId, Brand, PrivateLabelCode) are null or empty. Cannot call VerifyProduct API.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new ArgumentNullException("BleId, Brand, and PrivateLabelCode must not be null or empty.");
                 }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info,
+                    $"Calling VerifyProduct API with BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}...");
+
+                _verifyProductResponse = await _productIdentificationPage.CallVerifyProductAsync(
+                    int.Parse(bleId), brand, int.Parse(privateLabelCode));
+
+                if (_verifyProductResponse == null)
+                {
+                    string errorMsg = $"VerifyProduct API returned null for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
+                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,
+                    $"VerifyProduct API call succeeded for BleId: {bleId}, Brand: {brand}, PrivateLabelCode: {privateLabelCode}.");
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed VerifyProduct API requests for all provided rows.");
             }
@@ -581,36 +599,40 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request with valid values for MFI brand, MFI family, MFI model, and GAP device name")]
-        public async Task WhenSendARequestWithValidValuesForMFIBrandMFIFamilyMFIModelAndGAPDeviceNameAsync(DataTable dataTable)
+        public async Task WhenSendARequestWithValidValuesForMFIBrandMFIFamilyMFIModelAndGAPDeviceNameAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting UpdateGattDatabase API requests with provided MFI and GAP values.");
-            foreach (var row in dataTable.Rows)
+
+            var mfiBrand = _gRPCDeviceInfo?.productIdentificationInformation?.MFIBrand;
+            var mfiModel = _gRPCDeviceInfo?.productIdentificationInformation?.MFIModel;
+            var mfiFamily = _gRPCDeviceInfo?.productIdentificationInformation?.MFIFamily;
+            var gapDeviceName = _gRPCDeviceInfo?.productIdentificationInformation?.GapDeviceName;
+            if (string.IsNullOrEmpty(mfiBrand) || string.IsNullOrEmpty(mfiModel) || string.IsNullOrEmpty(mfiFamily) || string.IsNullOrEmpty(gapDeviceName))
             {
-                string mfiBrand = row["MFIBrand"];
-                string mfiModel = row["MFIModel"];
-                string mfiFamily = row["MFIFamily"];
-                string gapDeviceName = row["GapDeviceName"];
-                try
+                string errorMsg = "One or more required parameters (MFIBrand, MFIModel, MFIFamily, GapDeviceName) are null or empty. Cannot call UpdateGattDatabase API.";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                throw new ArgumentNullException("MFIBrand, MFIModel, MFIFamily, and GapDeviceName must not be null or empty.");
+            }
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling UpdateGattDatabase API with MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}...");
+                _productIdentificationVoidResponse = await _productIdentificationPage.CallUpdateGattDatabaseAsync(mfiBrand, mfiModel, mfiFamily, gapDeviceName);
+                if (_productIdentificationVoidResponse == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling UpdateGattDatabase API with MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}...");
-                    _productIdentificationVoidResponse = await _productIdentificationPage.CallUpdateGattDatabaseAsync(mfiBrand, mfiModel, mfiFamily, gapDeviceName);
-                    if (_productIdentificationVoidResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"UpdateGattDatabase API returned null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
-                        throw new Exception($"UpdateGattDatabase API response is null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
-                    }
-                    else
-                    {
-                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"UpdateGattDatabase API call succeeded for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
-                    }
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"UpdateGattDatabase API returned null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
+                    throw new Exception($"UpdateGattDatabase API response is null for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
                 }
-                catch (Exception ex)
+                else
                 {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing row: {ex.Message}");
-                    throw;
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"UpdateGattDatabase API call succeeded for MFIBrand: {mfiBrand}, MFIModel: {mfiModel}, MFIFamily: {mfiFamily}, GapDeviceName: {gapDeviceName}.");
                 }
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing row: {ex.Message}");
+                throw;
             }
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed UpdateGattDatabase API requests for all provided rows.");
         }
@@ -848,38 +870,40 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request to the OptionForDevice API with a valid integer related to device options")]
-        public async Task WhenSendARequestToTheOptionForDeviceAPIWithAValidIntegerRelatedToDeviceOptionsAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheOptionForDeviceAPIWithAValidIntegerRelatedToDeviceOptionsAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SetOptionsForDevice API requests with provided device option values.");
 
-            foreach (var row in dataTable.Rows)
+            var optionsForDevice = _gRPCDeviceInfo?.productIdentificationInformation?.optionsForDevice;
+            if (string.IsNullOrEmpty(optionsForDevice))
             {
-                string optionsForDevice = row["optionsForDevice"];
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Device options value is null or empty. Cannot call SetOptionsForDevice API.");
+                throw new ArgumentNullException(nameof(optionsForDevice), "Device options value must not be null or empty.");
+            }
 
-                try
+            try
+            {
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetOptionsForDevice API with value: {optionsForDevice}...");
+
+                _productIdentificationVoidResponse = await _productIdentificationPage.CallSetOptionsForDeviceAsync(int.Parse(optionsForDevice));
+
+                if (_productIdentificationVoidResponse == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetOptionsForDevice API with value: {optionsForDevice}...");
-
-                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetOptionsForDeviceAsync(int.Parse(optionsForDevice));
-
-                    if (_productIdentificationVoidResponse == null)
-                    {
-                        string errorMsg = $"SetOptionsForDevice API returned null for value: {optionsForDevice}.";
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
-                        throw new Exception(errorMsg);
-                    }
-
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetOptionsForDevice API call succeeded for value: {optionsForDevice}.");
+                    string errorMsg = $"SetOptionsForDevice API returned null for value: {optionsForDevice}.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new Exception(errorMsg);
                 }
-                catch (Exception ex)
-                {
-                    string exceptionMsg = $"Exception during SetOptionsForDevice API call for value: {optionsForDevice}. Error: {ex.Message}";
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
-                    throw;
-                }
+
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"SetOptionsForDevice API call succeeded for value: {optionsForDevice}.");
+            }
+            catch (Exception ex)
+            {
+                string exceptionMsg = $"Exception during SetOptionsForDevice API call for value: {optionsForDevice}. Error: {ex.Message}";
+                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, exceptionMsg);
+                throw;
             }
 
             ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SetOptionsForDevice API requests for all provided values.");
@@ -969,7 +993,7 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
         }
 
         [When("Send a request to the PrivateLabelCode API with a valid integer relayed to the private label code")]
-        public async Task WhenSendARequestToThePrivateLabelCodeAPIWithAValidIntegerRelayedToThePrivateLabelCode(DataTable dataTable)
+        public async Task WhenSendARequestToThePrivateLabelCodeAPIWithAValidIntegerRelayedToThePrivateLabelCode()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -978,18 +1002,21 @@ namespace QuantumServicesAPI.StepDefinitions.ProductIdentification
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting SetPrivateLabelCode API requests using provided data.");
 
-                foreach (var row in dataTable.Rows)
+                var privateLabelCode = _gRPCDeviceInfo?.productIdentificationInformation?.PrivateLabelCode;
+                if (string.IsNullOrEmpty(privateLabelCode))
                 {
-                    string privateLabelCode = row["privateLabelCode"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetPrivateLabelCode API with PrivateLabelCode: {privateLabelCode}");
+                    string errorMsg = "PrivateLabelCode is null or empty. Cannot call SetPrivateLabelCode API.";
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, errorMsg);
+                    throw new ArgumentNullException(nameof(privateLabelCode), errorMsg);
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling SetPrivateLabelCode API with PrivateLabelCode: {privateLabelCode}");
 
-                    _productIdentificationVoidResponse = await _productIdentificationPage.CallSetPrivateLabelCodeAsync(int.Parse(privateLabelCode));
+                _productIdentificationVoidResponse = await _productIdentificationPage.CallSetPrivateLabelCodeAsync(int.Parse(privateLabelCode));
 
-                    if (_productIdentificationVoidResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"SetPrivateLabelCode API returned null for PrivateLabelCode: {privateLabelCode}");
-                        throw new Exception($"SetPrivateLabelCode API response is null for PrivateLabelCode: {privateLabelCode}");
-                    }
+                if (_productIdentificationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"SetPrivateLabelCode API returned null for PrivateLabelCode: {privateLabelCode}");
+                    throw new Exception($"SetPrivateLabelCode API response is null for PrivateLabelCode: {privateLabelCode}");
                 }
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed SetPrivateLabelCode API requests for all rows.");

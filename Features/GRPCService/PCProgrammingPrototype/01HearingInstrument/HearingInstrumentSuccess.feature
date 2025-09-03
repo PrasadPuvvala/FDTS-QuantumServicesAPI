@@ -6,8 +6,6 @@ A short summary of the feature
 Scenario: 01Test Case ID 1809101: [Avalon Service] Verify DetectBySerialNumber API Returns 'Success' When Valid Serial Number Matches a Device
 	
 	When Send a request to the DetectBySerialNumber API with a valid serial number that matches an existing device
-		| SerialNumber |
-		| 2400801504   |
 	Then API returns device node data and AvalonStatus "Success"
 
 @HearingInstrument
@@ -125,8 +123,6 @@ Scenario: 19Test Case ID 1809218: [Avalon Service] Verify RHI Battery Type API R
 Scenario: 20Test Case ID 1809217: [Avalon Service] Verify RHI Battery Type API Writes Battery Type to Device Successfully
 
 	When Send a request to the RHI Battery Type API with a valid battery type to write to the connected RHI device
-		| BatteryType    |
-		| Mic-Power 9440 |
 	Then Battery type is successfully written to the device
 
 @HearingInstrument

@@ -126,12 +126,12 @@ this.ScenarioInitialize(scenarioInfo);
                 global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
                 table25.AddRow(new string[] {
-                            "2400801511"});
+                            "2400801504"});
 #line 8
  await testRunner.WhenAsync("Send a request to the ProductionTestData API to read test date, site, station, TP" +
-                        "I release code, and verification flags from the device", ((string)(null)), table25, "When ");
+                        "I release code, and verification flags from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 9
  await testRunner.ThenAsync("API returns all stored production test metadata correctly from the hearing instru" +
                         "ment", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
@@ -150,7 +150,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1810726: [Avalon Service] Verify ProductionTestData API Successful" +
                     "ly Writes Test Metadata to Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -160,33 +160,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table26 = new global::Reqnroll.Table(new string[] {
-                            "TestSite",
-                            "TestStation",
-                            "TPIReleaseCode",
-                            "Year",
-                            "Month",
-                            "Day",
-                            "Hour",
-                            "Minute",
-                            "Second",
-                            "ModelVerificationId"});
-                table26.AddRow(new string[] {
-                            "98",
-                            "GN-PF5FJ67N",
-                            "1234-5678-9ABC",
-                            "2025",
-                            "08",
-                            "06",
-                            "14",
-                            "38",
-                            "45",
-                            "1"});
-#line 16
+#line 14
  await testRunner.WhenAsync("Send a request to the ProductionTestData API to write test date, site, station, T" +
-                        "PI release code, and verification flags to the device", ((string)(null)), table26, "When ");
+                        "PI release code, and verification flags to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 19
+#line 15
  await testRunner.ThenAsync("API writes all provided test metadata values successfully to the hearing instrume" +
                         "nt", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden

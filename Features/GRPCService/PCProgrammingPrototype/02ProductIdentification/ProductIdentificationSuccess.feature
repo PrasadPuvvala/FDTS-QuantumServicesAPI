@@ -6,8 +6,6 @@ A short summary of the feature
 Scenario: 01Test Case ID 1809234: [Avalon Service] Verify PCBAPartNumber API Returns the PCBA Part Number When Requested
 
 	When Send a request to the PCBAPartNumber with connected device
-		| SerialNumber |
-		| 2400801504   |
 	Then API returns the PCBA part number of the device
 
 @ProductIdentification
@@ -26,8 +24,6 @@ Scenario: 03Test Case ID 1809252: [Avalon Service] Verify SerialNumber API Retur
 Scenario: 04Test Case ID 1809250: [Avalon Service] Verify SerialNumber API Successfully Writes Serial Number to the Device
 
 	When Send a request to the SerialNumber API with a valid serial number
-		| SerialNumber |
-		| 2400801504   |
 	Then API writes the serial number to the device and return status as "Success"
 
 @ProductIdentification
@@ -40,8 +36,6 @@ Scenario: 05Test Case ID 1809265: [Avalon Service] Verify FittingSide API Return
 Scenario: 06Test Case ID 1809262: [Avalon Service] Verify FittingSide API Successfully Writes the Fitting Side to the Device
 
 	When Send a request to the FittingSide API with a valid fitting side (Ex: Left or Right)
-		| FittingSide |
-		| Left        |
 	Then API writes the fitting side to the device and returns status as "success"
 
 @ProductIdentification
@@ -54,16 +48,12 @@ Scenario: 07Test Case ID 1809275: [Avalon Service] Verify ProximityNetworkAddres
 Scenario: 08Test Case ID 1810697: [Avalon Service] Verify ProductIdentity API Successfully Verifies Product Identity With Valid Inputs
 
 	When Send a request with valid BleId, correct Brand, and private label code
-		| BleId      | Brand   | PrivateLabelCode |
-		| 1093078272 | ReSound | 0                |
 	Then API verifies that the input values match those in the device
 
 @ProductIdentification
 Scenario: 09Test Case ID 1810702: [Avalon Service] Verify API Successfully Writes MFI Brand, Family, Model, and GAP Device Name to GATT Database
 
 	When Send a request with valid values for MFI brand, MFI family, MFI model, and GAP device name
-		| MFIBrand                | MFIModel           | MFIFamily           | GapDeviceName     |
-		| DevInfoManufacturerName | DevInfoModelNumber | GNDevInfoFamilyName | Users Hearing Aid |
 	Then API writes the values to the GATT database successfully
 
 @ProductIdentification
@@ -88,8 +78,6 @@ Scenario: 12Test Case ID 1809280: [Avalon Service] Verify OptionsForDevice API R
 Scenario: 13Test Case ID 1809279: [Avalon Service] Verify OptionsForDevice API Writes Device Options Successfully
 
 	When Send a request to the OptionForDevice API with a valid integer related to device options
-		| optionsForDevice |
-		| 1293             |
 	Then API writes the device options to the device successfully
 
 @ProductIdentification
@@ -102,6 +90,4 @@ Scenario: 14Test Case ID 1809282: [Avalon Service] Verify PrivateLabelCode API R
 Scenario: 15Test ID Case 1809281: [Avalon Service] Verify PrivateLabelCode API Writes Private Label Code Successfully
 
 	When Send a request to the PrivateLabelCode API with a valid integer relayed to the private label code
-		| privateLabelCode |
-		| 0                |
 	Then API writes the private label code to the device successfully

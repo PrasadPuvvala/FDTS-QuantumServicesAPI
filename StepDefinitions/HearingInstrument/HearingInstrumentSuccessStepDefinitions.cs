@@ -1,5 +1,6 @@
 ﻿using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using AventStack.ExtentReports;
+using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 
@@ -8,13 +9,16 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
     [Binding]
     public class HearingInstrumentSuccessStepDefinitions : BaseResponsePage
     {
-        public HearingInstrumentSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        private readonly FeatureContext _featureContext;
+        private gRPCDeviceInfo _gRPCDeviceInfo;
+        public HearingInstrumentSuccessStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext) : base(scenarioContext)
         {
-
+            _featureContext = featureContext;
+            _gRPCDeviceInfo = _featureContext.Get<gRPCDeviceInfo>("gRPCDeviceInfo");
         }
 
         [When("Send a request to the DetectBySerialNumber API with a valid serial number that matches an existing device")]
-        public async Task WhenSendARequestToTheDetectBySerialNumberAPIWithAValidSerialNumberThatMatchesAnExistingDeviceAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheDetectBySerialNumberAPIWithAValidSerialNumberThatMatchesAnExistingDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
@@ -34,31 +38,32 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully.");
 
-                // Process each serial number
-                foreach (var row in dataTable.Rows)
+                try
                 {
-                    string serialNumber = row["SerialNumber"];
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}");
 
-                    try
+                    var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                    if (string.IsNullOrEmpty(serialNumber))
                     {
-                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {serialNumber}");
-
-                        _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                        if (_detectBySerialNumberResponse == null)
-                        {
-                            ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                            throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                        }
-
-                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                        throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
                     }
-                    catch (Exception innerEx)
+                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
+
+                    if (_detectBySerialNumberResponse == null)
                     {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing serial number '{serialNumber}': {innerEx.Message}");
-                        throw new Exception($"Error processing serial number '{serialNumber}': {innerEx.Message}");
+                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
+                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
                     }
+
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
                 }
+                catch (Exception innerEx)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing serial number '{_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}': {innerEx.Message}");
+                    throw new Exception($"Error processing serial number '{_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}': {innerEx.Message}");
+                }
+
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed DetectBySerialNumber API requests for all serial numbers.");
             }
             catch (Exception ex)
@@ -1013,33 +1018,34 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
         }
 
         [When("Send a request to the RHI Battery Type API with a valid battery type to write to the connected RHI device")]
-        public async Task WhenSendARequestToTheRHIBatteryTypeAPIWithAValidBatteryTypeToWriteToTheConnectedRHIDeviceAsync(DataTable dataTable)
+        public async Task WhenSendARequestToTheRHIBatteryTypeAPIWithAValidBatteryTypeToWriteToTheConnectedRHIDeviceAsync()
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No battery types provided for writing. DataTable is empty.");
-                throw new ArgumentException("DataTable must contain at least one battery type to write.");
-            }
-
             try
             {
-                foreach (var batteryType in dataTable.Rows)
+                string? batteryType = _gRPCDeviceInfo?.hearingInstrumentInformation?.BatteryType;
+                if (string.IsNullOrEmpty(batteryType))
                 {
-                    string type = batteryType["BatteryType"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending request to set battery type: {type}");
-                    _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallSetBatteryTypeAsync(type);
-                    if (_hearingInstrumentVoidResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Failed to set battery type '{type}': Response is null.");
-                        throw new Exception($"SetBatteryType API response is null for battery type: {type}");
-                    }
-                    else
-                    {
-                        ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Battery type '{type}' successfully written to device.");
-                    }
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Battery type is null or empty. Cannot call SetBatteryType API.");
+                    throw new ArgumentNullException(nameof(batteryType), "Battery type must not be null or empty.");
                 }
+                if (string.IsNullOrEmpty(batteryType))
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Battery type is null or empty. Cannot call SetBatteryType API.");
+                    throw new ArgumentNullException(nameof(batteryType), "Battery type must not be null or empty.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending request to set battery type: {batteryType}");
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallSetBatteryTypeAsync(batteryType);
+                if (_hearingInstrumentVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Failed to set battery type '{batteryType}': Response is null.");
+                    throw new Exception($"SetBatteryType API response is null for battery type: {batteryType}");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Battery type '{batteryType}' successfully written to device.");
+                    }
             }
             catch (Exception ex)
             {

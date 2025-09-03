@@ -33,6 +33,10 @@ namespace QuantumServicesAPI.Hooks
         /// </summary>
         private static readonly Dictionary<string, Dictionary<string, Dictionary<string, ExtentTest>>> _featureHierarchy = new();
 
+        private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string ProjectRootDirectory = Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
+        private static readonly string APIEndpointsFilesDirectory = Path.Combine(ProjectRootDirectory, "JsonFiles");
+
         /// <summary>
         /// Initializes the ExtentReportManager before any tests run.
         /// </summary>
@@ -52,6 +56,18 @@ namespace QuantumServicesAPI.Hooks
             if (_reportManager == null)
             {
                 throw new InvalidOperationException("ExtentReportManager instance is not initialized. Ensure Setup() is called before using the report manager.");
+            }
+
+            var gRPCDeviceInfoConfig = Directory.GetFiles(APIEndpointsFilesDirectory, "gRPCDeviceInformation.json").FirstOrDefault();
+            if (File.Exists(gRPCDeviceInfoConfig))
+            {
+                string json = File.ReadAllText(gRPCDeviceInfoConfig);
+                var gRPCDeviceInfoSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<gRPCDeviceInfo>(json);
+                featureContext.Add("gRPCDeviceInfo", gRPCDeviceInfoSettings);
+            }
+            else
+            {
+                throw new FileNotFoundException("Configuration file not found at path: " + gRPCDeviceInfoConfig);
             }
 
             var featureTitle = featureContext.FeatureInfo.Title;
@@ -98,11 +114,6 @@ namespace QuantumServicesAPI.Hooks
         {
             // Example of ordering the execution of hooks
             // See https://go.reqnroll.net/doc-hooks#hook-execution-order
-
-            // Load configuration files and add them to the scenario context
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string projectRootDirectory = Directory.GetParent(baseDirectory)!.Parent!.Parent!.Parent!.FullName;
-            string APIEndpointsFilesDirectory = Path.Combine(projectRootDirectory, "JsonFiles");
 
             // Find the first JSON file in the folder
             var apiEndpointsConfig = Directory.GetFiles(APIEndpointsFilesDirectory, "APIEndpoints.json").FirstOrDefault();
