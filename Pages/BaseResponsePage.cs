@@ -1,4 +1,5 @@
-﻿using Avalon.Dooku3.gRPCService.Protos.DeviceImage;
+﻿using Avalon.Dooku3.gRPCService.Protos.Communication;
+using Avalon.Dooku3.gRPCService.Protos.DeviceImage;
 using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using Avalon.Dooku3.gRPCService.Protos.ProductIdentification;
 using Avalon.Dooku3.gRPCService.Protos.ProductionTestData;
@@ -18,9 +19,11 @@ namespace QuantumServicesAPI.Pages
         protected readonly DeviceImagePage _deviceImagePage;
         protected readonly ProductionTestDataPage _productionTestDataPage;
         protected readonly SecurityCertificatesPage _securityCertificatesPage;
+        protected readonly CommunicationPage _communicationPage;
 
         // Response from the gRPC service for hearing instrument operations
         protected Avalon.Dooku3.gRPCService.Protos.HearingInstrument.VoidResponse? _hearingInstrumentVoidResponse;
+        protected ProductNameResponse? _productNameResponse; // Declare '_productNameResponse' as nullable to fix CS8618
         protected DetectBySerialNumberResponse? _detectBySerialNumberResponse; // Declare '_detectBySerialNumberResponse' as nullable to fix CS8618s
         protected DetectClosestResponse? _detectClosestResponse; // Declare 'DetectClosestResponse' as global
         protected DetectOnSideResponse? _detectOnSideResponse; // Declare '_detectOnSideResponse' as nullable to fix CS8618
@@ -29,6 +32,7 @@ namespace QuantumServicesAPI.Pages
         protected EnableFittingModeResponse? _enableFittingModeResponse; // Declare '_enableFittingModeRequest' as nullable to fix CS8618
         protected GetDeviceNodeResponse? _getDeviceNodeResponse; // Declare '_getDeviceNodeResponse' as nullable to fix CS8618
         protected ConnectResponse? _connectResponse;
+        protected IsDeviceConnectedResponse? _isDeviceConnectedResponse;
         protected GetBootModeResponse? _getBootModeResponse;
         protected GetFlashWriteProtectStatusResponse? _getFlashWriteProtectStatusResponse; // Declare '_getFlashWriteProtectStatusResponse' as nullable to fix CS8618
         protected SetFlashWriteProtectStateResponse? _setFlashWriteProtectStateResponse; // Declare 'setFlashWriteProtectStateResponse' as global
@@ -57,6 +61,7 @@ namespace QuantumServicesAPI.Pages
         protected IsCustomProductResponse? _isCustomProductResponse; // Declare '_isCustomProductResponse' as nullable to fix CS8618
         protected IsOptimizedProgrammingResponse? _isOptimizedProgrammingResponse; // Declare '_isOptimizedProgrammingResponse' as nullable to fix CS8618
         protected IsDfuCompatibleResponse? _isDfuCompatibleResponse; // Declare '_isDfuCompatibleResponse' as nullable to fix CS8618
+        protected WriteResponse? _writeResponse; // Declare '_writeResponse' as nullable to fix CS8618
 
         // Response from the gRPC service for production test data operations
         protected Avalon.Dooku3.gRPCService.Protos.ProductionTestData.VoidResponse? _productionTestDataResponse;
@@ -72,6 +77,10 @@ namespace QuantumServicesAPI.Pages
         protected IsFamilyCertificateValidResponse? _isFamilyCertificateValidResponse; // Declare 'isFamilyCertificateValidResponse' as nullable to fix CS8618
         protected ReadPricePointCertInputResponse? _readPricePointCertInputResponse; // Declare 'readPricePointCertInputResponse' as nullable to fix CS8618
 
+        // Response from the gRPC service for Communication operations
+        protected Avalon.Dooku3.gRPCService.Protos.Communication.VoidResponse? _communicationVoidResponse;
+        protected DeviceIdList? _deviceIdListResponse; // Declare '_deviceIdListResponse' as nullable to fix CS8618
+        protected GetCommunicationDeviceIdResponse? _getCommunicationDeviceIdResponse; // Declare '_getCommunicationDeviceIdResponse' as nullable to fix CS8618
 
         protected string fdiPath = @"C:\ProgramData\ReSound\Camelot\Test Programs\ReSound Nexia 9\NX962-DRW [10]\Final\NX962-DRW.10.43.1.1.fdidfu";
         protected string hdiPath = @"C:\Program Files (x86)\GN Hearing\Avalon\Device.Dooku3\Dooku3.C6.HDI.1.4.xml";
@@ -83,6 +92,7 @@ namespace QuantumServicesAPI.Pages
             _deviceImagePage = (DeviceImagePage)_scenarioContext["GrpcDeviceImage"];
             _productionTestDataPage = (ProductionTestDataPage)_scenarioContext["GrpcProductionTestData"];
             _securityCertificatesPage = (SecurityCertificatesPage)_scenarioContext["GrpcSecurityCertificates"];
+            _communicationPage = (CommunicationPage)_scenarioContext["GrpcCommunication"];
         }
         protected async Task SetupGrpcPreconditionsAsync(string serialNumber, ExtentTest step)
         {
@@ -90,8 +100,13 @@ namespace QuantumServicesAPI.Pages
 
             try
             {
+                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+
+                var deviceId = _deviceIdListResponse.DeviceIds.ToList().FirstOrDefault();
+
+                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling Initialize API to initialize the device...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device initialized successfully.");
 
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");

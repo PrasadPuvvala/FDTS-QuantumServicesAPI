@@ -26,8 +26,13 @@ namespace QuantumServicesAPI.StepDefinitions.DeviceImage
 
             try
             {
+                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+
+                var deviceId = _deviceIdListResponse.DeviceIds.FirstOrDefault();
+
+                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling Initialize API to initialize the device...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
@@ -256,7 +261,7 @@ namespace QuantumServicesAPI.StepDefinitions.DeviceImage
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initiating WriteFDI API call with DFU image...");
                 bool isOptimizedProgramming = bool.Parse(isOptimizedProgram);
-                _deviceImageVoidResponse = await _deviceImagePage.CallWriteAsync(isOptimizedProgramming);
+                _writeResponse = await _deviceImagePage.CallWriteAsync(isOptimizedProgramming);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "WriteFDI API call completed successfully.");
             }
             catch (Exception ex)

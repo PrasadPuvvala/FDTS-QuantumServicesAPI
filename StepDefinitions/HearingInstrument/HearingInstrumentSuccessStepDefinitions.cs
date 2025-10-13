@@ -27,9 +27,17 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
             try
             {
+                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+
+                var deviceId = _deviceIdListResponse.DeviceIds.ToList().First();
+
+                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
+
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallUseMultipleInstancesAsync();
+
                 // Initialize device
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initializing device...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync();
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
                 // Configure product
@@ -100,6 +108,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API returned expected AvalonStatus: '{expectedStatus}' and valid device node data.");
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectBySerialNumber Response", _detectBySerialNumberResponse.ToString());
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectBySerialNumber Response", _detectBySerialNumberResponse.DeviceNode.ToString());
             }
             catch (Exception ex)
             {
@@ -262,7 +271,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
             try
             {
                 _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
+                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(false);
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting device node data from DeviceNodeData API...");
                 _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
                 if (_getDeviceNodeResponse == null)
@@ -308,7 +317,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
         [When("Send a request to the ConnectToDevice API with valid and detected device node data")]
         public async Task WhenSendARequestToTheConnectToDeviceAPIWithValidAndDetectedDeviceNodeDataAsync()
-        {
+         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text.ToString());
 

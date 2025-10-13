@@ -5,8 +5,11 @@ option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.HearingInstrument";
 package Avalon.Dooku3.gRPCService;
 
 service HearingInstrument {
-  rpc Initialize (EmptyRequest) returns (VoidResponse);
+  rpc UseMultipleInstances(EmptyRequest) returns (VoidResponse);
+  rpc Initialize (InitializeRequest) returns (VoidResponse);
   rpc ConfigureProduct (ConfigureProductRequest) returns (VoidResponse);
+  rpc ImportProduct (ProductRequest) returns (VoidResponse);
+  rpc FindProductName (ProductNameRequest) returns (ProductNameResponse);
   rpc DetectBySerialNumber (DetectBySerialNumberRequest) returns (DetectBySerialNumberResponse);  
   rpc DetectClosest (EmptyRequest) returns (DetectClosestResponse);
   rpc DetectOnSide (DetectOnSideRequest) returns (DetectOnSideResponse);
@@ -14,6 +17,7 @@ service HearingInstrument {
   rpc EnableFittingMode (EnableFittingModeRequest) returns (EnableFittingModeResponse);
   rpc GetDeviceNode (EmptyRequest) returns (GetDeviceNodeResponse);
   rpc Connect (ConnectRequest) returns (ConnectResponse);
+  rpc IsDeviceConnected (EmptyRequest) returns (IsDeviceConnectedResponse);
   rpc GetBootMode (EmptyRequest) returns (GetBootModeResponse);
   rpc Boot (BootRequest) returns (VoidResponse);
   rpc GetFlashWriteProtectStatus (EmptyRequest) returns (GetFlashWriteProtectStatusResponse);
@@ -29,33 +33,20 @@ service HearingInstrument {
   rpc SetPowerOff (EmptyRequest) returns (VoidResponse);
 }
 
-enum AvalonStatus
-{
+enum AvalonStatus {
     Unspecified = 0;
     Success = 1;
-    FittingDongleNotFound = 2;
-    FittingDongleCreationFailed = 3;
-    FittingDongleDeterminationFailed = 4;
-    FittingDongleCloseFailed = 5;
-    FittingDongleOpenFailed = 6;
-    DeviceNotFound = 7;
-    DeviceIsCharging = 8;
-    ConnectFailed = 9;
-    AuthenticationFailed = 10;
-    FittingModeEnableFailed = 11;
-    HearingInstrumentCreationFailed = 12;
-    BlackBoardException = 13;
-    BootFailure = 14;
-    Calibration = 15;
-    StorageLayoutError = 16;
-    DeviceWriteError = 17;
-    DeviceReadError = 18;
-    FittingSessionError = 19;
-    HearingInstrumentPropertyReadFailed = 20;
-    FirmwareVariableReadFailed = 21;
-    MultipleDevicesFound = 22;
-    ResetBatteryRelatedDataFailed = 23;
+    CommunicationDeviceNotFound = 2;
+    CommunicationDeviceError = 3;
+    DeviceNotFound = 4;
+    DeviceIsCharging = 5;
+    ConnectFailed = 6;
+    ConnectionLost = 7;
+    CommunicationError = 8;
+    AuthenticationFailed = 9;
+    HearingInstrumentCreationFailed = 10;
 }
+
 
 enum Protocol
 {
@@ -122,9 +113,29 @@ message EmptyRequest {}
 
 message VoidResponse {}
 
+message InitializeRequest 
+{
+    string deviceId = 1;
+}
+
 message ConfigureProductRequest 
 {
 	string folderPath = 1;
+}
+
+message ProductRequest 
+{
+	string product = 1;
+}
+
+message ProductNameRequest 
+{
+	string productName = 1;
+}
+
+message ProductNameResponse
+{
+	string productName = 1;
 }
 
 message DetectBySerialNumberRequest 
@@ -135,6 +146,7 @@ message DetectBySerialNumberRequest
 message DetectBySerialNumberResponse
 {
 	AvalonStatus avalonStatus = 1;
+    DeviceNode deviceNode = 2;
 }
 
 message DetectOnSideRequest 
@@ -145,11 +157,13 @@ message DetectOnSideRequest
 message DetectOnSideResponse
 {
 	AvalonStatus avalonStatus = 1;
+    DeviceNode deviceNode = 2;
 }
 
 message DetectClosestResponse
 {
 	AvalonStatus avalonStatus = 1;
+    DeviceNode deviceNode = 2;
 }
 
 message EnableMasterConnectRequest 
@@ -196,6 +210,11 @@ message ConnectRequest
 message ConnectResponse
 {
 	AvalonStatus avalonStatus = 1;
+}
+
+message IsDeviceConnectedResponse
+{
+	bool IsDeviceConnected = 1;
 }
 
 message GetBootModeResponse 

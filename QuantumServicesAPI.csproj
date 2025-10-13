@@ -30,6 +30,7 @@
 		<Protobuf Include="Protos\DeviceImage.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\ProductionTestData.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\SecurityCertificates.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\Communication.proto" GrpcServices="Client" />
 	</ItemGroup>
 	
 	<ItemGroup>

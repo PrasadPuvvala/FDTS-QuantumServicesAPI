@@ -1,0 +1,28 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Avalon.Dooku3.gRPCService.Protos.Communication";
+
+package Avalon.Dooku3.gRPCService;
+
+service Communication {
+  rpc GetAvailableCommunicationDevices (EmptyRequest)  returns (DeviceIdList);
+  rpc SetCommunicationDeviceId (SetCommunicationDeviceIdRequest) returns (VoidResponse);
+  rpc GetCommunicationDeviceId(EmptyRequest) returns (GetCommunicationDeviceIdResponse);
+  rpc RefreshCommunicationDevices(EmptyRequest) returns (VoidResponse);
+}
+
+message EmptyRequest {}
+
+message VoidResponse {}
+
+message DeviceIdList {
+    repeated string deviceIds = 1;
+}
+
+message SetCommunicationDeviceIdRequest {
+    string deviceId = 1;
+}
+
+message GetCommunicationDeviceIdResponse {
+    string deviceId = 1;
+}

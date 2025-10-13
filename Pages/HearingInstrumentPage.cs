@@ -24,13 +24,19 @@ namespace QuantumServicesAPI.Pages
             _client = new HearingInstrument.HearingInstrumentClient(grpcChannel);
         }
 
+        public async Task<VoidResponse> CallUseMultipleInstancesAsync()
+        {
+            var request = new EmptyRequest();
+            return await _client.UseMultipleInstancesAsync(request);
+        }
+
         /// <summary>
         /// Calls the Initialize method on the gRPC service.
         /// </summary>
         /// <returns>A <see cref="VoidResponse"/> from the service.</returns>
-        public async Task<VoidResponse> CallInitializeAsync()
+        public async Task<VoidResponse> CallInitializeAsync(string deviceId)
         {
-            var request = new EmptyRequest();
+            var request = new InitializeRequest { DeviceId = deviceId };
             return await _client.InitializeAsync(request);
         }
 
@@ -43,6 +49,18 @@ namespace QuantumServicesAPI.Pages
         {
             var request = new ConfigureProductRequest { FolderPath = folderPath };
             return await _client.ConfigureProductAsync(request);
+        }
+
+        public async Task<VoidResponse> CallImportProductAsync(string product)
+        {
+            var request = new ProductRequest { Product = product };
+            return await _client.ImportProductAsync(request);
+        }
+
+        public async Task<ProductNameResponse> CallFindProductNameAsync(string productName)
+        {
+            var request = new ProductNameRequest { ProductName = productName };
+            return await _client.FindProductNameAsync(request);
         }
 
         /// <summary>
@@ -112,6 +130,12 @@ namespace QuantumServicesAPI.Pages
         {
             var request = new ConnectRequest { DeviceNode = deviceNode };
             return await _client.ConnectAsync(request);
+        }
+
+        public async Task<IsDeviceConnectedResponse> CallIsDeviceConnectedAsync()
+        {
+            var request = new EmptyRequest();
+            return await _client.IsDeviceConnectedAsync(request);
         }
 
         /// <summary>
@@ -211,15 +235,6 @@ namespace QuantumServicesAPI.Pages
         }
 
         /// <summary>
-        /// Gets the battery voltage.
-        /// </summary>
-        /// <returns>A <see cref="GetBatteryVoltageResponse"/> from the service.</returns>
-        public async Task<GetBatteryVoltageResponse> CallGetBatteryVoltageAsync()
-        {
-            return await _client.GetBatteryVoltageAsync(new EmptyRequest());
-        }
-
-        /// <summary>
         /// Sets the battery type.
         /// </summary>
         /// <param name="batteryType">The battery type to set.</param>
@@ -228,6 +243,15 @@ namespace QuantumServicesAPI.Pages
         {
             var request = new SetBatteryTypeRequest { BatteryType = batteryType };
             return await _client.SetBatteryTypeAsync(request);
+        }
+
+        /// <summary>
+        /// Gets the battery voltage.
+        /// </summary>
+        /// <returns>A <see cref="GetBatteryVoltageResponse"/> from the service.</returns>
+        public async Task<GetBatteryVoltageResponse> CallGetBatteryVoltageAsync()
+        {
+            return await _client.GetBatteryVoltageAsync(new EmptyRequest());
         }
 
         /// <summary>

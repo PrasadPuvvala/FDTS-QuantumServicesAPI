@@ -90,8 +90,7 @@ namespace QuantumServicesAPI.Hooks
                 // Only launch the gRPC process if not already running
                 if (GRPCAPIHelperClass.GrpcProcess == null || GRPCAPIHelperClass.GrpcProcess.HasExited)
                 {
-                    const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.3.1.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";
-                    //const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku2.gRPCService_10.0.3.0_x86__ab7apr970t1ng\Avalon.Dooku2.gRPCService.exe";
+                    const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.6.0.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";                    //const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku2.gRPCService_10.0.3.0_x86__ab7apr970t1ng\Avalon.Dooku2.gRPCService.exe";
                     GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
                 }
             }
@@ -164,6 +163,7 @@ namespace QuantumServicesAPI.Hooks
                 var deviceImageHelper = new DeviceImagePage(sharedChannel);
                 var productionTestDataHelper = new ProductionTestDataPage(sharedChannel);
                 var securityCertificatesHelper = new SecurityCertificatesPage(sharedChannel);
+                var communicationHelper = new CommunicationPage(sharedChannel); 
 
                 scenarioContext["GrpcUrl"] = url;
                 scenarioContext["GrpcHearingInstrument"] = hearingHelper;
@@ -171,6 +171,7 @@ namespace QuantumServicesAPI.Hooks
                 scenarioContext["GrpcDeviceImage"] = deviceImageHelper;
                 scenarioContext["GrpcProductionTestData"] = productionTestDataHelper;
                 scenarioContext["GrpcSecurityCertificates"] = securityCertificatesHelper;
+                scenarioContext["GrpcCommunication"] = communicationHelper;
             }
             var environment = scenarioContext.ScenarioInfo.Arguments["Environment"]?.ToString() ?? "PC Programming Prototype";
             var region = scenarioContext.ScenarioInfo.Arguments["Region"]?.ToString() ?? $"{featureTitle}";

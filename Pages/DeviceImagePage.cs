@@ -42,7 +42,7 @@ namespace QuantumServicesAPI.Pages
         {
             return await _deviceImageClient.IsDfuCompatibleAsync(new EmptyRequest());
         }
-        public async Task<VoidResponse> CallWriteAsync(bool isOptimizedProgramming)
+        public async Task<WriteResponse> CallWriteAsync(bool isOptimizedProgramming)
         {
             var request = new WriteRequest { IsOptimizedProgramming = isOptimizedProgramming };
             return await _deviceImageClient.WriteAsync(request);

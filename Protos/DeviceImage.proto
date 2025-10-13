@@ -9,7 +9,7 @@ service DeviceImage {
   rpc IsCustomProduct (EmptyRequest) returns (IsCustomProductResponse);
   rpc IsOptimizedProgramming (IsOptimizedProgrammingRequest) returns (IsOptimizedProgrammingResponse);
   rpc IsDfuCompatible (EmptyRequest) returns (IsDfuCompatibleResponse);
-  rpc Write (WriteRequest) returns (VoidResponse);
+  rpc Write (WriteRequest) returns (WriteResponse);
   rpc WriteImageHash (EmptyRequest) returns (VoidResponse);
 }
 
@@ -47,4 +47,9 @@ message IsDfuCompatibleResponse
 message WriteRequest 
 {
 	bool isOptimizedProgramming = 1;
+}
+
+message WriteResponse 
+{
+	bool isWrittenSuccessfully = 1;
 }

@@ -1,5 +1,6 @@
 ﻿using Avalon.Dooku3.gRPCService.Protos.ProductIdentification;
 using Grpc.Net.Client;
+using System.Diagnostics.Contracts;
 
 namespace QuantumServicesAPI.Pages
 {
@@ -48,36 +49,19 @@ namespace QuantumServicesAPI.Pages
         {
             return await _productIdentificationClient.GetNetworkAddressAsync(new EmptyRequest());
         }
-        public async Task<VerifyProductResponse> CallVerifyProductAsync(int bleId, string brand, int privateLabel)
+        public async Task<VoidResponse> CallSetNetworkAddressAsync()
         {
-            var request = new VerifyProductRequest
-            {
-                BleId = bleId,
-                Brand = brand,
-                PrivateLabel = privateLabel
-            };
-            return await _productIdentificationClient.VerifyProductAsync(request);
-        }
-        public async Task<VoidResponse> CallUpdateGattDatabaseAsync(string mfiBrand, string mfiModel, string mfiFamily, string gapDeviceName)
-        {
-            var request = new UpdateGattDatabaseRequest();
-            request.GattKeyValueDictionary.Add("MFIBrand", mfiBrand);
-            request.GattKeyValueDictionary.Add("MFIModel", mfiModel);
-            request.GattKeyValueDictionary.Add("MFIFamily", mfiFamily);
-            request.GattKeyValueDictionary.Add("GapDeviceName", gapDeviceName);
-
-            return await _productIdentificationClient.UpdateGattDatabaseAsync(request);
-        }
-        public async Task<ReadCloudRegistrationInputResponse> CallReadCloudRegistrationInputAsync()
-        {
-            var request = new ReadCloudRegistrationInputRequest();
-            request.RfuEnabled = true; // Assuming you want to set RfuEnabled to true
-            request.RftEnabled = true; // Assuming you want to set RftEnabled to true
-            return await _productIdentificationClient.ReadCloudRegistrationInputAsync(request);
+            var request = new EmptyRequest();
+            return await _productIdentificationClient.SetNewNetworkAddressAsync(request);
         }
         public async Task<GetDateModifiedResponse> CallGetDateModifiedAsync()
         {
             return await _productIdentificationClient.GetDateModifiedAsync(new EmptyRequest());
+        }
+        public async Task<VoidResponse> CallResetDateModifiedAsync()
+        {
+            var request = new EmptyRequest();
+            return await _productIdentificationClient.ResetDateModifiedAsync(request);
         }
         public async Task<GetOptionsForDeviceResponse> CallGetOptionsForDeviceAsync()
         {
@@ -96,6 +80,43 @@ namespace QuantumServicesAPI.Pages
         {
             var request = new SetPrivateLabelCodeRequest { PrivateLabelCode = privateLabelCode };
             return await _productIdentificationClient.SetPrivateLabelCodeAsync(request);
+        }
+        public async Task<VerifyProductResponse> CallVerifyProductAsync(int bleId, string brand, int privateLabel)
+        {
+            var request = new VerifyProductRequest
+            {
+                BleId = bleId,
+                Brand = brand,
+                PrivateLabel = privateLabel
+            };
+            return await _productIdentificationClient.VerifyProductAsync(request);
+        }
+        public async Task<VoidResponse> CallWriteAsync()
+        {
+            return await _productIdentificationClient.WriteAsync(new EmptyRequest());
+        }
+        public async Task<ReadHybridSerialNumberResponse> CallReadHybridSerialNumberAsync()
+        {
+            return await _productIdentificationClient.ReadHybridSerialNumberAsync(new EmptyRequest());
+        }
+        public async Task<VoidResponse> CallUpdateGattDatabaseAsync(string mfiBrand, string mfiModel, string mfiFamily, string gapDeviceName)
+        {
+            var request = new UpdateGattDatabaseRequest();
+            request.GattKeyValueDictionary.Add("MFIBrand", mfiBrand);
+            request.GattKeyValueDictionary.Add("MFIModel", mfiModel);
+            request.GattKeyValueDictionary.Add("MFIFamily", mfiFamily);
+            request.GattKeyValueDictionary.Add("GapDeviceName", gapDeviceName);
+
+            return await _productIdentificationClient.UpdateGattDatabaseAsync(request);
+        }
+        public async Task<ReadCloudRegistrationInputResponse> CallReadCloudRegistrationInputAsync()
+        {
+            var request = new ReadCloudRegistrationInputRequest
+            {
+                RfuEnabled = true, // Assuming you want to set RfuEnabled to true
+                RftEnabled = true // Assuming you want to set RftEnabled to true
+            };
+            return await _productIdentificationClient.ReadCloudRegistrationInputAsync(request);
         }
     }
 }
