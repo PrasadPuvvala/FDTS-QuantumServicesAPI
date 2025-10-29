@@ -83,7 +83,7 @@ namespace QuantumServicesAPI.Pages
         protected GetCommunicationDeviceIdResponse? _getCommunicationDeviceIdResponse; // Declare '_getCommunicationDeviceIdResponse' as nullable to fix CS8618
 
         protected string fdiPath = @"C:\ProgramData\ReSound\Camelot\Test Programs\ReSound Nexia 9\NX962-DRW [10]\Final\NX962-DRW.10.43.1.1.fdidfu";
-        protected string hdiPath = @"C:\Program Files (x86)\GN Hearing\Avalon\Device.Dooku3\Dooku3.C6.HDI.1.4.xml";
+        protected string hdiPath = @"C:\Program Files (x86)\GN Hearing\Avalon\Device.Dooku3\Dooku3.C6.HDI.1.5.xml";
         protected BaseResponsePage(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -101,10 +101,41 @@ namespace QuantumServicesAPI.Pages
             try
             {
                 _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+                if (_deviceIdListResponse?.DeviceIds == null || !_deviceIdListResponse.DeviceIds.Any())
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "No communication devices found.");
+                    throw new Exception("No communication devices found from GetAvailableCommunicationDevicesAsync.");
+                }
 
-                var deviceId = _deviceIdListResponse.DeviceIds.ToList().FirstOrDefault();
+                var deviceId = _deviceIdListResponse.DeviceIds.First();
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Retrieved communication device ID: {deviceId}");
 
+                // Step 2: Set communication device ID
                 _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to set communication device ID.");
+                    throw new Exception("SetCommunicationDeviceIdAsync returned null response.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "SetCommunicationDeviceIdAsync executed successfully.");
+
+                // Step 3: Get communication device ID
+                _getCommunicationDeviceIdResponse = await _communicationPage.CallGetCommunicationDeviceIdAsync();
+                if (_getCommunicationDeviceIdResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to get communication device ID.");
+                    throw new Exception("GetCommunicationDeviceIdAsync returned null response.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Verified communication device ID successfully.");
+
+                // Step 4: Refresh communication devices
+                _communicationVoidResponse = await _communicationPage.CallRefreshCommunicationDevicesAsync();
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to refresh communication devices.");
+                    throw new Exception("RefreshCommunicationDevicesAsync returned null response.");
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Communication devices refreshed successfully.");
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling Initialize API to initialize the device...");
                 _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device initialized successfully.");
@@ -164,15 +195,15 @@ namespace QuantumServicesAPI.Pages
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Master Connect mode enabled.");
 
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Enabling Fitting Mode...");
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
+                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(false);
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Fitting Mode enabled.");
 
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Requesting device node data from GetDeviceNode API...");
-                _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device node data received.");
+                //ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Requesting device node data from GetDeviceNode API...");
+                //_getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
+                //ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device node data received.");
 
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Attempting to connect to device using Connect API...");
-                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
+                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_detectBySerialNumberResponse!.DeviceNode);
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Connected to device successfully.");
             }
             catch (Exception ex)
@@ -180,6 +211,55 @@ namespace QuantumServicesAPI.Pages
                 ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"{ex.Message}");
                 throw;
             }
+        }
+
+        //protected string GetProtoOriginalNameAvalonStatus(AvalonStatus status)
+        //{
+        //    var type = typeof(AvalonStatus);
+        //    var name = Enum.GetName(type, status);
+        //    if (name == null)
+        //        return status.ToString();
+
+        //    var member = type.GetMember(name).FirstOrDefault();
+        //    var originalNameAttr = member?.GetCustomAttributes(typeof(Google.Protobuf.Reflection.OriginalNameAttribute), false)
+        //        .Cast<Google.Protobuf.Reflection.OriginalNameAttribute>()
+        //        .FirstOrDefault();
+
+        //    return originalNameAttr?.Name ?? name;
+        //}
+
+        /// <summary>
+        /// Gets the original .proto name (value of [OriginalName]) for a given FlashWriteProtectStatus enum value.
+        /// </summary>
+        //protected string GetProtoOriginalName(FlashWriteProtectStatus status)
+        //{
+        //    var type = typeof(FlashWriteProtectStatus);
+        //    var name = Enum.GetName(type, status);
+        //    if (name == null)
+        //        return status.ToString();
+
+        //    var member = type.GetMember(name).FirstOrDefault();
+        //    var originalNameAttr = member?.GetCustomAttributes(typeof(Google.Protobuf.Reflection.OriginalNameAttribute), false)
+        //        .Cast<Google.Protobuf.Reflection.OriginalNameAttribute>()
+        //        .FirstOrDefault();
+
+        //    return originalNameAttr?.Name ?? name;
+        //}
+
+        protected string GetProtoOriginalName<TEnum>(TEnum status) where TEnum : Enum
+        {
+            var type = typeof(TEnum);
+            var name = Enum.GetName(type, status);
+            if (name == null)
+                return status.ToString();
+
+            var member = type.GetMember(name).FirstOrDefault();
+            var originalNameAttr = member?
+                .GetCustomAttributes(typeof(Google.Protobuf.Reflection.OriginalNameAttribute), false)
+                .Cast<Google.Protobuf.Reflection.OriginalNameAttribute>()
+                .FirstOrDefault();
+
+            return originalNameAttr?.Name ?? name;
         }
     }
 }

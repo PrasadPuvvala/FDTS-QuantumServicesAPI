@@ -90,7 +90,7 @@ namespace QuantumServicesAPI.Hooks
                 // Only launch the gRPC process if not already running
                 if (GRPCAPIHelperClass.GrpcProcess == null || GRPCAPIHelperClass.GrpcProcess.HasExited)
                 {
-                    const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.6.0.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";                    //const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku2.gRPCService_10.0.3.0_x86__ab7apr970t1ng\Avalon.Dooku2.gRPCService.exe";
+                    const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku3.gRPCService_5.5.2.0_x86__ab7apr970t1ng\Avalon.Dooku3.gRPCService.exe";                    //const string exePath = @"C:\Program Files\WindowsApps\Avalon.Dooku2.gRPCService_10.0.3.0_x86__ab7apr970t1ng\Avalon.Dooku2.gRPCService.exe";
                     GRPCAPIHelperClass.LaunchGrpcLocalPort(exePath);
                 }
             }

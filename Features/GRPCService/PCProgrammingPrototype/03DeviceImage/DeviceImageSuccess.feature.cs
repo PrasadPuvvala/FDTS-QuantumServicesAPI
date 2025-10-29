@@ -123,15 +123,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber"});
-                table15.AddRow(new string[] {
-                            "2400809347"});
 #line 8
  await testRunner.WhenAsync("Load a DFU image with a higher HDI version than the device, ensure Flash Write Pr" +
-                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), table15, "When ");
+                        "otect is not set to \"LockedPermanent\", and send a request to the UpdateHDI API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 9
  await testRunner.ThenAsync("API updates the HDI in the device before writing the image", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -149,7 +145,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1810723: [Avalon Service] Verify UpdateHDI API Skips HDI Update Wh" +
                     "en Flash Write Protect Is LockedPermanent", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -159,12 +155,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 16
+#line 14
  await testRunner.WhenAsync("Load a DFU image with a higher HDI version than the device, and set device Flash " +
                         "Write Protect status to \"LockedPermanent\", and send a request to the UpdateHDI A" +
                         "PI", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 17
+#line 15
  await testRunner.ThenAsync("API does not update the HDI in the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -182,7 +178,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 1810711: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
                     " True When Image HDI Version Is Equal or Higher Than Device HDI Version", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -192,11 +188,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 22
+#line 20
  await testRunner.WhenAsync("Load a DFU image with an equal or higher HDI version than the one on the device a" +
                         "nd send a compatibility check request", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 23
+#line 21
  await testRunner.ThenAsync("API returns \"True\" indicating the DFU image is compatible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -214,7 +210,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("04Test Case ID 1810710: [Avalon Service] Verify CheckDFUCompatibility API Returns" +
                     " False When Image HDI Version Is Lower Than Device HDI Version", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -224,11 +220,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 28
+#line 26
  await testRunner.WhenAsync("Load a DFU image with a lower HDI version than the one on the device and send a c" +
                         "ompatibility check request", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 29
+#line 27
  await testRunner.ThenAsync("API returns \"False\" indicating the DFU image is not compatible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -246,7 +242,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("05Test Case ID 1810717: [Avalon Service] Verify WriteFDI API Successfully Writes " +
                     "Image to Device When Optimized Programming Is False", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 32
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -256,11 +252,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 34
+#line 32
  await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to \"false\", and send a request" +
                         " to WriteFDI API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 35
+#line 33
  await testRunner.ThenAsync("API writes the image to the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -278,7 +274,7 @@ this.ScenarioInitialize(scenarioInfo);
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("06Test Case 1810718: [Avalon Service] Verify WriteFDI API does not Write Image Wh" +
                     "en Optimized Programming Is Set to True", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 38
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -288,11 +284,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 40
+#line 38
  await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to \"true\", and send a request " +
                         "to WriteFDI API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 41
+#line 39
  await testRunner.ThenAsync("API does not write the image to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

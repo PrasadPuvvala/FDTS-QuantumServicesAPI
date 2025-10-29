@@ -1,6 +1,7 @@
 using Avalon.Dooku3.gRPCService.Protos.DeviceImage;
 using Avalon.Dooku3.gRPCService.Protos.HearingInstrument;
 using AventStack.ExtentReports;
+using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 using Reqnroll;
@@ -11,100 +12,28 @@ namespace QuantumServicesAPI.StepDefinitions.DeviceImage
     [Binding]
     public class DeviceImageSuccessStepDefinitions : BaseResponsePage
     {
-        public DeviceImageSuccessStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        private readonly FeatureContext _featureContext;
+        private gRPCDeviceInfo _gRPCDeviceInfo;
+        public DeviceImageSuccessStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext) : base(scenarioContext)
         {
-
+            _featureContext = featureContext;
+            _gRPCDeviceInfo = _featureContext.Get<gRPCDeviceInfo>("gRPCDeviceInfo");
         }
 
         [When("Load a DFU image with a higher HDI version than the device, ensure Flash Write Protect is not set to {string}, and send a request to the UpdateHDI API")]
-        public async Task WhenLoadADFUImageWithAHigherHDIVersionThanTheDeviceEnsureFlashWriteProtectIsNotSetToAndSendARequestToTheUpdateHDIAPIAsync(string status, DataTable dataTable)
+        public async Task WhenLoadADFUImageWithAHigherHDIVersionThanTheDeviceEnsureFlashWriteProtectIsNotSetToAndSendARequestToTheUpdateHDIAPIAsync(string status)
         {
             _test = _scenarioContext.Get<ExtentTest>("CurrentTest");
             _step = ExtentReportManager.GetInstance().CreateTestStep(_test, ScenarioStepContext.Current.StepInfo.Text);
-
-            ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Starting device initialization and product configuration for serial number detection.");
-
             try
             {
-                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
-
-                var deviceId = _deviceIdListResponse.DeviceIds.FirstOrDefault();
-
-                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling Initialize API to initialize the device...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Product configured successfully using FDTS file.");
-
-                foreach (var row in dataTable.Rows)
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
                 {
-                    string serialNumber = row["SerialNumber"];
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
-                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                    if (_detectBySerialNumberResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                    }
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
                 }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectClosest API to find the nearest RHI device...");
-                _detectClosestResponse = await _hearingInstrumentPage.CallDetectClosestAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "DetectClosest API call succeeded.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Calling DetectOnSide API for Left and Right channels...");
-                var left = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Left);
-                var right = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Right);
-
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Left Response", left.ToString());
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "DetectOnSide Right Response", right.ToString());
-
-                if (left.AvalonStatus == AvalonStatus.Success && right.AvalonStatus == AvalonStatus.Success)
-                {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Both Left and Right sides detected. Calling DetectOnSide API for Both sides...");
-                    _detectOnSideResponse = await _hearingInstrumentPage.CallDetectOnSideAsync(ChannelSide.Both);
-                    connectedSide = ChannelSide.Both;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Both sides detected successfully. Using 'Both' as fitting side.");
-                }
-                else if (left.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = left;
-                    connectedSide = ChannelSide.Left;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Left side detected successfully. Using 'Left' as fitting side.");
-                }
-                else if (right.AvalonStatus == AvalonStatus.Success)
-                {
-                    _detectOnSideResponse = right;
-                    connectedSide = ChannelSide.Right;
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Only Right side detected successfully. Using 'Right' as fitting side.");
-                }
-                else
-                {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No connected side detected. Device may not be connected or powered.");
-                    throw new InvalidOperationException("No connected side found.");
-                }
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Master Connect mode...");
-                _enableMasterConnectResponse = await _hearingInstrumentPage.CallEnableMasterConnectAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Master Connect mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Enabling Fitting Mode...");
-                _enableFittingModeResponse = await _hearingInstrumentPage.CallEnableFittingModeAsync(true);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Fitting Mode enabled.");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting device node data from GetDeviceNode API...");
-                _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device node data received.");
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_getDeviceNodeResponse.ToString()}");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Attempting to connect to device using Connect API...");
-                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Connected to device successfully.");
+                await SetupGrpcPreconditionsAsync(serialNumber, _step);
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to FlashWriteProtect API to fetch current protection status...");
                 _getFlashWriteProtectStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();

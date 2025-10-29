@@ -27,57 +27,96 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
             try
             {
+                // Step 1: Get available communication devices
                 _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+                if (_deviceIdListResponse?.DeviceIds == null || !_deviceIdListResponse.DeviceIds.Any())
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "No communication devices found.");
+                    throw new Exception("No communication devices found from GetAvailableCommunicationDevicesAsync.");
+                }
+                  
+                var deviceId = _deviceIdListResponse.DeviceIds.First();
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Retrieved communication device ID: {deviceId}");
 
-                var deviceId = _deviceIdListResponse.DeviceIds.ToList().First();
-
+                // Step 2: Set communication device ID
                 _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to set communication device ID.");
+                    throw new Exception("SetCommunicationDeviceIdAsync returned null response.");
+                }                  
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Set Communication DeviceId executed successfully.Device ID: {deviceId}");
 
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallUseMultipleInstancesAsync();
+                // Step 3: Get communication device ID
+                _getCommunicationDeviceIdResponse = await _communicationPage.CallGetCommunicationDeviceIdAsync();
+                if (_getCommunicationDeviceIdResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to get communication device ID.");
+                    throw new Exception("GetCommunicationDeviceIdAsync returned null response.");
+                }                   
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"Verified communication device ID successfully.{_getCommunicationDeviceIdResponse}");
 
-                // Initialize device
+                // Step 4: Refresh communication devices
+                _communicationVoidResponse = await _communicationPage.CallRefreshCommunicationDevicesAsync();
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to refresh communication devices.");
+                    throw new Exception("RefreshCommunicationDevicesAsync returned null response.");
+                }               
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Communication devices refreshed successfully.");
+
+                // Step 5: Initialize device
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Initializing device...");
                 _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
+                if (_hearingInstrumentVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to call Intialaize the device.");
+                    throw new Exception("InitializeAsync returned null response.");
+                }              
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Device initialized successfully.");
 
-                // Configure product
+                // Step 6: Configure product
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Configuring product using FDTS file...");
                 _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Product configured successfully.");
-
-                try
+                if (_hearingInstrumentVoidResponse == null)
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}");
-
-                    var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
-                    if (string.IsNullOrEmpty(serialNumber))
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
-                        throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
-                    }
-                    _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                    if (_detectBySerialNumberResponse == null)
-                    {
-                        ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                        throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
-                    }
-
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Failed to call Configure Product.");
+                    throw new Exception("ConfigureProductAsync returned null response.");
                 }
-                catch (Exception innerEx)
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "Product configured successfully.");
+
+                // Step 7: Detect by Serial Number
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
                 {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Error processing serial number '{_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}': {innerEx.Message}");
-                    throw new Exception($"Error processing serial number '{_gRPCDeviceInfo.deviceSerialNumber?.SerialNumber}': {innerEx.Message}");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new Exception("Serial number is null or empty. Cannot call DetectBySerialNumber API.");
                 }
+                    
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Sending DetectBySerialNumber request for serial number: {serialNumber}");
+                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
 
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed DetectBySerialNumber API requests for all serial numbers.");
+                if (_detectBySerialNumberResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API returned null response for serial number: {serialNumber}");
+                    throw new Exception($"DetectBySerialNumber API returned null response for serial number: {serialNumber}");
+                }
+                    
+
+                // Optional: Validate expected fields in the response
+                if (string.IsNullOrEmpty(_detectBySerialNumberResponse.DeviceNode.SerialNumber))
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"DetectBySerialNumber API did not return a valid SerialNumber for serial number: {serialNumber}");
+                    throw new Exception($"DetectBySerialNumber API did not return a valid SerialNumber for serial number: {serialNumber}");
+                }
+  
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"DetectBySerialNumber API call succeeded for serial number: {serialNumber}");
+                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Completed DetectBySerialNumber API workflow successfully.");
             }
             catch (Exception ex)
             {
                 ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Workflow failed: {ex.Message}");
-                throw new Exception($"Workflow failed: {ex.Message}");
+                throw new Exception($"DetectBySerialNumber Workflow failed: {ex.Message}");
             }
         }
 
@@ -94,8 +133,8 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Validation failed: DetectBySerialNumber response is null.");
                     throw new Exception("DetectBySerialNumber response is null.");
                 }
-
-                string actualStatus = _detectBySerialNumberResponse.AvalonStatus.ToString();
+                var actualEnum = _detectBySerialNumberResponse.AvalonStatus;
+                string actualStatus = GetProtoOriginalName(actualEnum);
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Expected AvalonStatus: {expectedStatus}, Actual AvalonStatus: {actualStatus}");
 
@@ -108,7 +147,7 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"API returned expected AvalonStatus: '{expectedStatus}' and valid device node data.");
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectBySerialNumber Response", _detectBySerialNumberResponse.ToString());
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DetectBySerialNumber Response", _detectBySerialNumberResponse.DeviceNode.ToString());
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "DeviceNode", _detectBySerialNumberResponse.DeviceNode.ToString());
             }
             catch (Exception ex)
             {
@@ -125,8 +164,6 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
 
             try
             {
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to DetectClosest API to find the nearest RHI device...");
-
                 _detectClosestResponse = await _hearingInstrumentPage.CallDetectClosestAsync();
 
                 if (_detectClosestResponse == null)
@@ -159,12 +196,14 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
                 }
 
                 var actualStatus = _detectClosestResponse.AvalonStatus.ToString();
+                var deviceNode = _detectClosestResponse.DeviceNode;
 
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, $"Validating AvalonStatus. Expected: '{expectedStatus}', Actual: '{actualStatus}'");
 
                 if (!string.Equals(actualStatus, expectedStatus, StringComparison.OrdinalIgnoreCase))
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"AvalonStatus mismatch. Expected: '{expectedStatus}', but got: '{actualStatus}'");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"Device Node Data : {deviceNode}");
                     ExtentReportManager.GetInstance().LogJson(_step, Status.Fail, "DetectClosest Response", _detectClosestResponse.ToString());
                     throw new Exception($"AvalonStatus mismatch. Expected: '{expectedStatus}', but got: '{actualStatus}'");
                 }
@@ -324,15 +363,21 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
             try
             {
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Requesting valid device node from DeviceNodeData API...");
-                _getDeviceNodeResponse = await _hearingInstrumentPage.CallGetDeviceNodeAsync();
-                if (_getDeviceNodeResponse == null)
+                var serialNumber = _gRPCDeviceInfo?.deviceSerialNumber?.SerialNumber;
+                if (string.IsNullOrEmpty(serialNumber))
                 {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "DeviceNodeData API response is null. Cannot proceed with device connection.");
-                    throw new Exception("DeviceNodeData API response is null.");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Serial number is null or empty. Cannot call DetectBySerialNumber API.");
+                    throw new ArgumentNullException(nameof(serialNumber), "Serial number must not be null or empty.");
                 }
-                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Retrieved Device Node", _getDeviceNodeResponse.ToString());
+                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
+                if (_detectBySerialNumberResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "Detect By Serial Number API response is null. Cannot proceed with device connection.");
+                    throw new Exception("Detect By Serial Number API response is null.");
+                }
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "Retrieved Device Node", _detectBySerialNumberResponse.DeviceNode.ToString());
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Attempting to connect to device using ConnectToDevice API...");
-                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_getDeviceNodeResponse!.DeviceNode);
+                _connectResponse = await _hearingInstrumentPage.CallConnectAsync(_detectBySerialNumberResponse.DeviceNode);
                 if (_connectResponse == null)
                 {
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "ConnectToDevice API response is null. Connection attempt failed.");
@@ -503,6 +548,9 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
                     throw new Exception("FlashWriteProtect API response is null.");
                 }
 
+                var rawStatus = _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus;
+                var originalStatusName = GetProtoOriginalName(rawStatus);
+
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "FlashWriteProtect API call succeeded. Current status received.");
                 ExtentReportManager.GetInstance().LogJson(_step, Status.Pass, "FlashWriteProtect Status Response", _getFlashWriteProtectStatusResponse.ToString());
             }
@@ -527,21 +575,25 @@ namespace QuantumServicesAPI.StepDefinitions.HearingInstrument
                     ExtentReportManager.GetInstance().LogError(_step, Status.Fail, "FlashWriteProtectStatus response is null.");
                     throw new Exception("FlashWriteProtectStatus response is null.");
                 }
-                // Validate FlashWriteProtectStatus
-                var actualStatus = _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus.ToString();
+                var actualEnum = _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus;
+                var actualStatus = GetProtoOriginalName(actualEnum);
+
                 var validStates = new[] { unLock, @lock, lockedPermanent };
 
                 if (validStates.Contains(actualStatus))
                 {
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtectStatus is valid: '{actualStatus}' (expected one of: {string.Join(", ", validStates)}).");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"FlashWriteProtectStatus Response : {actualStatus}");
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass,
+                        $"FlashWriteProtectStatus is valid: '{actualStatus}' (expected one of: {string.Join(", ", validStates)}).");
                 }
                 else
                 {
-                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail, $"FlashWriteProtectStatus '{actualStatus}' is not among expected values: {string.Join(", ", validStates)}.");
-                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"FlashWriteProtectStatus Response : {_getFlashWriteProtectStatusResponse.FlashWriteProtectStatus}");
-                    throw new Exception("FlashWriteProtectStatus response is not one of the valid states.");
+                    ExtentReportManager.GetInstance().LogError(_step, Status.Fail,
+                        $"FlashWriteProtectStatus '{actualStatus}' is not among expected values: {string.Join(", ", validStates)}.");
+                    throw new Exception($"Invalid FlashWriteProtectStatus: {actualStatus}");
                 }
+
+                ExtentReportManager.GetInstance().LogJson(_step, Status.Info, "FlashWriteProtectStatus Validation Result", actualStatus);
+
             }
             catch (Exception ex)
             {
