@@ -39,10 +39,20 @@ namespace QuantumServicesAPI.StepDefinitions.DeviceImage
                 _getFlashWriteProtectStatusResponse = await _hearingInstrumentPage.CallGetFlashWriteProtectStatusAsync();
                 ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, "FlashWriteProtect API call succeeded. Current status received.");
 
-                
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to CallLoadImageDataFromFileAsync...");
-                _deviceImageVoidResponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
-                ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");
+                var actualEnum = _getFlashWriteProtectStatusResponse.FlashWriteProtectStatus;
+                var actualStatus = GetProtoOriginalName(actualEnum);
+
+                if (actualStatus.Equals(status, StringComparison.OrdinalIgnoreCase))
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Fail, $"Flash Write Protect status matches expected value: {status}");
+                    throw new Exception($"Flash Write Protect status matches. Expected: {status}, Actual: {actualStatus}");
+                }
+                else
+                {
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Sending request to CallLoadImageDataFromFileAsync...");
+                    _deviceImageVoidResponse = await _deviceImagePage.CallLoadImageDataFromFileAsync(fdiPath, hdiPath);
+                    ExtentReportManager.GetInstance().LogToReport(_step, Status.Pass, $"{_deviceImageVoidResponse.ToString()}");
+                }          
 
                 //ExtentReportManager.GetInstance().LogToReport(_step, Status.Info, "Checking if the product is custom...");
                 //_isCustomProductResponse = await _deviceImagePage.CallIsCustomProductAsync();

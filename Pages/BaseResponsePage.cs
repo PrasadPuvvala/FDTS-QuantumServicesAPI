@@ -100,57 +100,11 @@ namespace QuantumServicesAPI.Pages
 
             try
             {
-                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
-                if (_deviceIdListResponse?.DeviceIds == null || !_deviceIdListResponse.DeviceIds.Any())
+                bool setupSuccess = await PerformGrpcDeviceSetupAsync(serialNumber, step);
+                if (!setupSuccess)
                 {
-                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "No communication devices found.");
-                    throw new Exception("No communication devices found from GetAvailableCommunicationDevicesAsync.");
-                }
-
-                var deviceId = _deviceIdListResponse.DeviceIds.First();
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Retrieved communication device ID: {deviceId}");
-
-                // Step 2: Set communication device ID
-                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
-                if (_communicationVoidResponse == null)
-                {
-                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to set communication device ID.");
-                    throw new Exception("SetCommunicationDeviceIdAsync returned null response.");
-                }
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "SetCommunicationDeviceIdAsync executed successfully.");
-
-                // Step 3: Get communication device ID
-                _getCommunicationDeviceIdResponse = await _communicationPage.CallGetCommunicationDeviceIdAsync();
-                if (_getCommunicationDeviceIdResponse == null)
-                {
-                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to get communication device ID.");
-                    throw new Exception("GetCommunicationDeviceIdAsync returned null response.");
-                }
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Verified communication device ID successfully.");
-
-                // Step 4: Refresh communication devices
-                _communicationVoidResponse = await _communicationPage.CallRefreshCommunicationDevicesAsync();
-                if (_communicationVoidResponse == null)
-                {
-                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to refresh communication devices.");
-                    throw new Exception("RefreshCommunicationDevicesAsync returned null response.");
-                }
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Communication devices refreshed successfully.");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling Initialize API to initialize the device...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device initialized successfully.");
-
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, "Calling ConfigureProduct API with FDTS configuration file...");
-                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Product configured successfully using FDTS file.");
-
-                ExtentReportManager.GetInstance().LogToReport(step, Status.Info, $"Calling DetectBySerialNumber API for serial number: {serialNumber}...");
-                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
-
-                if (_detectBySerialNumberResponse == null)
-                {
-                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"DetectBySerialNumber API returned null for serial number: {serialNumber}");
-                    throw new Exception($"DetectBySerialNumber response is null for serial number: {serialNumber}");
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "gRPC device setup failed. Cannot proceed with DetectBySerialNumber API call.");
+                    throw new Exception("gRPC device setup failed. Cannot proceed with DetectBySerialNumber API call.");
                 }
                 ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"DetectBySerialNumber API succeeded for serial number: {serialNumber}.");
 
@@ -212,40 +166,88 @@ namespace QuantumServicesAPI.Pages
                 throw;
             }
         }
+        protected async Task<bool> PerformGrpcDeviceSetupAsync(string serialNumber, ExtentTest step)
+        {
+            try
+            {
+                // Step 1: Get available devices
+                _deviceIdListResponse = await _communicationPage.CallGetAvailableCommunicationDevicesAsync();
+                if (_deviceIdListResponse?.DeviceIds == null || !_deviceIdListResponse.DeviceIds.Any())
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "No communication devices found.");
+                    return false;
+                }
 
-        //protected string GetProtoOriginalNameAvalonStatus(AvalonStatus status)
-        //{
-        //    var type = typeof(AvalonStatus);
-        //    var name = Enum.GetName(type, status);
-        //    if (name == null)
-        //        return status.ToString();
+                var deviceId = _deviceIdListResponse.DeviceIds.First();
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"Retrieved communication device ID: {deviceId}");
 
-        //    var member = type.GetMember(name).FirstOrDefault();
-        //    var originalNameAttr = member?.GetCustomAttributes(typeof(Google.Protobuf.Reflection.OriginalNameAttribute), false)
-        //        .Cast<Google.Protobuf.Reflection.OriginalNameAttribute>()
-        //        .FirstOrDefault();
+                // Step 2: Set Communication Device ID
+                _communicationVoidResponse = await _communicationPage.CallSetCommunicationDeviceIdAsync(deviceId!);
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to set communication device ID.");
+                    return false;
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Communication Device ID set successfully.");
 
-        //    return originalNameAttr?.Name ?? name;
-        //}
+                // Step 3: Get Communication Device ID
+                _getCommunicationDeviceIdResponse = await _communicationPage.CallGetCommunicationDeviceIdAsync();
+                if (_getCommunicationDeviceIdResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to get communication device ID.");
+                    return false;
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Communication device ID verified successfully.");
 
-        /// <summary>
-        /// Gets the original .proto name (value of [OriginalName]) for a given FlashWriteProtectStatus enum value.
-        /// </summary>
-        //protected string GetProtoOriginalName(FlashWriteProtectStatus status)
-        //{
-        //    var type = typeof(FlashWriteProtectStatus);
-        //    var name = Enum.GetName(type, status);
-        //    if (name == null)
-        //        return status.ToString();
+                // Step 4: Refresh Communication Devices
+                _communicationVoidResponse = await _communicationPage.CallRefreshCommunicationDevicesAsync();
+                if (_communicationVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to refresh communication devices.");
+                    return false;
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Communication devices refreshed successfully.");
 
-        //    var member = type.GetMember(name).FirstOrDefault();
-        //    var originalNameAttr = member?.GetCustomAttributes(typeof(Google.Protobuf.Reflection.OriginalNameAttribute), false)
-        //        .Cast<Google.Protobuf.Reflection.OriginalNameAttribute>()
-        //        .FirstOrDefault();
+                // Step 5: Initialize Device
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallInitializeAsync(deviceId!);
+                if (_hearingInstrumentVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to initialize device.");
+                    return false;
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Device initialized successfully.");
 
-        //    return originalNameAttr?.Name ?? name;
-        //}
+                // Step 6: Configure Product
+                _hearingInstrumentVoidResponse = await _hearingInstrumentPage.CallConfigureProductAsync("C:\\ProgramData\\GN GOP\\Configuration\\FDTS");
+                if (_hearingInstrumentVoidResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, "Failed to configure product.");
+                    return false;
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, "Product configured successfully using FDTS.");
 
+                // Step 7: Detect by Serial Number
+                _detectBySerialNumberResponse = await _hearingInstrumentPage.CallDetectBySerialNumberAsync(serialNumber);
+                if (_detectBySerialNumberResponse == null)
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"DetectBySerialNumber returned null for serial number: {serialNumber}");
+                    return false;
+                }
+                if (string.IsNullOrEmpty(_detectBySerialNumberResponse.DeviceNode.SerialNumber))
+                {
+                    ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"DetectBySerialNumber API did not return a valid SerialNumber for serial number: {serialNumber}");
+                    throw new Exception($"DetectBySerialNumber API did not return a valid SerialNumber for serial number: {serialNumber}");
+                }
+                ExtentReportManager.GetInstance().LogToReport(step, Status.Pass, $"DetectBySerialNumber succeeded for serial number: {serialNumber}");
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ExtentReportManager.GetInstance().LogError(step, Status.Fail, $"Exception during setup: {ex.Message}");
+                return false;
+            }
+        }
         protected string GetProtoOriginalName<TEnum>(TEnum status) where TEnum : Enum
         {
             var type = typeof(TEnum);

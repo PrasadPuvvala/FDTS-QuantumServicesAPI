@@ -123,14 +123,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table11.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "2400801508"});
 #line 8
  await testRunner.WhenAsync("Load a DFU image with  higher HDI version than the device, and set device Flash W" +
                         "rite Protect status to \"LockedPermanent\", and send a request to the UpdateHDI AP" +
-                        "I", ((string)(null)), table11, "When ");
+                        "I", ((string)(null)), table9, "When ");
 #line hidden
 #line 11
  await testRunner.ThenAsync("API does not update  HDI in the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -160,13 +160,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table12.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "2400801508"});
 #line 16
  await testRunner.WhenAsync("Load a valid DFU image, set isOptimizedProgramming to true, and send a request to" +
-                        " WriteFDI API", ((string)(null)), table12, "When ");
+                        " WriteFDI API", ((string)(null)), table10, "When ");
 #line hidden
 #line 19
  await testRunner.ThenAsync("API does not write  image to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -196,12 +196,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table13.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "2400801508"});
 #line 24
- await testRunner.WhenAsync("Send a request to the WriteFDI API without performing DFU compatibility check", ((string)(null)), table13, "When ");
+ await testRunner.WhenAsync("Send a request to the WriteFDI API without performing DFU compatibility check", ((string)(null)), table11, "When ");
 #line hidden
 #line 27
  await testRunner.ThenAsync("API throws an exception with status \"Failed Precondition\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -231,12 +231,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "SerialNumber"});
-                table14.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "2400801508"});
 #line 32
- await testRunner.WhenAsync("Send a request to the WriteFDI API without loading a DFU image", ((string)(null)), table14, "When ");
+ await testRunner.WhenAsync("Send a request to the WriteFDI API without loading a DFU image", ((string)(null)), table12, "When ");
 #line hidden
 #line 35
  await testRunner.ThenAsync("API throws an exception with status the \"Failed Precondition\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

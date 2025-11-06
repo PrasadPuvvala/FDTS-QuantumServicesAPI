@@ -34,8 +34,9 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Features\GRPCService\PCProgrammingPrototype\05SecurityCertificates\" />
-	  <Folder Include="Features\GRPCService\PCProgrammingPrototype\02ProductIdentification\" />
+	  <Folder Include="Features\GRPCService\PCProgrammingPrototype\06SecurityCertificates\" />
+	  <Folder Include="Features\GRPCService\PCProgrammingPrototype\04ProductIdentification\" />
+	  <Folder Include="Features\GRPCService\PCProgrammingPrototype\01Communication\" />
 	  <Folder Include="MFGDataFiles\" />
 	  <Folder Include="Protos\" />
 	</ItemGroup>

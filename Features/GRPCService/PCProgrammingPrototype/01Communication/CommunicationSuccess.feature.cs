@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._02ProductIdentification
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._01Communication
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ProductIdentification Fail")]
+    [NUnit.Framework.DescriptionAttribute("Communication Success")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class ProductIdentificationFailFeature
+    public partial class CommunicationSuccessFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/02ProductIdentification", "ProductIdentification Fail", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/01Communication", "Communication Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "ProductIdentificationFail.feature"
+#line 1 "CommunicationSuccess.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -103,16 +103,16 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._02Prod
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1810698: [HI Automation] VerifyProductIdentity API Skips Brand Val" +
-            "idation for Non-Zero Private Label Code")]
-        [NUnit.Framework.CategoryAttribute("ProductIdentification")]
-        public async global::System.Threading.Tasks.Task _01TestCaseID1810698HIAutomationVerifyProductIdentityAPISkipsBrandValidationForNon_ZeroPrivateLabelCode()
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 682208: [Avalon Service] Verify CommunicationDevice API initialize" +
+            "s HIPRO2 device when firmware is available")]
+        [NUnit.Framework.CategoryAttribute("Communication")]
+        public async global::System.Threading.Tasks.Task _01TestCaseID682208AvalonServiceVerifyCommunicationDeviceAPIInitializesHIPRO2DeviceWhenFirmwareIsAvailable()
         {
             string[] tagsOfScenario = new string[] {
-                    "ProductIdentification"};
+                    "Communication"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1810698: [HI Automation] VerifyProductIdentity API Skips Brand Val" +
-                    "idation for Non-Zero Private Label Code", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 682208: [Avalon Service] Verify CommunicationDevice API initialize" +
+                    "s HIPRO2 device when firmware is available", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -123,41 +123,29 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber",
-                            "BleId",
-                            "Brand",
-                            "PrivateLabelCode",
-                            "FittingSide"});
-                table9.AddRow(new string[] {
-                            "2400801508",
-                            "1093078272",
-                            "ReSound",
-                            "1",
-                            "Right"});
-#line 7
- await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
-                        "1\')", ((string)(null)), table9, "Given ");
+#line 8
+    await testRunner.WhenAsync("Connect HIPRO2 with available/test firmware and send a request to the InitializeC" +
+                        "ommunication API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 10
- await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 9
+    await testRunner.ThenAsync("API initializes the device successfully with supported firmware", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
-            "dation When IsGenericFaceplate Is True")]
-        [NUnit.Framework.CategoryAttribute("ProductIdentification")]
-        public async global::System.Threading.Tasks.Task _02TestCase1810699AvalonServiceVerifyProductIdentityAPISkipsBrandValidationWhenIsGenericFaceplateIsTrue()
+        [NUnit.Framework.DescriptionAttribute("02Test Case ID 682212: [Avalon Service] Verify CommunicationDevices API initializ" +
+            "es NoahLink Wireless device with supported firmware")]
+        [NUnit.Framework.CategoryAttribute("Communication")]
+        public async global::System.Threading.Tasks.Task _02TestCaseID682212AvalonServiceVerifyCommunicationDevicesAPIInitializesNoahLinkWirelessDeviceWithSupportedFirmware()
         {
             string[] tagsOfScenario = new string[] {
-                    "ProductIdentification"};
+                    "Communication"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
-                    "dation When IsGenericFaceplate Is True", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 682212: [Avalon Service] Verify CommunicationDevices API initializ" +
+                    "es NoahLink Wireless device with supported firmware", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -167,26 +155,44 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
-                            "SerialNumber",
-                            "BleId",
-                            "Brand",
-                            "PrivateLabelCode",
-                            "FittingSide",
-                            "IsGenericFaceplate"});
-                table10.AddRow(new string[] {
-                            "2400801508",
-                            "1093078272",
-                            "ReSound",
-                            "0",
-                            "Right",
-                            "true"});
-#line 15
- await testRunner.WhenAsync("Send a request with valid BleId, Brand, private label code as \'0\', and isGenericF" +
-                        "aceplate as \'true\'", ((string)(null)), table10, "When ");
+#line 14
+    await testRunner.WhenAsync("Connect NoahLink Wireless (firmware 2.19) and send a request to the InitializeCom" +
+                        "municationDevice API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
+#line 15
+    await testRunner.ThenAsync("API initializes the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03Test Case ID 682209: [HI Automation] Verify CommunicationDevice API initializes" +
+            " SpeedLink device with supported firmware")]
+        [NUnit.Framework.CategoryAttribute("Communication")]
+        public async global::System.Threading.Tasks.Task _03TestCaseID682209HIAutomationVerifyCommunicationDeviceAPIInitializesSpeedLinkDeviceWithSupportedFirmware()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Communication"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03Test Case ID 682209: [HI Automation] Verify CommunicationDevice API initializes" +
+                    " SpeedLink device with supported firmware", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 18
- await testRunner.ThenAsync("API skips the Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 20
+     await testRunner.WhenAsync("Connect SpeedLink (firmware 3.0.22) and send a request to the InitializeCommunica" +
+                        "tionDevice API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 21
+     await testRunner.ThenAsync("API initializes the device successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

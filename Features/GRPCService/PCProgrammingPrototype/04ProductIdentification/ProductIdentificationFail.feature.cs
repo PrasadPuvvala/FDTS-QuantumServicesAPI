@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._04ProductionTestData
+namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._04ProductIdentification
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ProductionTestData Success")]
+    [NUnit.Framework.DescriptionAttribute("ProductIdentification Fail")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class ProductionTestDataSuccessFeature
+    public partial class ProductIdentificationFailFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/04ProductionTestData", "ProductionTestData Success", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/GRPCService/PCProgrammingPrototype/04ProductIdentification", "ProductIdentification Fail", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "ProductionTestDataSuccess.feature"
+#line 1 "ProductIdentificationFail.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -103,16 +103,16 @@ namespace QuantumServicesAPI.Features.GRPCService.PCProgrammingPrototype._04Prod
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1810727: [Avalon Service] Verify ProductionTestData API Successful" +
-            "ly Reads Test Metadata From Hearing Instrument")]
-        [NUnit.Framework.CategoryAttribute("ProductionTestData")]
-        public async global::System.Threading.Tasks.Task _01TestCaseID1810727AvalonServiceVerifyProductionTestDataAPISuccessfullyReadsTestMetadataFromHearingInstrument()
+        [NUnit.Framework.DescriptionAttribute("01Test Case ID 1810698: [HI Automation] VerifyProductIdentity API Skips Brand Val" +
+            "idation for Non-Zero Private Label Code")]
+        [NUnit.Framework.CategoryAttribute("ProductIdentification")]
+        public async global::System.Threading.Tasks.Task _01TestCaseID1810698HIAutomationVerifyProductIdentityAPISkipsBrandValidationForNon_ZeroPrivateLabelCode()
         {
             string[] tagsOfScenario = new string[] {
-                    "ProductionTestData"};
+                    "ProductIdentification"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1810727: [Avalon Service] Verify ProductionTestData API Successful" +
-                    "ly Reads Test Metadata From Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01Test Case ID 1810698: [HI Automation] VerifyProductIdentity API Skips Brand Val" +
+                    "idation for Non-Zero Private Label Code", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -123,30 +123,41 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 8
- await testRunner.WhenAsync("Send a request to the ProductionTestData API to read test date, site, station, TP" +
-                        "I release code, and verification flags from the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber",
+                            "BleId",
+                            "Brand",
+                            "PrivateLabelCode",
+                            "FittingSide"});
+                table13.AddRow(new string[] {
+                            "2400801508",
+                            "1093078272",
+                            "ReSound",
+                            "1",
+                            "Right"});
+#line 7
+ await testRunner.GivenAsync("Send a request with valid BleId, Brand, and private label code as Non-Zero (Ex: \'" +
+                        "1\')", ((string)(null)), table13, "Given ");
 #line hidden
-#line 9
- await testRunner.ThenAsync("API returns all stored production test metadata correctly from the hearing instru" +
-                        "ment", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 10
+ await testRunner.ThenAsync("API skips Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("02Test Case ID 1810726: [Avalon Service] Verify ProductionTestData API Successful" +
-            "ly Writes Test Metadata to Hearing Instrument")]
-        [NUnit.Framework.CategoryAttribute("ProductionTestData")]
-        public async global::System.Threading.Tasks.Task _02TestCaseID1810726AvalonServiceVerifyProductionTestDataAPISuccessfullyWritesTestMetadataToHearingInstrument()
+        [NUnit.Framework.DescriptionAttribute("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
+            "dation When IsGenericFaceplate Is True")]
+        [NUnit.Framework.CategoryAttribute("ProductIdentification")]
+        public async global::System.Threading.Tasks.Task _02TestCase1810699AvalonServiceVerifyProductIdentityAPISkipsBrandValidationWhenIsGenericFaceplateIsTrue()
         {
             string[] tagsOfScenario = new string[] {
-                    "ProductionTestData"};
+                    "ProductIdentification"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case ID 1810726: [Avalon Service] Verify ProductionTestData API Successful" +
-                    "ly Writes Test Metadata to Hearing Instrument", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02Test Case 1810699: [Avalon Service] Verify ProductIdentity API Skips Brand Vali" +
+                    "dation When IsGenericFaceplate Is True", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -156,13 +167,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 14
- await testRunner.WhenAsync("Send a request to the ProductionTestData API to write test date, site, station, T" +
-                        "PI release code, and verification flags to the device", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                            "SerialNumber",
+                            "BleId",
+                            "Brand",
+                            "PrivateLabelCode",
+                            "FittingSide",
+                            "IsGenericFaceplate"});
+                table14.AddRow(new string[] {
+                            "2400801508",
+                            "1093078272",
+                            "ReSound",
+                            "0",
+                            "Right",
+                            "true"});
 #line 15
- await testRunner.ThenAsync("API writes all provided test metadata values successfully to the hearing instrume" +
-                        "nt", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("Send a request with valid BleId, Brand, private label code as \'0\', and isGenericF" +
+                        "aceplate as \'true\'", ((string)(null)), table14, "When ");
+#line hidden
+#line 18
+ await testRunner.ThenAsync("API skips the Brand verification", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
