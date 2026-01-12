@@ -7,27 +7,27 @@
 
   "OcrService": [
     {
-      // Development environment for Europe region
-      "Environment": "dev",
-      "Region": "europe",
-      "BaseUrl": "https://dev.europe.api.apt.gn.com/ocr-service/v1",
-      "ApiKey": "39731117349c436792eca8513c7d2eb6"
-    },
-    {
-      // Development environment for US region
-      "Environment": "dev",
-      "Region": "us",
-      "BaseUrl": "https://dev.us.api.apt.gn.com/ocr-service/v1",
-      "ApiKey": "9d6eb02ecab94926a74bcd5edccf28fa"
-    },
-    {
-      // Development environment for Asia region
-      "Environment": "dev",
-      "Region": "asia",
-      "BaseUrl": "https://dev.asia.api.apt.gn.com/ocr-service/v1",
-      "ApiKey": "69df563662e74ba8811e47a9a61ccf7b"
-    },
-    {
+    //  // Development environment for Europe region
+    //  "Environment": "dev",
+    //  "Region": "europe",
+    //  "BaseUrl": "https://dev.europe.api.apt.gn.com/ocr-service/v1",
+    //  "ApiKey": "39731117349c436792eca8513c7d2eb6"
+    //},
+    //{
+    //  // Development environment for US region
+    //  "Environment": "dev",
+    //  "Region": "us",
+    //  "BaseUrl": "https://dev.us.api.apt.gn.com/ocr-service/v1",
+    //  "ApiKey": "9d6eb02ecab94926a74bcd5edccf28fa"
+    //},
+    //{
+    //  // Development environment for Asia region
+    //  "Environment": "dev",
+    //  "Region": "asia",
+    //  "BaseUrl": "https://dev.asia.api.apt.gn.com/ocr-service/v1",
+    //  "ApiKey": "69df563662e74ba8811e47a9a61ccf7b"
+    //},
+    //{
       // Test environment for Europe region
       "Environment": "tst",
       "Region": "europe",

@@ -7,27 +7,27 @@
 
   "ProcessControlService": [
     {
-      // Development environment for Europe region
-      "Environment": "dev",
-      "Region": "europe",
-      "BaseUrl": "https://dev.europe.api.apt.gn.com/process-control-service/v1",
-      "ApiKey": "f1ccb763d6654bbda62547c99a8b37fd"
-    },
-    {
-      // Development environment for US region
-      "Environment": "dev",
-      "Region": "us",
-      "BaseUrl": "https://dev.us.api.apt.gn.com/process-control-service/v1",
-      "ApiKey": "b02660d72a374ba9a4cf1220d3a8da27"
-    },
-    {
-      // Development environment for Asia region
-      "Environment": "dev",
-      "Region": "asia",
-      "BaseUrl": "https://dev.asia.api.apt.gn.com/process-control-service/v1",
-      "ApiKey": "ce2c2d2f115b435e9d5e4622df65d927"
-    },
-    {
+    //  // Development environment for Europe region
+    //  "Environment": "dev",
+    //  "Region": "europe",
+    //  "BaseUrl": "https://dev.europe.api.apt.gn.com/process-control-service/v1",
+    //  "ApiKey": "f1ccb763d6654bbda62547c99a8b37fd"
+    //},
+    //{
+    //  // Development environment for US region
+    //  "Environment": "dev",
+    //  "Region": "us",
+    //  "BaseUrl": "https://dev.us.api.apt.gn.com/process-control-service/v1",
+    //  "ApiKey": "b02660d72a374ba9a4cf1220d3a8da27"
+    //},
+    //{
+    //  // Development environment for Asia region
+    //  "Environment": "dev",
+    //  "Region": "asia",
+    //  "BaseUrl": "https://dev.asia.api.apt.gn.com/process-control-service/v1",
+    //  "ApiKey": "ce2c2d2f115b435e9d5e4622df65d927"
+    //},
+    //{
       // Test environment for Europe region
       "Environment": "tst",
       "Region": "europe",

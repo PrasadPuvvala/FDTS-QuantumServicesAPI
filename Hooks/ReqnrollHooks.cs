@@ -1,10 +1,12 @@
 ﻿using AventStack.ExtentReports;
 using Grpc.Net.Client;
+using NUnit.Framework;
 using QuantumServicesAPI.APIHelper;
 using QuantumServicesAPI.DTO;
 using QuantumServicesAPI.ExtentReport;
 using QuantumServicesAPI.Pages;
 using Reqnroll;
+//[assembly: Parallelizable(ParallelScope.Fixtures)]
 
 namespace QuantumServicesAPI.Hooks
 {

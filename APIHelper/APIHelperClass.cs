@@ -62,6 +62,11 @@ namespace QuantumServicesAPI.APIHelper
             var url = $"{baseUrl}/{endpoint}/{testDate}/{mfgFile}";
             return Task.FromResult(new RestClient(url));
         }
+        public Task<RestClient> VivianeUrl(string baseUrl, string endpoint)
+        {
+            var url = Path.Combine($"{baseUrl}/", endpoint);
+            return Task.FromResult(new RestClient(url));
+        }
 
         /// <summary>
         /// Creates a RestRequest for POST operations with common headers.

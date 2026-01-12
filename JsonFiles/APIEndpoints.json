@@ -1,8 +1,11 @@
 {
-    "APIEndpoint": {
-        "AnalyzeImage": "analyze-image",
-        "actionUrl": "process-events",
-        "partitionKey": "SerialNumber",
-        "storeTestDataRoute": "dsa-test-records"
-    }
+  "APIEndpoint": {
+    "AnalyzeImage": "analyze-image",
+    "actionUrl": "process-events",
+    "partitionKey": "SerialNumber",
+    "storeTestDataRoute": "dsa-test-records",
+    "PostCorrectiveAction": "PostCorrectiveAction",
+    "PostFdtsDataForRecommendation": "PostFdtsDataForRecommendation",
+    "PostRecommendationFeedback": "PostRecommendationFeedback"
+  }
 }

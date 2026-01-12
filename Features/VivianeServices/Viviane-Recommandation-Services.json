@@ -1,0 +1,24 @@
+{
+  "VivianeRecommendationService": [
+    {
+      "Environment": "tst",
+      "Region": "europe",
+      "BaseUrl": "https://tst.europe.api.apt.gn.com/recommendations-service/v1",
+      "ApiKey": "21225b4c0052411ba4a98de3c5aeda96"
+    },
+    {
+      // Test environment for US region
+      "Environment": "tst",
+      "Region": "us",
+      "BaseUrl": "https://tst.us.api.apt.gn.com/recommendations-service/v1",
+      "ApiKey": "dd2a911a865f498497ea552726a81649"
+    },
+    {
+      // Test environment for Asia region
+      "Environment": "tst",
+      "Region": "asia",
+      "BaseUrl": "https://tst.asia.api.apt.gn.com/recommendations-service/v1",
+      "ApiKey": "203d2b2c19b54bfbb894fd85c70a1c17"
+    }
+  ]
+}

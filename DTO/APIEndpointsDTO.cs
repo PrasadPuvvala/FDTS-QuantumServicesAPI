@@ -41,5 +41,8 @@ namespace QuantumServicesAPI.DTO
         /// Gets or sets the route for storing test data.
         /// </summary>
         public string storeTestDataRoute { get; set; } = string.Empty;
+        public string PostCorrectiveAction {  get; set; } = string.Empty;
+        public string PostFdtsDataForRecommendation {  get; set; } = string.Empty;
+        public string PostRecommendationFeedback {  get; set; } = string.Empty;
     }
 }
